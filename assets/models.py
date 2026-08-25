@@ -91,6 +91,13 @@ class AssetAssignment(models.Model):
         return self.returned_at is None
 
     def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        old_returned_at = None
+
+        if not is_new:
+            old_assignment = AssetAssignment.objects.get(pk=self.pk)
+            old_returned_at = old_assignment.returned_at
+
         super().save(*args, **kwargs)
 
         if self.returned_at is None:
@@ -100,5 +107,59 @@ class AssetAssignment(models.Model):
 
         self.asset.save(update_fields=["status"])
 
+        if is_new:
+            AssetHistory.objects.create(
+                asset=self.asset,
+                event_type="assigned",
+                description=f"Asset assigned to {self.employee.name}.",
+                performed_by=self.employee.name,
+            )
+
+        elif old_returned_at is None and self.returned_at is not None:
+            AssetHistory.objects.create(
+                asset=self.asset,
+                event_type="returned",
+                description=f"Asset returned by {self.employee.name}.",
+                performed_by=self.employee.name,
+            )
+
     def __str__(self):
         return f"{self.asset.asset_tag} → {self.employee.name}"
+
+class AssetHistory(models.Model):
+    EVENT_CHOICES = [
+        ("created", "Created"),
+        ("assigned", "Assigned"),
+        ("returned", "Returned"),
+        ("maintenance", "Maintenance"),
+        ("status_change", "Status Change"),
+        ("location_change", "Location Change"),
+        ("retired", "Retired"),
+    ]
+
+    asset = models.ForeignKey(
+        Asset,
+        on_delete=models.CASCADE,
+        related_name="history",
+    )
+
+    event_type = models.CharField(
+        max_length=30,
+        choices=EVENT_CHOICES,
+    )
+
+    description = models.TextField()
+
+    performed_by = models.CharField(
+        max_length=150,
+        blank=True,
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name_plural = "Asset History"
+
+    def __str__(self):
+        return f"{self.asset.asset_tag} - {self.get_event_type_display()}"    

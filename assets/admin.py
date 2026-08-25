@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Asset, Employee, AssetAssignment
+from .models import Asset, Employee, AssetAssignment, AssetHistory
 
 
 @admin.register(Asset)
@@ -72,4 +72,30 @@ class AssetAssignmentAdmin(admin.ModelAdmin):
         "asset__name",
         "employee__employee_id",
         "employee__name",
+    )
+
+
+@admin.register(AssetHistory)
+class AssetHistoryAdmin(admin.ModelAdmin):
+    list_display = (
+        "asset",
+        "event_type",
+        "performed_by",
+        "created_at",
+    )
+
+    list_filter = (
+        "event_type",
+        "created_at",
+    )
+
+    search_fields = (
+        "asset__asset_tag",
+        "asset__name",
+        "description",
+        "performed_by",
+    )
+
+    readonly_fields = (
+        "created_at",
     )
