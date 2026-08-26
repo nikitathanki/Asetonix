@@ -47,9 +47,12 @@ class Asset(models.Model):
         default="new",
     )
 
-    location = models.CharField(
-        max_length=200,
-        blank=True,
+    location = models.ForeignKey(
+    "Location",
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name="assets",
     )
 
     notes = models.TextField(
@@ -87,8 +90,12 @@ class Employee(models.Model):
         unique=True,
     )
 
-    department = models.CharField(
-        max_length=100,
+    department = models.ForeignKey(
+    "Department",
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name="employees",
     )
 
     designation = models.CharField(
