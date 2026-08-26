@@ -1,422 +1,405 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "assets/base.html" %}
 
-    <title>Asetonix Assets</title>
+{% block title %}
+    Assets | Asetonix
+{% endblock %}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
-        }
+{% block content %}
 
-        .navbar {
-            background: #173f5f;
-            color: white;
-            padding: 18px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+<div class="page-header">
 
-        .brand {
-            font-size: 25px;
-            font-weight: bold;
-        }
+    <div>
+        <h1>Assets</h1>
 
-        .brand span {
-            color: #4cc9f0;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 14px;
-        }
-
-        .nav-right a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .nav-right a:hover {
-            text-decoration: underline;
-        }
-
-        .logout-form {
-            display: inline;
-        }
-
-        .logout-button {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: inherit;
-            font-family: inherit;
-        }
-
-        .logout-button:hover {
-            text-decoration: underline;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 35px auto;
-            padding: 0 30px;
-        }
-
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .page-header h1 {
-            font-size: 30px;
-            margin-bottom: 7px;
-        }
-
-        .page-header p {
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .add-button {
-            background: #173f5f;
-            color: white;
-            text-decoration: none;
-            padding: 12px 18px;
-            border-radius: 7px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .add-button:hover {
-            background: #102f47;
-        }
-
-        .table-card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
-            overflow: hidden;
-        }
-
-        .table-wrapper {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: #f8fafc;
-            color: #6b7280;
-            text-align: left;
-            padding: 15px 18px;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-        td {
-            padding: 16px 18px;
-            border-top: 1px solid #edf0f3;
-            font-size: 13px;
-        }
-
-        tr:hover {
-            background: #f8fafc;
-        }
-
-        .asset-tag {
-            font-weight: bold;
-            color: #1677b7;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: capitalize;
-        }
-
-        .badge-available {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .badge-assigned {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        .badge-maintenance {
-            background: #fff4d6;
-            color: #946200;
-        }
-
-        .badge-retired {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .badge-default {
-            background: #e5e7eb;
-            color: #374151;
-        }
-
-        .empty {
-            padding: 50px;
-            text-align: center;
-            color: #9ca3af;
-        }
-
-        .footer {
-            text-align: center;
-            color: #9ca3af;
-            padding: 35px 0 20px;
-            font-size: 13px;
-        }
-
-        @media (max-width: 800px) {
-            .navbar {
-                padding: 16px 20px;
-            }
-
-            .container {
-                padding: 0 15px;
-            }
-
-            .page-header {
-                align-items: flex-start;
-                gap: 15px;
-                flex-direction: column;
-            }
-
-            .nav-right {
-                gap: 8px;
-                font-size: 12px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<header class="navbar">
-
-    <div class="brand">
-        Asetonix<span>.</span>
+        <p>
+            Manage and monitor enterprise assets
+        </p>
     </div>
 
-    <div class="nav-right">
+    <a
+        href="/admin/assets/asset/add/"
+        class="primary-button"
+    >
+        + Add Asset
+    </a>
 
-        <span>
-            Welcome, {{ request.user.username }}
+</div>
+
+
+<!-- ================= ASSET OVERVIEW ================= -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Total Assets
         </span>
 
-        <a href="/">
-            Dashboard
-        </a>
-
-        <a href="/admin/">
-            Admin
-        </a>
-
-        <form method="post"
-              action="{% url 'logout' %}"
-              class="logout-form">
-
-            {% csrf_token %}
-
-            <button type="submit" class="logout-button">
-                Logout
-            </button>
-
-        </form>
+        <strong class="stat-value">
+            {{ assets|length }}
+        </strong>
 
     </div>
 
-</header>
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Available
+        </span>
+
+        <strong class="stat-value">
+            {{ available_count|default:"0" }}
+        </strong>
+
+    </div>
 
 
-<main class="container">
+    <div class="stat-card">
 
-    <div class="page-header">
+        <span class="stat-label">
+            Assigned
+        </span>
+
+        <strong class="stat-value">
+            {{ assigned_count|default:"0" }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Maintenance
+        </span>
+
+        <strong class="stat-value">
+            {{ maintenance_count|default:"0" }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- ================= ASSET INVENTORY ================= -->
+
+<div class="content-card">
+
+    <div class="card-header">
 
         <div>
-            <h1>Assets</h1>
+
+            <h2>
+                Asset Inventory
+            </h2>
 
             <p>
-                Manage and monitor enterprise assets
+                Complete list of enterprise assets
             </p>
+
         </div>
 
-        <a href="/admin/assets/asset/add/" class="add-button">
+
+        <div class="card-actions">
+
+            <input
+                type="text"
+                id="assetSearch"
+                class="table-search"
+                placeholder="Search assets..."
+            >
+
+        </div>
+
+    </div>
+
+
+    {% if assets %}
+
+    <div class="table-wrapper">
+
+        <table
+            class="data-table"
+            id="assetTable"
+        >
+
+            <thead>
+
+                <tr>
+
+                    <th>Asset</th>
+
+                    <th>Name</th>
+
+                    <th>Category</th>
+
+                    <th>Brand</th>
+
+                    <th>Model</th>
+
+                    <th>Status</th>
+
+                    <th>Condition</th>
+
+                    <th>Location</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for asset in assets %}
+
+                <tr>
+
+                    <!-- ASSET TAG -->
+
+                    <td>
+
+                        <a
+                            href="{% url 'asset_detail' asset.asset_tag %}"
+                            class="asset-id"
+                        >
+                            {{ asset.asset_tag }}
+                        </a>
+
+                    </td>
+
+
+                    <!-- NAME -->
+
+                    <td>
+
+                        <strong>
+                            {{ asset.name }}
+                        </strong>
+
+                    </td>
+
+
+                    <!-- CATEGORY -->
+
+                    <td>
+
+                        {% if asset.category %}
+
+                            {{ asset.category }}
+
+                        {% else %}
+
+                            <span class="muted">
+                                Not specified
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- BRAND -->
+
+                    <td>
+
+                        {% if asset.brand %}
+
+                            {{ asset.brand }}
+
+                        {% else %}
+
+                            <span class="muted">
+                                Not specified
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- MODEL -->
+
+                    <td>
+
+                        {% if asset.model %}
+
+                            {{ asset.model }}
+
+                        {% else %}
+
+                            <span class="muted">
+                                Not specified
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        {% if asset.status == "available" %}
+
+                            <span class="status-badge status-success">
+                                Available
+                            </span>
+
+                        {% elif asset.status == "assigned" %}
+
+                            <span class="status-badge status-info">
+                                Assigned
+                            </span>
+
+                        {% elif asset.status == "maintenance" %}
+
+                            <span class="status-badge status-warning">
+                                Maintenance
+                            </span>
+
+                        {% elif asset.status == "retired" %}
+
+                            <span class="status-badge status-danger">
+                                Retired
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge status-neutral">
+                                {{ asset.get_status_display }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- CONDITION -->
+
+                    <td>
+
+                        {% if asset.condition %}
+
+                            {{ asset.condition }}
+
+                        {% else %}
+
+                            <span class="muted">
+                                Not specified
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- LOCATION -->
+
+                    <td>
+
+                        {% if asset.location %}
+
+                            {{ asset.location }}
+
+                        {% else %}
+
+                            <span class="muted">
+                                Not specified
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% else %}
+
+    <!-- EMPTY STATE -->
+
+    <div class="empty-state">
+
+        <div class="empty-icon">
+            ▦
+        </div>
+
+        <h3>
+            No assets found
+        </h3>
+
+        <p>
+            Start by adding your first enterprise asset.
+        </p>
+
+        <a
+            href="/admin/assets/asset/add/"
+            class="primary-button"
+        >
             + Add Asset
         </a>
 
     </div>
 
+    {% endif %}
 
-    <div class="table-card">
-
-        {% if assets %}
-
-        <div class="table-wrapper">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>Asset Tag</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Brand</th>
-                        <th>Model</th>
-                        <th>Status</th>
-                        <th>Condition</th>
-                        <th>Location</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {% for asset in assets %}
-
-                    <tr>
-
-                        <td>
-                            <span class="asset-tag">
-                                {{ asset.asset_tag }}
-                            </span>
-                        </td>
-
-                        <td>
-                            {{ asset.name }}
-                        </td>
-
-                        <td>
-                            {% if asset.category %}
-                                {{ asset.category }}
-                            {% else %}
-                                —
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            {% if asset.brand %}
-                                {{ asset.brand }}
-                            {% else %}
-                                —
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            {% if asset.model %}
-                                {{ asset.model }}
-                            {% else %}
-                                —
-                            {% endif %}
-                        </td>
-
-                        <td>
-
-                            {% if asset.status == "available" %}
-
-                                <span class="badge badge-available">
-                                    Available
-                                </span>
-
-                            {% elif asset.status == "assigned" %}
-
-                                <span class="badge badge-assigned">
-                                    Assigned
-                                </span>
-
-                            {% elif asset.status == "maintenance" %}
-
-                                <span class="badge badge-maintenance">
-                                    Maintenance
-                                </span>
-
-                            {% elif asset.status == "retired" %}
-
-                                <span class="badge badge-retired">
-                                    Retired
-                                </span>
-
-                            {% else %}
-
-                                <span class="badge badge-default">
-                                    {{ asset.get_status_display }}
-                                </span>
-
-                            {% endif %}
-
-                        </td>
-
-                        <td>
-                            {% if asset.condition %}
-                                {{ asset.condition }}
-                            {% else %}
-                                —
-                            {% endif %}
-                        </td>
-
-                        <td>
-                            {% if asset.location %}
-                                {{ asset.location }}
-                            {% else %}
-                                —
-                            {% endif %}
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-        {% else %}
-
-        <div class="empty">
-            No assets found.
-        </div>
-
-        {% endif %}
-
-    </div>
+</div>
 
 
-    <footer class="footer">
-        Asetonix · Enterprise Asset Management
-    </footer>
+<!-- ================= SEARCH ================= -->
 
-</main>
+<script>
 
-</body>
-</html>
+const searchInput =
+    document.getElementById("assetSearch");
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "keyup",
+        function () {
+
+            const searchValue =
+                this.value.toLowerCase();
+
+            const rows =
+                document.querySelectorAll(
+                    "#assetTable tbody tr"
+                );
+
+            rows.forEach(
+                function (row) {
+
+                    const rowText =
+                        row.textContent.toLowerCase();
+
+                    row.style.display =
+                        rowText.includes(searchValue)
+                            ? ""
+                            : "none";
+
+                }
+            );
+
+        }
+    );
+
+}
+
+</script>
+
+
+{% endblock %}

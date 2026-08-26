@@ -1,0 +1,281 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Transfer {{ asset.asset_tag }} | Asetonix
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <a
+            href="{% url 'asset_detail' asset.asset_tag %}"
+            class="back-link"
+        >
+            ← Back to Asset
+        </a>
+
+        <h1>
+            Transfer Asset
+        </h1>
+
+        <p>
+            Transfer {{ asset.asset_tag }} to another active employee
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="assignment-layout">
+
+
+    <!-- ================= ASSET INFORMATION ================= -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Asset Information
+                </h2>
+
+                <p>
+                    Current asset assignment
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="asset-summary">
+
+            <div class="summary-item">
+
+                <span>
+                    Asset Tag
+                </span>
+
+                <strong>
+                    {{ asset.asset_tag }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    Asset Name
+                </span>
+
+                <strong>
+                    {{ asset.name }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    Current Employee
+                </span>
+
+                <strong>
+
+                    {% if active_assignment %}
+
+                        {{ active_assignment.employee.name }}
+
+                    {% else %}
+
+                        Unassigned
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    Location
+                </span>
+
+                <strong>
+
+                    {% if asset.location %}
+                        {{ asset.location }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    Current Status
+                </span>
+
+                <strong>
+                    {{ asset.get_status_display }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= TRANSFER FORM ================= -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Transfer Details
+                </h2>
+
+                <p>
+                    Select the employee who will receive this asset
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form
+            method="post"
+            class="assignment-form"
+        >
+
+            {% csrf_token %}
+
+
+            <!-- EMPLOYEE -->
+
+            <div class="form-group">
+
+                <label for="employee">
+                    Transfer To
+                </label>
+
+                <select
+                    id="employee"
+                    name="employee"
+                    required
+                >
+
+                    <option value="">
+                        Select employee
+                    </option>
+
+                    {% for employee in employees %}
+
+                        <option value="{{ employee.id }}">
+
+                            {{ employee.name }}
+                            -
+                            {{ employee.employee_id }}
+
+                        </option>
+
+                    {% empty %}
+
+                        <option value="">
+                            No active employees available
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <small>
+                    Only active employees are shown.
+                </small>
+
+            </div>
+
+
+            <!-- REASON -->
+
+            <div class="form-group">
+
+                <label for="reason">
+                    Transfer Reason
+                </label>
+
+                <input
+                    type="text"
+                    id="reason"
+                    name="reason"
+                    placeholder="Example: Department change"
+                >
+
+            </div>
+
+
+            <!-- NOTES -->
+
+            <div class="form-group">
+
+                <label for="notes">
+                    Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    name="notes"
+                    rows="5"
+                    placeholder="Add transfer notes..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'asset_detail' asset.asset_tag %}"
+                    class="secondary-button"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Transfer Asset
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

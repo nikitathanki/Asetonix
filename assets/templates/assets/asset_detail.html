@@ -1,0 +1,414 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    {{ asset.asset_tag }} | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <a
+            href="{% url 'assets_list' %}"
+            class="back-link"
+        >
+            ← Back to Assets
+        </a>
+
+        <h1>
+            {{ asset.name }}
+        </h1>
+
+        <p>
+            Asset {{ asset.asset_tag }}
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- ================= ASSET OVERVIEW ================= -->
+
+<div class="asset-detail-grid">
+
+
+    <!-- ================= ASSET INFORMATION ================= -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Asset Information
+                </h2>
+
+                <p>
+                    Core information about this enterprise asset
+                </p>
+
+            </div>
+
+
+            {% if asset.status == "available" %}
+
+                <span class="status-badge status-success">
+                    Available
+                </span>
+
+            {% elif asset.status == "assigned" %}
+
+                <span class="status-badge status-info">
+                    Assigned
+                </span>
+
+            {% elif asset.status == "maintenance" %}
+
+                <span class="status-badge status-warning">
+                    Maintenance
+                </span>
+
+            {% elif asset.status == "retired" %}
+
+                <span class="status-badge status-danger">
+                    Retired
+                </span>
+
+            {% else %}
+
+                <span class="status-badge status-neutral">
+                    {{ asset.get_status_display }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="asset-info-grid">
+
+
+            <div class="info-item">
+
+                <span>
+                    Asset Tag
+                </span>
+
+                <strong>
+                    {{ asset.asset_tag }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Asset Name
+                </span>
+
+                <strong>
+                    {{ asset.name }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Category
+                </span>
+
+                <strong>
+
+                    {% if asset.category %}
+                        {{ asset.category }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Brand
+                </span>
+
+                <strong>
+
+                    {% if asset.brand %}
+                        {{ asset.brand }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Model
+                </span>
+
+                <strong>
+
+                    {% if asset.model %}
+                        {{ asset.model }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Condition
+                </span>
+
+                <strong>
+
+                    {% if asset.condition %}
+                        {{ asset.condition }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Location
+                </span>
+
+                <strong>
+
+                    {% if asset.location %}
+                        {{ asset.location }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Status
+                </span>
+
+                <strong>
+
+                    {{ asset.get_status_display }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= QUICK ACTIONS ================= -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <p>
+                    Manage this asset
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+    <a
+    href="{% url 'assign_asset' asset.asset_tag %}"
+    class="action-button">
+    Assign Asset
+    </a>
+
+            <a href="{% url 'transfer_asset' asset.asset_tag %}"
+    class="action-button">Transfer Asset </a>
+
+
+            <button
+                type="button"
+                class="action-button">
+                Report Maintenance
+            </button>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= LIFECYCLE ================= -->
+
+<div class="content-card lifecycle-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Asset Lifecycle
+            </h2>
+
+            <p>
+                Track the lifecycle of this asset
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="lifecycle">
+
+
+        <!-- REGISTERED -->
+
+        <div class="lifecycle-step completed">
+
+            <div class="lifecycle-dot">
+                ✓
+            </div>
+
+            <div>
+
+                <strong>
+                    Asset Registered
+                </strong>
+
+                <span>
+                    Asset entered into Asetonix
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="lifecycle-line"></div>
+
+
+        <!-- CURRENT STATUS -->
+
+        <div class="lifecycle-step active">
+
+            <div class="lifecycle-dot">
+                2
+            </div>
+
+            <div>
+
+                <strong>
+                    Current Status
+                </strong>
+
+                <span>
+                    {{ asset.get_status_display }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="lifecycle-line"></div>
+
+
+        <!-- MAINTENANCE -->
+
+        <div class="lifecycle-step">
+
+            <div class="lifecycle-dot">
+                3
+            </div>
+
+            <div>
+
+                <strong>
+                    Maintenance
+                </strong>
+
+                <span>
+                    Maintenance history
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="lifecycle-line"></div>
+
+
+        <!-- RETIREMENT -->
+
+        <div class="lifecycle-step">
+
+            <div class="lifecycle-dot">
+                4
+            </div>
+
+            <div>
+
+                <strong>
+                    Retirement
+                </strong>
+
+                <span>
+                    End of asset lifecycle
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}

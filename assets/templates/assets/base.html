@@ -2,45 +2,77 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}Asetonix{% endblock %}</title>
+    <title>
+        {% block title %}Asetonix{% endblock %}
+    </title>
 
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'assets/css/style.css' %}">
 
     {% block extra_css %}{% endblock %}
 </head>
+
 
 <body>
 
 <div class="app">
 
-    <!-- ================= SIDEBAR ================= -->
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
 
     <aside class="sidebar">
 
-        <div class="brand">
-            <div class="brand-logo">A</div>
 
-            <div>
-                <div class="brand-name">ASETONIX</div>
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                A
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    Asetonix
+                </div>
+
                 <div class="brand-subtitle">
                     Enterprise Asset Management
                 </div>
+
             </div>
+
         </div>
 
 
+        <!-- NAVIGATION -->
+
         <nav class="sidebar-nav">
+
+
+            <!-- DASHBOARD -->
 
             <div class="nav-section">
 
                 <a href="{% url 'dashboard' %}"
                    class="nav-item {% block dashboard_active %}{% endblock %}">
-                    <span class="nav-icon">▣</span>
-                    <span>Dashboard</span>
+
+                    <span class="nav-icon">
+                        ◈
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
                 </a>
 
             </div>
@@ -52,29 +84,74 @@
                 ASSET MANAGEMENT
             </div>
 
+
             <a href="/assets/" class="nav-item">
-                <span class="nav-icon">▦</span>
-                <span>Assets</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ◫
+                </span>
+
+                <span>
+                    Assets
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
 
-            <a href="#" class="nav-item">
-                <span class="nav-icon">▤</span>
-                <span>Categories</span>
-                <span class="nav-arrow">›</span>
-            </a>
 
             <a href="#" class="nav-item">
-                <span class="nav-icon">▥</span>
-                <span>Brands</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ▦
+                </span>
+
+                <span>
+                    Categories
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
 
+
             <a href="#" class="nav-item">
-                <span class="nav-icon">▧</span>
-                <span>Models</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ◩
+                </span>
+
+                <span>
+                    Brands
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">
+                    ▧
+                </span>
+
+                <span>
+                    Models
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </a>
+
 
 
             <!-- LIFECYCLE -->
@@ -83,29 +160,74 @@
                 LIFECYCLE
             </div>
 
-            <a href="#" class="nav-item">
-                <span class="nav-icon">♙</span>
-                <span>Assignments</span>
-                <span class="nav-arrow">›</span>
-            </a>
 
             <a href="#" class="nav-item">
-                <span class="nav-icon">⇄</span>
-                <span>Transfers</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                <span>
+                    Assignments
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
 
-            <a href="#" class="nav-item">
-                <span class="nav-icon">⚒</span>
-                <span>Maintenance</span>
-                <span class="nav-arrow">›</span>
-            </a>
 
             <a href="#" class="nav-item">
-                <span class="nav-icon">▣</span>
-                <span>Retirements</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ⇄
+                </span>
+
+                <span>
+                    Transfers
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">
+                    ⚒
+                </span>
+
+                <span>
+                    Maintenance
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Retirements
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </a>
+
 
 
             <!-- ANALYTICS -->
@@ -114,29 +236,74 @@
                 ANALYTICS
             </div>
 
-            <a href="#" class="nav-item">
-                <span class="nav-icon">⌁</span>
-                <span>Asset Health</span>
-                <span class="nav-arrow">›</span>
-            </a>
 
             <a href="#" class="nav-item">
-                <span class="nav-icon">◔</span>
-                <span>Utilization</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ∿
+                </span>
+
+                <span>
+                    Asset Health
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
 
-            <a href="#" class="nav-item">
-                <span class="nav-icon">△</span>
-                <span>Risk Analysis</span>
-                <span class="nav-arrow">›</span>
-            </a>
 
             <a href="#" class="nav-item">
-                <span class="nav-icon">₹</span>
-                <span>Cost Analysis</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ◔
+                </span>
+
+                <span>
+                    Utilization
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">
+                    △
+                </span>
+
+                <span>
+                    Risk Analysis
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">
+                    ₹
+                </span>
+
+                <span>
+                    Cost Analysis
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </a>
+
 
 
             <!-- GOVERNANCE -->
@@ -145,35 +312,91 @@
                 GOVERNANCE
             </div>
 
-            <a href="#" class="nav-item">
-                <span class="nav-icon">▣</span>
-                <span>Audit Trail</span>
-                <span class="nav-arrow">›</span>
-            </a>
 
             <a href="#" class="nav-item">
-                <span class="nav-icon">♢</span>
-                <span>Alerts & Notifications</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Audit Trail
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
 
-            <a href="#" class="nav-item">
-                <span class="nav-icon">♙</span>
-                <span>Users & Roles</span>
-                <span class="nav-arrow">›</span>
-            </a>
 
             <a href="#" class="nav-item">
-                <span class="nav-icon">▤</span>
-                <span>Departments</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ♢
+                </span>
+
+                <span>
+                    Alerts
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
 
+
             <a href="#" class="nav-item">
-                <span class="nav-icon">⌖</span>
-                <span>Locations</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                <span>
+                    Users & Roles
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">
+                    ▤
+                </span>
+
+                <span>
+                    Departments
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">
+                    ⌖
+                </span>
+
+                <span>
+                    Locations
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </a>
+
 
 
             <!-- REPORTS -->
@@ -182,49 +405,90 @@
                 REPORTS
             </div>
 
-            <a href="#" class="nav-item">
-                <span class="nav-icon">▥</span>
-                <span>Reports</span>
-                <span class="nav-arrow">›</span>
-            </a>
 
             <a href="#" class="nav-item">
-                <span class="nav-icon">⇩</span>
-                <span>Export Data</span>
-                <span class="nav-arrow">›</span>
+
+                <span class="nav-icon">
+                    ▥
+                </span>
+
+                <span>
+                    Reports
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">
+                    ⇩
+                </span>
+
+                <span>
+                    Export Data
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
             </a>
 
         </nav>
 
 
-        <!-- AI INSIGHTS -->
+
+        <!-- =====================================================
+             AI INSIGHTS
+             ===================================================== -->
 
         <div class="ai-card">
 
             <div class="ai-title">
-                <span class="ai-badge">AI</span>
+
+                <span class="ai-badge">
+                    AI
+                </span>
+
                 AI Insights
+
             </div>
 
+
             <p>
-                Asset intelligence and risk insights
-                will appear here.
+                Intelligent asset health,
+                risk and maintenance insights.
             </p>
 
-            <button class="ai-button">
+
+            <button class="ai-button"
+                    type="button">
+
                 View Insights →
+
             </button>
 
         </div>
 
 
-        <!-- USER -->
+
+        <!-- =====================================================
+             USER
+             ===================================================== -->
 
         <div class="sidebar-user">
 
             <div class="user-avatar">
+
                 {{ request.user.username|first|upper }}
+
             </div>
+
 
             <div class="user-info">
 
@@ -243,23 +507,35 @@
     </aside>
 
 
-    <!-- ================= MAIN ================= -->
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
 
     <main class="main-content">
 
 
-        <!-- TOP BAR -->
+        <!-- =================================================
+             TOP BAR
+             ================================================= -->
 
         <header class="topbar">
 
+
+            <!-- SEARCH -->
+
             <div class="search-box">
 
-                <span class="search-icon">⌕</span>
+                <span class="search-icon">
+                    ⌕
+                </span>
+
 
                 <input
                     type="text"
-                    placeholder="Search assets, employees, locations..."
+                    placeholder="Search assets, IDs, users..."
                 >
+
 
                 <span class="shortcut">
                     Ctrl + K
@@ -268,29 +544,50 @@
             </div>
 
 
+
+            <!-- TOP ACTIONS -->
+
             <div class="topbar-actions">
 
-                <button class="top-icon">
-                    ◐
-                </button>
 
-                <button class="top-icon notification">
+                <button
+                    type="button"
+                    class="top-icon"
+                    title="Notifications">
+
                     ♢
-                    <span>3</span>
+
+                    <span class="notification-count">
+                        3
+                    </span>
+
                 </button>
 
-                <button class="top-icon">
+
+                <button
+                    type="button"
+                    class="top-icon"
+                    title="Settings">
+
                     ⚙
+
                 </button>
 
+
+
+                <!-- USER -->
 
                 <div class="top-user">
 
+
                     <div class="top-avatar">
+
                         {{ request.user.username|first|upper }}
+
                     </div>
 
-                    <div>
+
+                    <div class="top-user-info">
 
                         <strong>
                             {{ request.user.username }}
@@ -302,6 +599,11 @@
 
                     </div>
 
+
+                    <span class="user-arrow">
+                        ▾
+                    </span>
+
                 </div>
 
             </div>
@@ -309,7 +611,10 @@
         </header>
 
 
-        <!-- PAGE CONTENT -->
+
+        <!-- =================================================
+             PAGE CONTENT
+             ================================================= -->
 
         <section class="page-content">
 
@@ -320,7 +625,10 @@
         </section>
 
 
-        <!-- FOOTER -->
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
 
         <footer class="footer">
 
@@ -328,10 +636,12 @@
                 Asetonix
             </span>
 
-            <span>•</span>
+            <span>
+                •
+            </span>
 
             <span>
-                Enterprise Asset Management System
+                Enterprise Asset Management
             </span>
 
             <span class="footer-version">
@@ -340,9 +650,12 @@
 
         </footer>
 
+
     </main>
 
+
 </div>
+
 
 </body>
 </html>

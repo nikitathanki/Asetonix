@@ -1,654 +1,476 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "assets/base.html" %}
 
-    <title>Asetonix Dashboard</title>
+{% block title %}
+Asetonix Dashboard
+{% endblock %}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
-        }
+{% block dashboard_active %}
+active
+{% endblock %}
 
-        .navbar {
-            background: #173f5f;
-            color: white;
-            padding: 18px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
 
-        .brand {
-            font-size: 25px;
-            font-weight: bold;
-        }
+{% block content %}
 
-        .brand span {
-            color: #4cc9f0;
-        }
+<!-- =====================================================
+     PAGE HEADER
+===================================================== -->
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 14px;
-        }
+<div class="page-header">
 
-        .nav-right a {
-            color: white;
-            text-decoration: none;
-        }
+    <div>
 
-        .nav-right a:hover {
-            text-decoration: underline;
-        }
+        <h1>
+            Dashboard
+        </h1>
 
-        .logout-form {
-            display: inline;
-            margin: 0;
-            padding: 0;
-        }
+        <p>
+            Enterprise Asset Management Overview
+        </p>
 
-        .logout-button {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: inherit;
-            padding: 0;
-            font-family: inherit;
-        }
+    </div>
 
-        .logout-button:hover {
-            text-decoration: underline;
-        }
 
-        .container {
-            max-width: 1400px;
-            margin: 35px auto;
-            padding: 0 30px;
-        }
+    <a href="/assets/" class="primary-button">
+        View Assets
+    </a>
 
-        .welcome {
-            margin-bottom: 28px;
-        }
+</div>
 
-        .welcome h1 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
 
-        .welcome p {
-            color: #6b7280;
-            font-size: 15px;
-        }
+<!-- =====================================================
+     DASHBOARD STATISTICS
+===================================================== -->
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 18px;
-            margin-bottom: 35px;
-        }
+<div class="dashboard-stats-grid">
 
-        .stat-card {
-            background: white;
-            border-radius: 12px;
-            padding: 22px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
-            border: 1px solid #e5e7eb;
-        }
 
-        .stat-card h3 {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
+    <!-- TOTAL ASSETS -->
 
-        .stat-number {
-            font-size: 30px;
-            font-weight: bold;
-            color: #173f5f;
-        }
+    <div class="stat-card">
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
+        <span class="stat-label">
+            Total Assets
+        </span>
 
-        .panel {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
-            border: 1px solid #e5e7eb;
-            overflow: hidden;
-        }
+        <strong class="stat-value">
+            {{ total_assets }}
+        </strong>
 
-        .panel-header {
-            padding: 18px 22px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    </div>
 
-        .panel-header h2 {
-            font-size: 18px;
-        }
 
-        .panel-header a {
-            color: #1677b7;
-            text-decoration: none;
-            font-size: 13px;
-        }
+    <!-- AVAILABLE -->
 
-        .panel-body {
-            padding: 0;
-        }
+    <div class="stat-card">
 
-        .table-wrapper {
-            overflow-x: auto;
-        }
+        <span class="stat-label">
+            Available
+        </span>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+        <strong class="stat-value">
+            {{ available_assets }}
+        </strong>
 
-        th {
-            text-align: left;
-            padding: 14px 18px;
-            font-size: 12px;
-            color: #6b7280;
-            background: #f8fafc;
-            text-transform: uppercase;
-        }
+    </div>
 
-        td {
-            padding: 15px 18px;
-            border-top: 1px solid #edf0f3;
-            font-size: 13px;
-        }
 
-        .badge {
-            display: inline-block;
-            padding: 5px 9px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: capitalize;
-        }
+    <!-- ASSIGNED -->
 
-        .badge-reported {
-            background: #fff4d6;
-            color: #946200;
-        }
+    <div class="stat-card">
 
-        .badge-progress {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
+        <span class="stat-label">
+            Assigned
+        </span>
 
-        .badge-completed {
-            background: #dcfce7;
-            color: #166534;
-        }
+        <strong class="stat-value">
+            {{ assigned_assets }}
+        </strong>
 
-        .badge-cancelled {
-            background: #fee2e2;
-            color: #991b1b;
-        }
+    </div>
 
-        .empty {
-            padding: 35px;
-            text-align: center;
-            color: #9ca3af;
-        }
 
-        .footer {
-            text-align: center;
-            color: #9ca3af;
-            padding: 35px 0 20px;
-            font-size: 13px;
-        }
+    <!-- MAINTENANCE -->
 
-        @media (max-width: 1100px) {
-            .stats-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+    <div class="stat-card">
 
-        @media (max-width: 800px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
+        <span class="stat-label">
+            Maintenance
+        </span>
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        <strong class="stat-value">
+            {{ maintenance_assets }}
+        </strong>
 
-            .navbar {
-                padding: 16px 20px;
-            }
+    </div>
 
-            .container {
-                padding: 0 15px;
-            }
-        }
 
-        @media (max-width: 500px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
+    <!-- RETIRED -->
 
-            .nav-right {
-                gap: 8px;
-                font-size: 12px;
-            }
-        }
-    </style>
-</head>
+    <div class="stat-card">
 
-<body>
+        <span class="stat-label">
+            Retired
+        </span>
 
-    <header class="navbar">
+        <strong class="stat-value">
+            {{ retired_assets }}
+        </strong>
 
-        <div class="brand">
-            Asetonix<span>.</span>
-        </div>
+    </div>
 
-        <div class="nav-right">
 
-            <span>
-                Welcome, {{ request.user.username }}
-            </span>
+    <!-- EMPLOYEES -->
 
-            <a href="/admin/">
-                Admin
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Employees
+        </span>
+
+        <strong class="stat-value">
+            {{ total_employees }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RECENT ACTIVITY
+===================================================== -->
+
+<div class="dashboard-activity-grid">
+
+
+    <!-- =================================================
+         RECENT ASSET TRANSFERS
+    ================================================== -->
+
+    <div class="content-card">
+
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Recent Asset Transfers
+                </h2>
+
+                <p>
+                    Latest asset movement activity
+                </p>
+
+            </div>
+
+
+            <a
+                href="/admin/assets/assettransfer/"
+                class="view-all"
+            >
+                View All
             </a>
 
-            <!-- Logout -->
-            <form method="post"
-                  action="{% url 'logout' %}"
-                  class="logout-form">
+        </div>
 
-                {% csrf_token %}
 
-                <button type="submit" class="logout-button">
-                    Logout
-                </button>
+        {% if recent_transfers %}
 
-            </form>
+        <div class="table-wrapper">
+
+            <table class="data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Asset
+                        </th>
+
+                        <th>
+                            From
+                        </th>
+
+                        <th>
+                            To
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for transfer in recent_transfers %}
+
+                    <tr>
+
+                        <td>
+
+                            <span class="asset-id">
+                                {{ transfer.asset.asset_tag }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            {% if transfer.from_employee %}
+
+                                {{ transfer.from_employee.name }}
+
+                            {% else %}
+
+                                <span class="muted">
+                                    Unassigned
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if transfer.to_employee %}
+
+                                {{ transfer.to_employee.name }}
+
+                            {% else %}
+
+                                <span class="muted">
+                                    Unassigned
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ transfer.transferred_at|date:"d M Y" }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
 
         </div>
 
-    </header>
 
+        {% else %}
 
-    <main class="container">
+        <div class="empty-state">
 
-        <section class="welcome">
+            <div class="empty-icon">
+                ⇄
+            </div>
 
-            <h1>
-                Dashboard
-            </h1>
+            <h3>
+                No transfers yet
+            </h3>
 
             <p>
-                Enterprise Asset Management Overview
+                Asset transfer activity will appear here.
             </p>
 
-        </section>
+        </div>
+
+        {% endif %}
+
+    </div>
 
 
-        <!-- STATISTICS -->
 
-        <section class="stats-grid">
+    <!-- =================================================
+         RECENT MAINTENANCE
+    ================================================== -->
 
-            <div class="stat-card">
-
-                <h3>
-                    Total Assets
-                </h3>
-
-                <div class="stat-number">
-                    {{ total_assets }}
-                </div>
-
-            </div>
+    <div class="content-card">
 
 
-            <div class="stat-card">
+        <div class="card-header">
 
-                <h3>
-                    Available
-                </h3>
+            <div>
 
-                <div class="stat-number">
-                    {{ available_assets }}
-                </div>
+                <h2>
+                    Recent Maintenance
+                </h2>
+
+                <p>
+                    Latest maintenance activity
+                </p>
 
             </div>
 
 
-            <div class="stat-card">
+            <a
+                href="/admin/assets/maintenancerecord/"
+                class="view-all"
+            >
+                View All
+            </a>
 
-                <h3>
-                    Assigned
-                </h3>
+        </div>
 
-                <div class="stat-number">
-                    {{ assigned_assets }}
-                </div>
 
+        {% if recent_maintenance %}
+
+        <div class="table-wrapper">
+
+            <table class="data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Asset
+                        </th>
+
+                        <th>
+                            Issue
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for record in recent_maintenance %}
+
+                    <tr>
+
+
+                        <!-- ASSET -->
+
+                        <td>
+
+                            <span class="asset-id">
+                                {{ record.asset.asset_tag }}
+                            </span>
+
+                        </td>
+
+
+                        <!-- ISSUE -->
+
+                        <td>
+
+                            {{ record.title }}
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if record.status == "reported" %}
+
+                                <span class="status-badge status-warning">
+                                    Reported
+                                </span>
+
+
+                            {% elif record.status == "in_progress" %}
+
+                                <span class="status-badge status-info">
+                                    In Progress
+                                </span>
+
+
+                            {% elif record.status == "completed" %}
+
+                                <span class="status-badge status-success">
+                                    Completed
+                                </span>
+
+
+                            {% elif record.status == "cancelled" %}
+
+                                <span class="status-badge status-danger">
+                                    Cancelled
+                                </span>
+
+
+                            {% else %}
+
+                                <span class="status-badge status-neutral">
+                                    {{ record.get_status_display }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            {{ record.reported_at|date:"d M Y" }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                ⚒
             </div>
 
+            <h3>
+                No maintenance records
+            </h3>
 
-            <div class="stat-card">
+            <p>
+                Maintenance activity will appear here.
+            </p>
 
-                <h3>
-                    Maintenance
-                </h3>
+        </div>
 
-                <div class="stat-number">
-                    {{ maintenance_assets }}
-                </div>
+        {% endif %}
 
-            </div>
+    </div>
 
+</div>
 
-            <div class="stat-card">
-
-                <h3>
-                    Retired
-                </h3>
-
-                <div class="stat-number">
-                    {{ retired_assets }}
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <h3>
-                    Employees
-                </h3>
-
-                <div class="stat-number">
-                    {{ total_employees }}
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- RECENT DATA -->
-
-        <section class="dashboard-grid">
-
-
-            <!-- RECENT TRANSFERS -->
-
-            <div class="panel">
-
-                <div class="panel-header">
-
-                    <h2>
-                        Recent Asset Transfers
-                    </h2>
-
-                    <a href="/admin/assets/assettransfer/">
-                        View All
-                    </a>
-
-                </div>
-
-
-                <div class="panel-body">
-
-                    {% if recent_transfers %}
-
-                    <div class="table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Asset
-                                    </th>
-
-                                    <th>
-                                        From
-                                    </th>
-
-                                    <th>
-                                        To
-                                    </th>
-
-                                    <th>
-                                        Date
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody>
-
-                                {% for transfer in recent_transfers %}
-
-                                <tr>
-
-                                    <td>
-                                        {{ transfer.asset.asset_tag }}
-                                    </td>
-
-                                    <td>
-
-                                        {% if transfer.from_employee %}
-
-                                            {{ transfer.from_employee.name }}
-
-                                        {% else %}
-
-                                            Unassigned
-
-                                        {% endif %}
-
-                                    </td>
-
-                                    <td>
-
-                                        {% if transfer.to_employee %}
-
-                                            {{ transfer.to_employee.name }}
-
-                                        {% else %}
-
-                                            Unassigned
-
-                                        {% endif %}
-
-                                    </td>
-
-                                    <td>
-                                        {{ transfer.transferred_at|date:"d M Y" }}
-                                    </td>
-
-                                </tr>
-
-                                {% endfor %}
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                    {% else %}
-
-                    <div class="empty">
-                        No asset transfers available.
-                    </div>
-
-                    {% endif %}
-
-                </div>
-
-            </div>
-
-
-            <!-- RECENT MAINTENANCE -->
-
-            <div class="panel">
-
-                <div class="panel-header">
-
-                    <h2>
-                        Recent Maintenance
-                    </h2>
-
-                    <a href="/admin/assets/maintenancerecord/">
-                        View All
-                    </a>
-
-                </div>
-
-
-                <div class="panel-body">
-
-                    {% if recent_maintenance %}
-
-                    <div class="table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Asset
-                                    </th>
-
-                                    <th>
-                                        Issue
-                                    </th>
-
-                                    <th>
-                                        Status
-                                    </th>
-
-                                    <th>
-                                        Date
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody>
-
-                                {% for record in recent_maintenance %}
-
-                                <tr>
-
-                                    <td>
-                                        {{ record.asset.asset_tag }}
-                                    </td>
-
-                                    <td>
-                                        {{ record.title }}
-                                    </td>
-
-                                    <td>
-
-                                        {% if record.status == "reported" %}
-
-                                            <span class="badge badge-reported">
-                                                Reported
-                                            </span>
-
-                                        {% elif record.status == "in_progress" %}
-
-                                            <span class="badge badge-progress">
-                                                In Progress
-                                            </span>
-
-                                        {% elif record.status == "completed" %}
-
-                                            <span class="badge badge-completed">
-                                                Completed
-                                            </span>
-
-                                        {% elif record.status == "cancelled" %}
-
-                                            <span class="badge badge-cancelled">
-                                                Cancelled
-                                            </span>
-
-                                        {% else %}
-
-                                            <span class="badge">
-                                                {{ record.get_status_display }}
-                                            </span>
-
-                                        {% endif %}
-
-                                    </td>
-
-                                    <td>
-                                        {{ record.reported_at|date:"d M Y" }}
-                                    </td>
-
-                                </tr>
-
-                                {% endfor %}
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                    {% else %}
-
-                    <div class="empty">
-                        No maintenance records available.
-                    </div>
-
-                    {% endif %}
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <footer class="footer">
-            Asetonix · Enterprise Asset Management
-        </footer>
-
-    </main>
-
-</body>
-</html>
+{% endblock %}
