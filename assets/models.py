@@ -514,3 +514,126 @@ class Category(models.Model):
 
     def __str__(self):
         return f"{self.code} - {self.name}"
+
+
+class AssetTransfer(models.Model):
+    asset = models.ForeignKey(
+        Asset,
+        on_delete=models.PROTECT,
+        related_name="transfers",
+    )
+
+    from_employee = models.ForeignKey(
+        Employee,
+        on_delete=models.PROTECT,
+        related_name="transfers_from",
+        null=True,
+        blank=True,
+    )
+
+    to_employee = models.ForeignKey(
+        Employee,
+        on_delete=models.PROTECT,
+        related_name="transfers_to",
+        null=True,
+        blank=True,
+    )
+
+    from_location = models.ForeignKey(
+        Location,
+        on_delete=models.PROTECT,
+        related_name="transfers_from",
+        null=True,
+        blank=True,
+    )
+
+    to_location = models.ForeignKey(
+        Location,
+        on_delete=models.PROTECT,
+        related_name="transfers_to",
+        null=True,
+        blank=True,
+    )
+
+    transferred_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    reason = models.CharField(
+        max_length=255,
+        blank=True,
+    )
+
+    notes = models.TextField(
+        blank=True,
+    )
+
+    class Meta:
+        ordering = ["-transferred_at"]
+        verbose_name = "Asset Transfer"
+        verbose_name_plural = "Asset Transfers"
+
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+
+        super().save(*args, **kwargs)
+
+        # Update the asset's current location.
+        if self.to_location:
+            self.asset.location = self.to_location
+
+        # Update the asset's current status.
+        if self.to_employee:
+            self.asset.status = "assigned"
+        else:
+            self.asset.status = "available"
+
+        self.asset.save(
+            update_fields=[
+                "location",
+                "status",
+            ]
+        )
+
+        # Create history only for a new transfer.
+        if is_new:
+            from_name = (
+                self.from_employee.name
+                if self.from_employee
+                else "Unassigned"
+            )
+
+            to_name = (
+                self.to_employee.name
+                if self.to_employee
+                else "Unassigned"
+            )
+
+            from_location = (
+                self.from_location.name
+                if self.from_location
+                else "Unknown"
+            )
+
+            to_location = (
+                self.to_location.name
+                if self.to_location
+                else "Unknown"
+            )
+
+            AssetHistory.objects.create(
+                asset=self.asset,
+                event_type="location_change",
+                description=(
+                    f"Asset transferred from "
+                    f"{from_name} ({from_location}) "
+                    f"to {to_name} ({to_location})."
+                ),
+                performed_by=to_name,
+            )
+
+    def __str__(self):
+        return (
+            f"{self.asset.asset_tag} - "
+            f"{self.transferred_at:%Y-%m-%d}"
+        )

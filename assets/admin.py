@@ -7,6 +7,8 @@ from .models import (
     MaintenanceRecord,
     Department,
     Location,
+    Category,
+    AssetTransfer,
 )
 
 
@@ -190,3 +192,60 @@ class LocationAdmin(admin.ModelAdmin):
     readonly_fields = (
         "created_at",
     )
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        "code",
+        "name",
+        "is_active",
+        "created_at",
+    )
+
+    list_filter = (
+        "is_active",
+    )
+
+    search_fields = (
+        "code",
+        "name",
+        "description",
+    )
+
+    readonly_fields = (
+        "created_at",
+    )
+
+
+@admin.register(AssetTransfer)
+class AssetTransferAdmin(admin.ModelAdmin):
+    list_display = (
+        "asset",
+        "from_employee",
+        "to_employee",
+        "from_location",
+        "to_location",
+        "transferred_at",
+        "reason",
+    )
+
+    list_filter = (
+        "transferred_at",
+        "from_location",
+        "to_location",
+    )
+
+    search_fields = (
+        "asset__asset_tag",
+        "asset__name",
+        "from_employee__name",
+        "to_employee__name",
+        "reason",
+    )
+
+    readonly_fields = (
+        "transferred_at",
+    )
+
+    
