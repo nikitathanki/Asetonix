@@ -387,3 +387,68 @@ class MaintenanceRecord(models.Model):
             f"{self.asset.asset_tag} - "
             f"{self.title}"
         )
+
+
+class Department(models.Model):
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+    )
+
+    code = models.CharField(
+        max_length=20,
+        unique=True,
+    )
+
+    description = models.TextField(
+        blank=True,
+    )
+
+    is_active = models.BooleanField(
+        default=True,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.code} - {self.name}"
+
+
+class Location(models.Model):
+    name = models.CharField(
+        max_length=150,
+        unique=True,
+    )
+
+    building = models.CharField(
+        max_length=150,
+        blank=True,
+    )
+
+    floor = models.CharField(
+        max_length=50,
+        blank=True,
+    )
+
+    description = models.TextField(
+        blank=True,
+    )
+
+    is_active = models.BooleanField(
+        default=True,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name

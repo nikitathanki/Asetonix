@@ -5,6 +5,8 @@ from .models import (
     AssetAssignment,
     AssetHistory,
     MaintenanceRecord,
+    Department,
+    Location,
 )
 
 
@@ -135,4 +137,56 @@ class MaintenanceRecordAdmin(admin.ModelAdmin):
 
     readonly_fields = (
         "reported_at",
+    )
+
+
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
+    list_display = (
+        "code",
+        "name",
+        "is_active",
+        "created_at",
+    )
+
+    list_filter = (
+        "is_active",
+    )
+
+    search_fields = (
+        "code",
+        "name",
+        "description",
+    )
+
+    readonly_fields = (
+        "created_at",
+    )
+
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "building",
+        "floor",
+        "is_active",
+        "created_at",
+    )
+
+    list_filter = (
+        "is_active",
+        "building",
+        "floor",
+    )
+
+    search_fields = (
+        "name",
+        "building",
+        "floor",
+        "description",
+    )
+
+    readonly_fields = (
+        "created_at",
     )
