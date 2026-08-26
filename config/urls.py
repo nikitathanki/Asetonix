@@ -19,6 +19,6 @@ path(
         next_page="/accounts/login/"
     ),
     name="logout",
-),
+    ),
     path("", include("assets.urls")),
 ]

@@ -1,0 +1,348 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Asetonix{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">A</div>
+
+            <div>
+                <div class="brand-name">ASETONIX</div>
+                <div class="brand-subtitle">
+                    Enterprise Asset Management
+                </div>
+            </div>
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section">
+
+                <a href="{% url 'dashboard' %}"
+                   class="nav-item {% block dashboard_active %}{% endblock %}">
+                    <span class="nav-icon">▣</span>
+                    <span>Dashboard</span>
+                </a>
+
+            </div>
+
+
+            <!-- ASSET MANAGEMENT -->
+
+            <div class="nav-title">
+                ASSET MANAGEMENT
+            </div>
+
+            <a href="/assets/" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>Assets</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>Categories</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▥</span>
+                <span>Brands</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▧</span>
+                <span>Models</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+
+            <!-- LIFECYCLE -->
+
+            <div class="nav-title">
+                LIFECYCLE
+            </div>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>Assignments</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⇄</span>
+                <span>Transfers</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚒</span>
+                <span>Maintenance</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▣</span>
+                <span>Retirements</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+
+            <!-- ANALYTICS -->
+
+            <div class="nav-title">
+                ANALYTICS
+            </div>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⌁</span>
+                <span>Asset Health</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">◔</span>
+                <span>Utilization</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">△</span>
+                <span>Risk Analysis</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">₹</span>
+                <span>Cost Analysis</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+
+            <!-- GOVERNANCE -->
+
+            <div class="nav-title">
+                GOVERNANCE
+            </div>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▣</span>
+                <span>Audit Trail</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">♢</span>
+                <span>Alerts & Notifications</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>Users & Roles</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>Departments</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⌖</span>
+                <span>Locations</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+
+            <!-- REPORTS -->
+
+            <div class="nav-title">
+                REPORTS
+            </div>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▥</span>
+                <span>Reports</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⇩</span>
+                <span>Export Data</span>
+                <span class="nav-arrow">›</span>
+            </a>
+
+        </nav>
+
+
+        <!-- AI INSIGHTS -->
+
+        <div class="ai-card">
+
+            <div class="ai-title">
+                <span class="ai-badge">AI</span>
+                AI Insights
+            </div>
+
+            <p>
+                Asset intelligence and risk insights
+                will appear here.
+            </p>
+
+            <button class="ai-button">
+                View Insights →
+            </button>
+
+        </div>
+
+
+        <!-- USER -->
+
+        <div class="sidebar-user">
+
+            <div class="user-avatar">
+                {{ request.user.username|first|upper }}
+            </div>
+
+            <div class="user-info">
+
+                <strong>
+                    {{ request.user.username }}
+                </strong>
+
+                <span>
+                    Enterprise User
+                </span>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    placeholder="Search assets, employees, locations..."
+                >
+
+                <span class="shortcut">
+                    Ctrl + K
+                </span>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button class="top-icon">
+                    ◐
+                </button>
+
+                <button class="top-icon notification">
+                    ♢
+                    <span>3</span>
+                </button>
+
+                <button class="top-icon">
+                    ⚙
+                </button>
+
+
+                <div class="top-user">
+
+                    <div class="top-avatar">
+                        {{ request.user.username|first|upper }}
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            {{ request.user.username }}
+                        </strong>
+
+                        <small>
+                            Manager
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+
+        <section class="page-content">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            <span>
+                Asetonix
+            </span>
+
+            <span>•</span>
+
+            <span>
+                Enterprise Asset Management System
+            </span>
+
+            <span class="footer-version">
+                Version 1.0.0
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
