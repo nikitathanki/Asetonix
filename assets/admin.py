@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Asset, Employee, AssetAssignment, AssetHistory
+from .models import (
+    Asset,
+    Employee,
+    AssetAssignment,
+    AssetHistory,
+    MaintenanceRecord,
+)
 
 
 @admin.register(Asset)
@@ -98,4 +104,35 @@ class AssetHistoryAdmin(admin.ModelAdmin):
 
     readonly_fields = (
         "created_at",
+    )
+
+
+@admin.register(MaintenanceRecord)
+class MaintenanceRecordAdmin(admin.ModelAdmin):
+    list_display = (
+        "asset",
+        "title",
+        "priority",
+        "status",
+        "reported_at",
+        "technician",
+        "cost",
+    )
+
+    list_filter = (
+        "status",
+        "priority",
+        "reported_at",
+    )
+
+    search_fields = (
+        "asset__asset_tag",
+        "asset__name",
+        "title",
+        "description",
+        "technician",
+    )
+
+    readonly_fields = (
+        "reported_at",
     )

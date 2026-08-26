@@ -22,27 +22,47 @@ class Asset(models.Model):
     brand = models.CharField(max_length=100, blank=True)
     model = models.CharField(max_length=100, blank=True)
     serial_number = models.CharField(max_length=100, blank=True)
-    purchase_date = models.DateField(null=True, blank=True)
+
+    purchase_date = models.DateField(
+        null=True,
+        blank=True,
+    )
+
     purchase_price = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         null=True,
         blank=True,
     )
+
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default="available",
     )
+
     condition = models.CharField(
         max_length=20,
         choices=CONDITION_CHOICES,
         default="new",
     )
-    location = models.CharField(max_length=200, blank=True)
-    notes = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+    location = models.CharField(
+        max_length=200,
+        blank=True,
+    )
+
+    notes = models.TextField(
+        blank=True,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
 
     def __str__(self):
         return f"{self.asset_tag} - {self.name}"
@@ -54,18 +74,42 @@ class Employee(models.Model):
         ("inactive", "Inactive"),
     ]
 
-    employee_id = models.CharField(max_length=50, unique=True)
-    name = models.CharField(max_length=150)
-    email = models.EmailField(unique=True)
-    department = models.CharField(max_length=100)
-    designation = models.CharField(max_length=100, blank=True)
-    phone = models.CharField(max_length=20, blank=True)
+    employee_id = models.CharField(
+        max_length=50,
+        unique=True,
+    )
+
+    name = models.CharField(
+        max_length=150,
+    )
+
+    email = models.EmailField(
+        unique=True,
+    )
+
+    department = models.CharField(
+        max_length=100,
+    )
+
+    designation = models.CharField(
+        max_length=100,
+        blank=True,
+    )
+
+    phone = models.CharField(
+        max_length=20,
+        blank=True,
+    )
+
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default="active",
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
 
     def __str__(self):
         return f"{self.employee_id} - {self.name}"
@@ -77,14 +121,25 @@ class AssetAssignment(models.Model):
         on_delete=models.PROTECT,
         related_name="assignments",
     )
+
     employee = models.ForeignKey(
         Employee,
         on_delete=models.PROTECT,
         related_name="asset_assignments",
     )
-    assigned_at = models.DateTimeField(auto_now_add=True)
-    returned_at = models.DateTimeField(null=True, blank=True)
-    notes = models.TextField(blank=True)
+
+    assigned_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    returned_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    notes = models.TextField(
+        blank=True,
+    )
 
     @property
     def is_active(self):
@@ -95,7 +150,9 @@ class AssetAssignment(models.Model):
         old_returned_at = None
 
         if not is_new:
-            old_assignment = AssetAssignment.objects.get(pk=self.pk)
+            old_assignment = AssetAssignment.objects.get(
+                pk=self.pk
+            )
             old_returned_at = old_assignment.returned_at
 
         super().save(*args, **kwargs)
@@ -105,26 +162,41 @@ class AssetAssignment(models.Model):
         else:
             self.asset.status = "available"
 
-        self.asset.save(update_fields=["status"])
+        self.asset.save(
+            update_fields=["status"]
+        )
 
         if is_new:
             AssetHistory.objects.create(
                 asset=self.asset,
                 event_type="assigned",
-                description=f"Asset assigned to {self.employee.name}.",
+                description=(
+                    f"Asset assigned to "
+                    f"{self.employee.name}."
+                ),
                 performed_by=self.employee.name,
             )
 
-        elif old_returned_at is None and self.returned_at is not None:
+        elif (
+            old_returned_at is None
+            and self.returned_at is not None
+        ):
             AssetHistory.objects.create(
                 asset=self.asset,
                 event_type="returned",
-                description=f"Asset returned by {self.employee.name}.",
+                description=(
+                    f"Asset returned by "
+                    f"{self.employee.name}."
+                ),
                 performed_by=self.employee.name,
             )
 
     def __str__(self):
-        return f"{self.asset.asset_tag} → {self.employee.name}"
+        return (
+            f"{self.asset.asset_tag} "
+            f"→ {self.employee.name}"
+        )
+
 
 class AssetHistory(models.Model):
     EVENT_CHOICES = [
@@ -155,11 +227,163 @@ class AssetHistory(models.Model):
         blank=True,
     )
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
 
     class Meta:
         ordering = ["-created_at"]
         verbose_name_plural = "Asset History"
 
     def __str__(self):
-        return f"{self.asset.asset_tag} - {self.get_event_type_display()}"    
+        return (
+            f"{self.asset.asset_tag} - "
+            f"{self.get_event_type_display()}"
+        )
+
+
+class MaintenanceRecord(models.Model):
+    STATUS_CHOICES = [
+        ("reported", "Reported"),
+        ("in_progress", "In Progress"),
+        ("completed", "Completed"),
+        ("cancelled", "Cancelled"),
+    ]
+
+    PRIORITY_CHOICES = [
+        ("low", "Low"),
+        ("medium", "Medium"),
+        ("high", "High"),
+        ("critical", "Critical"),
+    ]
+
+    asset = models.ForeignKey(
+        Asset,
+        on_delete=models.PROTECT,
+        related_name="maintenance_records",
+    )
+
+    title = models.CharField(
+        max_length=200,
+    )
+
+    description = models.TextField()
+
+    priority = models.CharField(
+        max_length=20,
+        choices=PRIORITY_CHOICES,
+        default="medium",
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="reported",
+    )
+
+    reported_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    started_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    completed_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    cost = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        null=True,
+        blank=True,
+    )
+
+    technician = models.CharField(
+        max_length=150,
+        blank=True,
+    )
+
+    notes = models.TextField(
+        blank=True,
+    )
+
+    class Meta:
+        ordering = ["-reported_at"]
+        verbose_name = "Maintenance Record"
+        verbose_name_plural = "Maintenance Records"
+
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        old_status = None
+
+        if not is_new:
+            old_record = MaintenanceRecord.objects.get(
+                pk=self.pk
+            )
+            old_status = old_record.status
+
+        super().save(*args, **kwargs)
+
+        if self.status in ["reported", "in_progress"]:
+            self.asset.status = "maintenance"
+
+        elif self.status in ["completed", "cancelled"]:
+            self.asset.status = "available"
+
+        self.asset.save(
+            update_fields=["status"]
+        )
+
+        if is_new:
+            AssetHistory.objects.create(
+                asset=self.asset,
+                event_type="maintenance",
+                description=(
+                    f"Maintenance reported: "
+                    f"{self.title}."
+                ),
+                performed_by=self.technician,
+            )
+
+        elif old_status != self.status:
+            if self.status == "in_progress":
+                description = (
+                    f"Maintenance started: "
+                    f"{self.title}."
+                )
+
+            elif self.status == "completed":
+                description = (
+                    f"Maintenance completed: "
+                    f"{self.title}."
+                )
+
+            elif self.status == "cancelled":
+                description = (
+                    f"Maintenance cancelled: "
+                    f"{self.title}."
+                )
+
+            else:
+                description = (
+                    f"Maintenance status changed to "
+                    f"{self.get_status_display()}: "
+                    f"{self.title}."
+                )
+
+            AssetHistory.objects.create(
+                asset=self.asset,
+                event_type="maintenance",
+                description=description,
+                performed_by=self.technician,
+            )
+
+    def __str__(self):
+        return (
+            f"{self.asset.asset_tag} - "
+            f"{self.title}"
+        )
