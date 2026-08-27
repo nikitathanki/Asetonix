@@ -1,0 +1,320 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Maintenance | Asetonix
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+            Maintenance
+        </h1>
+
+        <p>
+            Track and manage asset maintenance records
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAINTENANCE SUMMARY
+========================================================= -->
+
+<div class="stats-grid maintenance-stats-grid">
+    
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Total Records
+        </span>
+
+        <strong class="stat-value">
+            {{ total_count }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Reported
+        </span>
+
+        <strong class="stat-value">
+            {{ reported_count }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            In Progress
+        </span>
+
+        <strong class="stat-value">
+            {{ in_progress_count }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Completed
+        </span>
+
+        <strong class="stat-value">
+            {{ completed_count }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Cancelled
+        </span>
+
+        <strong class="stat-value">
+            {{ cancelled_count }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAINTENANCE RECORDS
+========================================================= -->
+
+<div class="content-card maintenance-list-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Maintenance Records
+            </h2>
+
+            <p>
+                All maintenance activity across your assets
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if maintenance_records %}
+
+        <div class="maintenance-list">
+
+            {% for record in maintenance_records %}
+
+                <div class="maintenance-list-item">
+
+
+                    <!-- RECORD HEADER -->
+
+                    <div class="maintenance-list-header">
+
+                        <div>
+
+                            <span class="maintenance-asset-tag">
+                                {{ record.asset.asset_tag }}
+                            </span>
+
+                            <h3>
+                                {{ record.title }}
+                            </h3>
+
+                            <p>
+                                {{ record.reported_at|date:"d M Y, h:i A" }}
+                            </p>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        {% if record.status == "reported" %}
+
+                            <span class="status-badge status-warning">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% elif record.status == "in_progress" %}
+
+                            <span class="status-badge status-info">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% elif record.status == "completed" %}
+
+                            <span class="status-badge status-success">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% elif record.status == "cancelled" %}
+
+                            <span class="status-badge status-danger">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge status-neutral">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- DETAILS -->
+
+                    <div class="maintenance-list-details">
+
+
+                        <div class="maintenance-list-detail">
+
+                            <span>
+                                Priority
+                            </span>
+
+                            <strong>
+                                {{ record.get_priority_display }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="maintenance-list-detail">
+
+                            <span>
+                                Technician
+                            </span>
+
+                            <strong>
+
+                                {% if record.technician %}
+                                    {{ record.technician }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="maintenance-list-detail">
+
+                            <span>
+                                Cost
+                            </span>
+
+                            <strong>
+
+                                {% if record.cost %}
+                                    ₹{{ record.cost }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="maintenance-list-description">
+
+                        <span>
+                            Description
+                        </span>
+
+                        <p>
+                            {{ record.description }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- NOTES -->
+
+                    {% if record.notes %}
+
+                        <div class="maintenance-list-description">
+
+                            <span>
+                                Notes
+                            </span>
+
+                            <p>
+                                {{ record.notes }}
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- ACTION -->
+
+                    <div class="maintenance-list-action">
+
+                        <a
+                            href="{% url 'asset_detail' record.asset.asset_tag %}"
+                            class="action-button"
+                        >
+                            View Asset
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <strong>
+                No maintenance records
+            </strong>
+
+            <p>
+                Maintenance records will appear here when an asset is reported.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

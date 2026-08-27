@@ -1658,216 +1658,7 @@ textarea {
     padding-right: 14px;
 }
 /* =========================================================
-   ASSET DETAIL PAGE
-========================================================= */
 
-.back-link {
-    display: inline-block;
-    margin-bottom: 12px;
-    color: #2B6CB0;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
-
-/* =========================
-   DETAIL LAYOUT
-========================= */
-
-.asset-detail-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
-    gap: 24px;
-    margin-bottom: 24px;
-}
-
-
-/* =========================
-   INFORMATION GRID
-========================= */
-
-.asset-info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    border-top: 1px solid #E2E8F0;
-}
-
-
-.info-item {
-    padding: 20px;
-    border-bottom: 1px solid #E2E8F0;
-}
-
-
-.info-item:nth-child(odd) {
-    border-right: 1px solid #E2E8F0;
-}
-
-
-.info-item span {
-    display: block;
-    margin-bottom: 7px;
-    color: #718096;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
-
-.info-item strong {
-    display: block;
-    color: #2D3748;
-    font-size: 15px;
-}
-
-
-/* =========================
-   QUICK ACTIONS
-========================= */
-
-.quick-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px;
-}
-
-
-.action-button {
-    width: 100%;
-    padding: 13px 15px;
-
-    border: 1px solid #CBD5E0;
-    border-radius: 8px;
-
-    background: #FFFFFF;
-    color: #2D3748;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-    text-align: left;
-
-    transition: all 0.2s ease;
-}
-
-
-.action-button:hover {
-    border-color: #2B6CB0;
-    color: #2B6CB0;
-    background: #F7FAFC;
-}
-
-
-/* =========================
-   LIFECYCLE
-========================= */
-
-.lifecycle-card {
-    margin-bottom: 30px;
-}
-
-
-.lifecycle {
-    padding: 25px;
-}
-
-
-.lifecycle-step {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-
-.lifecycle-dot {
-    width: 36px;
-    height: 36px;
-
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #EDF2F7;
-    color: #718096;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    flex-shrink: 0;
-}
-
-
-.lifecycle-step.completed .lifecycle-dot {
-    background: #C6F6D5;
-    color: #276749;
-}
-
-
-.lifecycle-step.active .lifecycle-dot {
-    background: #BEE3F8;
-    color: #2B6CB0;
-}
-
-
-.lifecycle-step strong {
-    display: block;
-    color: #2D3748;
-    font-size: 14px;
-}
-
-
-.lifecycle-step span {
-    display: block;
-    margin-top: 4px;
-    color: #718096;
-    font-size: 12px;
-}
-
-
-.lifecycle-line {
-    width: 2px;
-    height: 28px;
-
-    margin-left: 17px;
-
-    background: #E2E8F0;
-}
-
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 1000px) {
-
-    .asset-detail-grid {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-
-@media (max-width: 650px) {
-
-    .asset-info-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .info-item:nth-child(odd) {
-        border-right: none;
-    }
-
-}
 
 /* =========================================================
    ASSET DETAIL PAGE
@@ -2084,6 +1875,7 @@ textarea {
     }
 
 }
+
 
 /* =========================================================
    ASSET ASSIGNMENT
@@ -2312,6 +2104,718 @@ a.action-button {
     .form-actions a,
     .form-actions button {
         width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   MAINTENANCE PAGE
+   ========================================================= */
+
+.maintenance-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   MAINTENANCE ASSET SUMMARY
+   ========================================================= */
+
+.maintenance-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.maintenance-summary-item {
+    padding: 20px;
+    border-top: 1px solid #E2E8F0;
+}
+
+.maintenance-summary-item:nth-child(odd) {
+    border-right: 1px solid #E2E8F0;
+}
+
+.maintenance-summary-item span {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #718096;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.maintenance-summary-item strong {
+    color: #2D3748;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   MAINTENANCE FORM
+   ========================================================= */
+
+.maintenance-form {
+    padding: 24px;
+}
+
+.maintenance-form .form-group {
+    margin-bottom: 22px;
+}
+
+.maintenance-form input,
+.maintenance-form select,
+.maintenance-form textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #CBD5E0;
+    border-radius: 8px;
+
+    background: #FFFFFF;
+    color: #2D3748;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.maintenance-form input:focus,
+.maintenance-form select:focus,
+.maintenance-form textarea:focus {
+    border-color: #2B6CB0;
+
+    box-shadow:
+        0 0 0 3px rgba(43, 108, 176, 0.10);
+}
+
+.maintenance-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+
+/* =========================================================
+   MAINTENANCE HISTORY
+   ========================================================= */
+
+.maintenance-history-card {
+    margin-bottom: 30px;
+}
+
+.maintenance-history {
+    padding: 0;
+}
+
+.maintenance-record {
+    padding: 22px 24px;
+
+    border-bottom: 1px solid #E2E8F0;
+
+    transition: background 0.2s ease;
+}
+
+.maintenance-record:hover {
+    background: #F8FAFC;
+}
+
+.maintenance-record:last-child {
+    border-bottom: none;
+}
+
+.maintenance-record-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.maintenance-record-header h3 {
+    color: #1A365D;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.maintenance-record-header small {
+    display: block;
+    margin-top: 4px;
+
+    color: #718096;
+    font-size: 11px;
+}
+
+.maintenance-description {
+    margin-top: 12px;
+
+    color: #4A5568;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.maintenance-record-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    margin-top: 15px;
+}
+
+.maintenance-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.maintenance-detail-item span {
+    color: #718096;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.maintenance-detail-item strong {
+    color: #2D3748;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   MAINTENANCE STATUS
+   ========================================================= */
+
+.maintenance-status-reported {
+    background: #EBF8FF;
+    color: #2B6CB0;
+}
+
+.maintenance-status-progress {
+    background: #FFFBEB;
+    color: #975A16;
+}
+
+.maintenance-status-completed {
+    background: #E6FFFA;
+    color: #276749;
+}
+
+.maintenance-status-cancelled {
+    background: #FFF5F5;
+    color: #C53030;
+}
+
+
+/* =========================================================
+   MAINTENANCE EMPTY STATE
+   ========================================================= */
+
+.maintenance-empty {
+    padding: 55px 25px;
+
+    text-align: center;
+}
+
+.maintenance-empty h3 {
+    color: #1A365D;
+    font-size: 16px;
+}
+
+.maintenance-empty p {
+    margin-top: 6px;
+
+    color: #718096;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MAINTENANCE RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .maintenance-layout {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .maintenance-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .maintenance-summary-item:nth-child(odd) {
+        border-right: none;
+    }
+
+    .maintenance-record-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .maintenance-record-details {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   MAINTENANCE HISTORY - FINAL FIX
+   ========================================================= */
+
+.maintenance-history {
+    width: 100%;
+}
+
+.maintenance-record {
+    padding: 22px 24px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.maintenance-record:last-child {
+    border-bottom: none;
+}
+
+
+/* Record header */
+
+.maintenance-record-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 18px;
+}
+
+.maintenance-record-header > div:first-child {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.maintenance-record-header strong {
+    color: #1A365D;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.maintenance-record-header > div:first-child > span {
+    color: #718096;
+    font-size: 12px;
+}
+
+
+/* Status */
+
+.maintenance-record-header .status-badge {
+    min-width: 75px;
+}
+
+
+/* Priority / Technician / Cost */
+
+.maintenance-record-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    overflow: hidden;
+
+    margin-bottom: 18px;
+}
+
+
+/*
+   IMPORTANT:
+   Override the global .info-item styles here.
+*/
+
+.maintenance-record-details .info-item {
+    padding: 14px 16px;
+    border: none;
+    border-right: 1px solid #E2E8F0;
+    border-bottom: none;
+}
+
+.maintenance-record-details .info-item:nth-child(odd) {
+    border-right: 1px solid #E2E8F0;
+}
+
+.maintenance-record-details .info-item:last-child {
+    border-right: none;
+}
+
+.maintenance-record-details .info-item span {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #718096;
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.maintenance-record-details .info-item strong {
+    display: block;
+
+    color: #2D3748;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* Description and Notes */
+
+.maintenance-description {
+    margin-top: 12px;
+}
+
+.maintenance-description > span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #718096;
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.maintenance-description p {
+    margin: 0;
+
+    color: #4A5568;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* Hover */
+
+.maintenance-record:hover {
+    background: #F8FAFC;
+}
+
+
+/* =========================================================
+   MAINTENANCE HISTORY RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .maintenance-record-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .maintenance-record-header > div:first-child {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .maintenance-record-details {
+        grid-template-columns: 1fr;
+    }
+
+    .maintenance-record-details .info-item {
+        border-right: none;
+        border-bottom: 1px solid #E2E8F0;
+    }
+
+    .maintenance-record-details .info-item:last-child {
+        border-bottom: none;
+    }
+
+}
+
+
+
+/* =========================================================
+   ASSET DETAIL + MAINTENANCE HISTORY FINAL SAFEGUARDS
+   ========================================================= */
+
+.maintenance-record-details .info-item {
+    padding: 14px 16px;
+    border: none;
+    border-right: 1px solid #E2E8F0;
+    border-bottom: none;
+}
+
+.maintenance-record-details .info-item:last-child {
+    border-right: none;
+}
+
+.maintenance-record-details .info-item span {
+    display: block;
+    margin-bottom: 5px;
+    color: #718096;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.maintenance-record-details .info-item strong {
+    display: block;
+    color: #2D3748;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.maintenance-description > span {
+    display: block;
+    margin-bottom: 5px;
+    color: #718096;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.maintenance-description p {
+    margin: 0;
+    color: #4A5568;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+    .maintenance-record-details {
+        grid-template-columns: 1fr;
+    }
+
+    .maintenance-record-details .info-item {
+        border-right: none;
+        border-bottom: 1px solid #E2E8F0;
+    }
+
+    .maintenance-record-details .info-item:last-child {
+        border-bottom: none;
+    }
+}
+
+/* =========================================================
+   MAINTENANCE PAGE FINAL POLISH
+========================================================= */
+
+/* Keep all 5 summary cards in one row */
+.maintenance-stats-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+
+/* Compact View Asset button */
+.maintenance-list-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+
+.maintenance-list-action .action-button {
+    display: inline-flex;
+    width: auto;
+    min-width: 120px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 18px;
+}
+
+
+/* Tablet */
+@media (max-width: 1100px) {
+
+    .maintenance-stats-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    .maintenance-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .maintenance-list-action {
+        justify-content: flex-start;
+    }
+
+    .maintenance-list-action .action-button {
+        width: 100%;
+    }
+
+}
+
+/* =========================================================
+   MAINTENANCE LIST PAGE
+========================================================= */
+
+.maintenance-list-card {
+    margin-top: 24px;
+}
+
+
+.maintenance-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.maintenance-list-item {
+    padding: 20px;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    background: #FFFFFF;
+}
+
+
+.maintenance-list-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+
+.maintenance-list-header h3 {
+    margin: 6px 0 4px;
+    color: #1A202C;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.maintenance-list-header p {
+    margin: 0;
+    color: #718096;
+    font-size: 12px;
+}
+
+
+.maintenance-asset-tag {
+    display: inline-block;
+    color: #4A5568;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+
+.maintenance-list-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 18px;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.maintenance-list-detail {
+    padding: 14px 16px;
+    border-right: 1px solid #E2E8F0;
+}
+
+
+.maintenance-list-detail:last-child {
+    border-right: none;
+}
+
+
+.maintenance-list-detail span {
+    display: block;
+    margin-bottom: 5px;
+    color: #718096;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+
+.maintenance-list-detail strong {
+    display: block;
+    color: #2D3748;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.maintenance-list-description {
+    margin-top: 16px;
+}
+
+
+.maintenance-list-description span {
+    display: block;
+    margin-bottom: 5px;
+    color: #718096;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+
+.maintenance-list-description p {
+    margin: 0;
+    color: #4A5568;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+.maintenance-list-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+
+@media (max-width: 700px) {
+
+    .maintenance-list-header {
+        flex-direction: column;
+    }
+
+    .maintenance-list-details {
+        grid-template-columns: 1fr;
+    }
+
+    .maintenance-list-detail {
+        border-right: none;
+        border-bottom: 1px solid #E2E8F0;
+    }
+
+    .maintenance-list-detail:last-child {
+        border-bottom: none;
     }
 
 }

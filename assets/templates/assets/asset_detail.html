@@ -31,12 +31,16 @@
 </div>
 
 
-<!-- ================= ASSET OVERVIEW ================= -->
+<!-- =========================================================
+     ASSET OVERVIEW
+========================================================= -->
 
 <div class="asset-detail-grid">
 
 
-    <!-- ================= ASSET INFORMATION ================= -->
+    <!-- =====================================================
+         ASSET INFORMATION
+    ====================================================== -->
 
     <div class="content-card">
 
@@ -54,6 +58,8 @@
 
             </div>
 
+
+            <!-- ASSET STATUS BADGE -->
 
             {% if asset.status == "available" %}
 
@@ -90,8 +96,14 @@
         </div>
 
 
+        <!-- =================================================
+             ASSET INFORMATION GRID
+        ================================================== -->
+
         <div class="asset-info-grid">
 
+
+            <!-- ASSET TAG -->
 
             <div class="info-item">
 
@@ -106,6 +118,8 @@
             </div>
 
 
+            <!-- ASSET NAME -->
+
             <div class="info-item">
 
                 <span>
@@ -118,6 +132,8 @@
 
             </div>
 
+
+            <!-- CATEGORY -->
 
             <div class="info-item">
 
@@ -138,6 +154,8 @@
             </div>
 
 
+            <!-- BRAND -->
+
             <div class="info-item">
 
                 <span>
@@ -156,6 +174,8 @@
 
             </div>
 
+
+            <!-- MODEL -->
 
             <div class="info-item">
 
@@ -176,6 +196,8 @@
             </div>
 
 
+            <!-- CONDITION -->
+
             <div class="info-item">
 
                 <span>
@@ -194,6 +216,8 @@
 
             </div>
 
+
+            <!-- LOCATION -->
 
             <div class="info-item">
 
@@ -214,6 +238,29 @@
             </div>
 
 
+            <!-- ASSIGNED TO -->
+
+            <div class="info-item">
+
+                <span>
+                    Assigned To
+                </span>
+
+                <strong>
+
+                    {% if active_assignment %}
+                        {{ active_assignment.employee.name }}
+                    {% else %}
+                        Unassigned
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <!-- STATUS -->
+
             <div class="info-item">
 
                 <span>
@@ -221,19 +268,20 @@
                 </span>
 
                 <strong>
-
                     {{ asset.get_status_display }}
-
                 </strong>
 
             </div>
+
 
         </div>
 
     </div>
 
 
-    <!-- ================= QUICK ACTIONS ================= -->
+    <!-- =====================================================
+         QUICK ACTIONS
+    ====================================================== -->
 
     <div class="content-card">
 
@@ -257,21 +305,34 @@
         <div class="quick-actions">
 
 
-    <a
-    href="{% url 'assign_asset' asset.asset_tag %}"
-    class="action-button">
-    Assign Asset
-    </a>
+            <!-- ASSIGN -->
 
-            <a href="{% url 'transfer_asset' asset.asset_tag %}"
-    class="action-button">Transfer Asset </a>
+            <a
+                href="{% url 'assign_asset' asset.asset_tag %}"
+                class="action-button"
+            >
+                Assign Asset
+            </a>
 
 
-            <button
-                type="button"
-                class="action-button">
+            <!-- TRANSFER -->
+
+            <a
+                href="{% url 'transfer_asset' asset.asset_tag %}"
+                class="action-button"
+            >
+                Transfer Asset
+            </a>
+
+
+            <!-- MAINTENANCE -->
+
+            <a
+                href="{% url 'report_maintenance' asset.asset_tag %}"
+                class="action-button"
+            >
                 Report Maintenance
-            </button>
+            </a>
 
 
         </div>
@@ -281,7 +342,9 @@
 </div>
 
 
-<!-- ================= LIFECYCLE ================= -->
+<!-- =========================================================
+     ASSET LIFECYCLE
+========================================================= -->
 
 <div class="content-card lifecycle-card">
 
@@ -305,7 +368,9 @@
     <div class="lifecycle">
 
 
-        <!-- REGISTERED -->
+        <!-- =================================================
+             REGISTERED
+        ================================================== -->
 
         <div class="lifecycle-step completed">
 
@@ -331,7 +396,9 @@
         <div class="lifecycle-line"></div>
 
 
-        <!-- CURRENT STATUS -->
+        <!-- =================================================
+             CURRENT STATUS
+        ================================================== -->
 
         <div class="lifecycle-step active">
 
@@ -357,7 +424,9 @@
         <div class="lifecycle-line"></div>
 
 
-        <!-- MAINTENANCE -->
+        <!-- =================================================
+             MAINTENANCE
+        ================================================== -->
 
         <div class="lifecycle-step">
 
@@ -383,7 +452,9 @@
         <div class="lifecycle-line"></div>
 
 
-        <!-- RETIREMENT -->
+        <!-- =================================================
+             RETIREMENT
+        ================================================== -->
 
         <div class="lifecycle-step">
 
@@ -407,6 +478,238 @@
 
 
     </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAINTENANCE HISTORY
+========================================================= -->
+
+<div class="content-card maintenance-history-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Maintenance History
+            </h2>
+
+            <p>
+                Maintenance records for this asset
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if maintenance_records %}
+
+        <div class="maintenance-history">
+
+
+            {% for record in maintenance_records %}
+
+                <div class="maintenance-record">
+
+
+                    <!-- =====================================
+                         MAINTENANCE HEADER
+                    ====================================== -->
+
+                    <div class="maintenance-record-header">
+
+                        <div>
+
+                            <strong>
+                                {{ record.title }}
+                            </strong>
+
+                            <span>
+                                {{ record.reported_at|date:"d M Y, h:i A" }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- =================================
+                             DYNAMIC STATUS BADGE
+                        ================================== -->
+
+                        {% if record.status == "reported" %}
+
+                            <span class="status-badge status-warning">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% elif record.status == "in_progress" %}
+
+                            <span class="status-badge status-info">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% elif record.status == "completed" %}
+
+                            <span class="status-badge status-success">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% elif record.status == "cancelled" %}
+
+                            <span class="status-badge status-danger">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge status-neutral">
+                                {{ record.get_status_display }}
+                            </span>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    <!-- =====================================
+                         MAINTENANCE DETAILS
+                    ====================================== -->
+
+                    <div class="maintenance-record-details">
+
+
+                        <!-- PRIORITY -->
+
+                        <div class="info-item">
+
+                            <span>
+                                Priority
+                            </span>
+
+                            <strong>
+                                {{ record.get_priority_display }}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- TECHNICIAN -->
+
+                        <div class="info-item">
+
+                            <span>
+                                Technician
+                            </span>
+
+                            <strong>
+
+                                {% if record.technician %}
+                                    {{ record.technician }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                        <!-- COST -->
+
+                        <div class="info-item">
+
+                            <span>
+                                Cost
+                            </span>
+
+                            <strong>
+
+                                {% if record.cost %}
+                                    ₹{{ record.cost }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =====================================
+                         DESCRIPTION
+                    ====================================== -->
+
+                    <div class="maintenance-description">
+
+                        <span>
+                            Description
+                        </span>
+
+                        <p>
+                            {{ record.description }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- =====================================
+                         NOTES
+                    ====================================== -->
+
+                    {% if record.notes %}
+
+                        <div class="maintenance-description">
+
+                            <span>
+                                Notes
+                            </span>
+
+                            <p>
+                                {{ record.notes }}
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- =============================================
+             EMPTY STATE
+        ============================================== -->
+
+        <div class="empty-state">
+
+            <strong>
+                No maintenance records
+            </strong>
+
+            <p>
+                No maintenance has been reported for this asset yet.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
 
 </div>
 

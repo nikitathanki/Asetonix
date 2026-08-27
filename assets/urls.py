@@ -6,9 +6,9 @@ from .views import (
     asset_detail,
     assign_asset,
     transfer_asset,
+    report_maintenance,
+    maintenance_list,
 )
-
-
 urlpatterns = [
     path(
         "",
@@ -38,5 +38,16 @@ urlpatterns = [
     "assets/<str:asset_tag>/transfer/",
     transfer_asset,
     name="transfer_asset",
+    ),
+
+    path(
+    "assets/<str:asset_tag>/maintenance/",
+    report_maintenance,
+    name="report_maintenance",  
+    ),
+    path(
+    "maintenance/",
+    maintenance_list,
+    name="maintenance_list",    
     ),
 ]

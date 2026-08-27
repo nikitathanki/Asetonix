@@ -52,6 +52,7 @@ def dashboard(request):
         ).order_by("-reported_at")[:5],
     }
 
+
     return render(
         request,
         "assets/dashboard.html",
@@ -110,15 +111,19 @@ def asset_detail(request, asset_tag):
         "employee",
     ).first()
 
+    maintenance_records = MaintenanceRecord.objects.filter(
+        asset=asset
+    ).order_by("-reported_at")
+
     return render(
         request,
         "assets/asset_detail.html",
         {
             "asset": asset,
             "active_assignment": active_assignment,
+            "maintenance_records": maintenance_records,
         },
     )
-
 
 # =========================================================
 # ASSIGN ASSET
@@ -372,4 +377,131 @@ def transfer_asset(request, asset_tag):
             "active_assignment": active_assignment,
             "employees": employees,
         },
+    )
+
+    # =========================================================
+# REPORT MAINTENANCE
+# =========================================================
+
+@login_required
+def report_maintenance(request, asset_tag):
+
+    asset = get_object_or_404(
+        Asset,
+        asset_tag=asset_tag,
+    )
+
+    if request.method == "POST":
+
+        title = request.POST.get(
+            "title",
+            "",
+        ).strip()
+
+        description = request.POST.get(
+            "description",
+            "",
+        ).strip()
+
+        priority = request.POST.get(
+            "priority",
+            "medium",
+        )
+
+        technician = request.POST.get(
+            "technician",
+            "",
+        ).strip()
+
+        cost = request.POST.get(
+            "cost",
+            "",
+        ).strip()
+
+        notes = request.POST.get(
+            "notes",
+            "",
+        ).strip()
+
+        if not title:
+
+            messages.error(
+                request,
+                "Please enter a maintenance title.",
+            )
+
+            return render(
+                request,
+                "assets/report_maintenance.html",
+                {
+                    "asset": asset,
+                },
+            )
+
+        MaintenanceRecord.objects.create(
+            asset=asset,
+            title=title,
+            description=description,
+            priority=priority,
+            technician=technician,
+            cost=cost if cost else None,
+            notes=notes,
+        )
+
+        messages.success(
+            request,
+            f"Maintenance has been reported for "
+            f"{asset.asset_tag}.",
+        )
+
+        return redirect(
+            "asset_detail",
+            asset_tag=asset.asset_tag,
+        )
+
+    return render(
+        request,
+        "assets/report_maintenance.html",
+        {
+            "asset": asset,
+        },
+    )
+
+# =========================================================
+# MAINTENANCE LIST
+# =========================================================
+
+@login_required
+def maintenance_list(request):
+
+    maintenance_records = MaintenanceRecord.objects.select_related(
+        "asset"
+    ).order_by("-reported_at")
+
+    context = {
+        "maintenance_records": maintenance_records,
+
+        "total_count": MaintenanceRecord.objects.count(),
+
+        "reported_count": MaintenanceRecord.objects.filter(
+            status="reported"
+        ).count(),
+
+        "in_progress_count": MaintenanceRecord.objects.filter(
+            status="in_progress"
+        ).count(),
+
+        "completed_count": MaintenanceRecord.objects.filter(
+            status="completed"
+        ).count(),
+
+        "cancelled_count": MaintenanceRecord.objects.filter(
+            status="cancelled"
+        ).count(),
+    }
+
+    return render(
+        request,
+        "assets/maintenance_list.html",
+        context,
     )
