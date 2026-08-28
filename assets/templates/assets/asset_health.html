@@ -1,0 +1,155 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Asset Health | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+            Asset Health
+        </h1>
+
+        <p>
+            Monitor the current health and condition of enterprise assets
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="content-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Asset Health Overview
+            </h2>
+
+            <p>
+                Health score based on asset condition, status and maintenance history
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="asset-health-table">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Asset Tag</th>
+
+                    <th>Asset</th>
+
+                    <th>Condition</th>
+
+                    <th>Status</th>
+
+                    <th>Maintenance</th>
+
+                    <th>Health Score</th>
+
+                    <th>Health Level</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for item in asset_health_data %}
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            {{ item.asset.asset_tag }}
+                        </strong>
+                    </td>
+
+
+                    <td>
+                        {{ item.asset.name }}
+                    </td>
+
+
+                    <td>
+                        {{ item.asset.get_condition_display }}
+                    </td>
+
+
+                    <td>
+                        {{ item.asset.get_status_display }}
+                    </td>
+
+
+                    <td>
+                        {{ item.maintenance_count }}
+                    </td>
+
+
+                    <td>
+                        <strong>
+                            {{ item.score }}%
+                        </strong>
+                    </td>
+
+
+                    <td>
+
+                        <span class="health-level
+                            {% if item.health_level == 'Excellent' %}
+                                health-excellent
+                            {% elif item.health_level == 'Good' %}
+                                health-good
+                            {% elif item.health_level == 'Fair' %}
+                                health-fair
+                            {% else %}
+                                health-poor
+                            {% endif %}
+                        ">
+                            {{ item.health_level }}
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="7" style="text-align: center;">
+
+                        No assets available.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

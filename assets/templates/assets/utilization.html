@@ -1,0 +1,185 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Utilization | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+            Asset Utilization
+        </h1>
+
+        <p>
+            Monitor how enterprise assets are currently being utilized
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="stats-grid">
+
+    <div class="content-card">
+
+        <span class="stat-label">
+            Total Assets
+        </span>
+
+        <strong class="stat-value">
+            {{ total_assets }}
+        </strong>
+
+    </div>
+
+
+    <div class="content-card">
+
+        <span class="stat-label">
+            Assigned
+        </span>
+
+        <strong class="stat-value">
+            {{ assigned_assets }}
+        </strong>
+
+    </div>
+
+
+    <div class="content-card">
+
+        <span class="stat-label">
+            Available
+        </span>
+
+        <strong class="stat-value">
+            {{ available_assets }}
+        </strong>
+
+    </div>
+
+
+    <div class="content-card">
+
+        <span class="stat-label">
+            Maintenance
+        </span>
+
+        <strong class="stat-value">
+            {{ maintenance_assets }}
+        </strong>
+
+    </div>
+
+
+    <div class="content-card">
+
+        <span class="stat-label">
+            Retired
+        </span>
+
+        <strong class="stat-value">
+            {{ retired_assets }}
+        </strong>
+
+    </div>
+
+
+    <div class="content-card">
+
+        <span class="stat-label">
+            Utilization Rate
+        </span>
+
+        <strong class="stat-value">
+            {{ utilization_rate }}%
+        </strong>
+
+    </div>
+
+</div>
+
+
+<div class="content-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Utilization Overview
+            </h2>
+
+            <p>
+                Current allocation of assets across operational states
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="utilization-summary">
+
+        <div class="utilization-item">
+
+            <span>
+                Assigned Assets
+            </span>
+
+            <strong>
+                {{ assigned_assets }}
+            </strong>
+
+        </div>
+
+
+        <div class="utilization-item">
+
+            <span>
+                Available Assets
+            </span>
+
+            <strong>
+                {{ available_assets }}
+            </strong>
+
+        </div>
+
+
+        <div class="utilization-item">
+
+            <span>
+                Under Maintenance
+            </span>
+
+            <strong>
+                {{ maintenance_assets }}
+            </strong>
+
+        </div>
+
+
+        <div class="utilization-item">
+
+            <span>
+                Retired Assets
+            </span>
+
+            <strong>
+                {{ retired_assets }}
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Retirements | Asetonix
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+            Retirements
+        </h1>
+
+        <p>
+            Track assets that have reached the end of their lifecycle
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RETIREMENT STATISTICS
+===================================================== -->
+
+<div class="stats-grid retirement-stats-grid">
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Retired Assets
+        </span>
+
+        <strong class="stat-value">
+            {{ total_retired }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RETIRED ASSETS
+===================================================== -->
+
+<div class="content-card retirements-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Retired Assets
+            </h2>
+
+            <p>
+                Assets that are no longer operational
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if retired_assets %}
+
+        <div class="retirement-list">
+
+            {% for asset in retired_assets %}
+
+                <div class="retirement-record">
+
+                    <div class="retirement-record-header">
+
+                        <div>
+
+                            <span class="retirement-asset-tag">
+                                {{ asset.asset_tag }}
+                            </span>
+
+                            <h3>
+                                {{ asset.name }}
+                            </h3>
+
+                        </div>
+
+                        <span class="status-badge status-danger">
+                            Retired
+                        </span>
+
+                    </div>
+
+
+                    <div class="retirement-info-grid">
+
+                        <div class="info-item">
+
+                            <span>
+                                Category
+                            </span>
+
+                            <strong>
+                                {% if asset.category %}
+                                    {{ asset.category }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                Brand
+                            </span>
+
+                            <strong>
+                                {% if asset.brand %}
+                                    {{ asset.brand }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                Model
+                            </span>
+
+                            <strong>
+                                {% if asset.model %}
+                                    {{ asset.model }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                Location
+                            </span>
+
+                            <strong>
+                                {% if asset.location %}
+                                    {{ asset.location }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="retirement-actions">
+
+                        <a
+                            href="{% url 'asset_detail' asset.asset_tag %}"
+                            class="action-button"
+                        >
+                            View Asset
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h3>
+                No retired assets
+            </h3>
+
+            <p>
+                Assets marked as retired will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

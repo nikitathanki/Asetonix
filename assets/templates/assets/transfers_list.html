@@ -1,0 +1,281 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Transfers | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+            Transfers
+        </h1>
+
+        <p>
+            Track asset movement and transfer history
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TRANSFER STATISTICS
+===================================================== -->
+
+<div class="stats-grid transfer-stats-grid">
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Total Transfers
+        </span>
+
+        <strong class="stat-value">
+            {{ total_transfers }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Today's Transfers
+        </span>
+
+        <strong class="stat-value">
+            {{ today_transfers }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TRANSFER RECORDS
+===================================================== -->
+
+<div class="content-card transfers-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Transfer Records
+            </h2>
+
+            <p>
+                Complete history of asset transfers
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if transfers %}
+
+        <div class="transfer-list">
+
+            {% for transfer in transfers %}
+
+                <div class="transfer-record">
+
+                    <div class="transfer-record-header">
+
+                        <div>
+
+                            <span class="transfer-asset-tag">
+                                {{ transfer.asset.asset_tag }}
+                            </span>
+
+                            <h3>
+                                {{ transfer.asset.name }}
+                            </h3>
+
+                        </div>
+
+
+                        <span class="transfer-date">
+
+                            {{ transfer.transferred_at|date:"d M Y, h:i A" }}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="transfer-flow">
+
+                        <div class="transfer-person">
+
+                            <span>
+                                FROM
+                            </span>
+
+                            <strong>
+
+                                {% if transfer.from_employee %}
+                                    {{ transfer.from_employee.name }}
+                                {% else %}
+                                    Unassigned
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="transfer-arrow">
+                            →
+                        </div>
+
+
+                        <div class="transfer-person">
+
+                            <span>
+                                TO
+                            </span>
+
+                            <strong>
+
+                                {% if transfer.to_employee %}
+                                    {{ transfer.to_employee.name }}
+                                {% else %}
+                                    Unassigned
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="transfer-info-grid">
+
+
+                        <div class="info-item">
+
+                            <span>
+                                From Location
+                            </span>
+
+                            <strong>
+
+                                {% if transfer.from_location %}
+                                    {{ transfer.from_location }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                To Location
+                            </span>
+
+                            <strong>
+
+                                {% if transfer.to_location %}
+                                    {{ transfer.to_location }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                Reason
+                            </span>
+
+                            <strong>
+
+                                {% if transfer.reason %}
+                                    {{ transfer.reason }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                Notes
+                            </span>
+
+                            <strong>
+
+                                {% if transfer.notes %}
+                                    {{ transfer.notes }}
+                                {% else %}
+                                    No notes
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="transfer-actions">
+
+                        <a
+                            href="{% url 'asset_detail' transfer.asset.asset_tag %}"
+                            class="action-button"
+                        >
+                            View Asset
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h3>
+                No transfers yet
+            </h3>
+
+            <p>
+                Asset transfer history will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+{% endblock %}

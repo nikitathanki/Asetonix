@@ -1,0 +1,245 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Assignments | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+            Assignments
+        </h1>
+
+        <p>
+            Track asset ownership and assignment history
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SUMMARY CARDS
+===================================================== -->
+
+<div class="stats-grid assignment-stats-grid">
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Total Assignments
+        </span>
+
+        <strong class="stat-value">
+            {{ total_assignments }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Active
+        </span>
+
+        <strong class="stat-value">
+            {{ active_assignments }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span class="stat-label">
+            Returned
+        </span>
+
+        <strong class="stat-value">
+            {{ returned_assignments }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ASSIGNMENT RECORDS
+===================================================== -->
+
+<div class="content-card assignments-card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Assignment Records
+            </h2>
+
+            <p>
+                Complete history of asset assignments
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if assignments %}
+
+        <div class="assignment-list">
+
+            {% for assignment in assignments %}
+
+                <div class="assignment-record">
+
+                    <div class="assignment-record-header">
+
+                        <div>
+
+                            <span class="assignment-asset-tag">
+                                {{ assignment.asset.asset_tag }}
+                            </span>
+
+                            <h3>
+                                {{ assignment.asset.name }}
+                            </h3>
+
+                        </div>
+
+
+                        {% if assignment.returned_at %}
+
+                            <span class="status-badge status-neutral">
+                                Returned
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge status-success">
+                                Active
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="assignment-info-grid">
+
+
+                        <div class="info-item">
+
+                            <span>
+                                Assigned To
+                            </span>
+
+                            <strong>
+                                {{ assignment.employee.name }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                Assigned Date
+                            </span>
+
+                            <strong>
+                                {{ assignment.assigned_at|date:"d M Y, h:i A" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                Returned Date
+                            </span>
+
+                            <strong>
+
+                                {% if assignment.returned_at %}
+
+                                    {{ assignment.returned_at|date:"d M Y, h:i A" }}
+
+                                {% else %}
+
+                                    Currently Assigned
+
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                Notes
+                            </span>
+
+                            <strong>
+
+                                {% if assignment.notes %}
+                                    {{ assignment.notes }}
+                                {% else %}
+                                    No notes
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="assignment-actions">
+
+                        <a
+                            href="{% url 'asset_detail' assignment.asset.asset_tag %}"
+                            class="action-button"
+                        >
+                            View Asset
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h3>
+                No assignments found
+            </h3>
+
+            <p>
+                Asset assignment records will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

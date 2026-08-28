@@ -4,8 +4,11 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>
         {% block title %}Asetonix{% endblock %}
@@ -15,6 +18,7 @@
           href="{% static 'assets/css/style.css' %}">
 
     {% block extra_css %}{% endblock %}
+
 </head>
 
 
@@ -62,8 +66,10 @@
 
             <div class="nav-section">
 
-                <a href="{% url 'dashboard' %}"
-                   class="nav-item {% block dashboard_active %}{% endblock %}">
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="nav-item {% block dashboard_active %}{% endblock %}"
+                >
 
                     <span class="nav-icon">
                         ◈
@@ -78,14 +84,21 @@
             </div>
 
 
-            <!-- ASSET MANAGEMENT -->
+            <!-- =================================================
+                 ASSET MANAGEMENT
+            ================================================== -->
 
             <div class="nav-title">
                 ASSET MANAGEMENT
             </div>
 
 
-            <a href="/assets/" class="nav-item">
+            <!-- ASSETS -->
+
+            <a
+                href="{% url 'assets_list' %}"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ◫
@@ -102,7 +115,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- CATEGORIES -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ▦
@@ -119,7 +137,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- BRANDS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ◩
@@ -136,7 +159,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- MODELS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ▧
@@ -154,14 +182,21 @@
 
 
 
-            <!-- LIFECYCLE -->
+            <!-- =================================================
+                 LIFECYCLE
+            ================================================== -->
 
             <div class="nav-title">
                 LIFECYCLE
             </div>
 
 
-            <a href="#" class="nav-item">
+            <!-- ASSIGNMENTS -->
+
+            <a
+                href="{% url 'assignments_list' %}"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ◎
@@ -178,7 +213,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- TRANSFERS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ⇄
@@ -195,7 +235,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- MAINTENANCE -->
+
+            <a
+                href="{% url 'maintenance_list' %}"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ⚒
@@ -212,7 +257,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- RETIREMENTS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ◉
@@ -230,15 +280,19 @@
 
 
 
-            <!-- ANALYTICS -->
+            <!-- =================================================
+                 ANALYTICS
+            ================================================== -->
 
             <div class="nav-title">
                 ANALYTICS
             </div>
 
 
-            <a href="#" class="nav-item">
+            <!-- ASSET HEALTH -->
 
+<a href="{% url 'asset_health' %}"
+    class="nav-item">
                 <span class="nav-icon">
                     ∿
                 </span>
@@ -254,7 +308,9 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- UTILIZATION -->
+
+           <a href="{% url 'utilization' %}" class="nav-item">
 
                 <span class="nav-icon">
                     ◔
@@ -271,7 +327,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- RISK ANALYSIS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     △
@@ -288,7 +349,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- COST ANALYSIS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ₹
@@ -306,14 +372,21 @@
 
 
 
-            <!-- GOVERNANCE -->
+            <!-- =================================================
+                 GOVERNANCE
+            ================================================== -->
 
             <div class="nav-title">
                 GOVERNANCE
             </div>
 
 
-            <a href="#" class="nav-item">
+            <!-- AUDIT TRAIL -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ▣
@@ -330,7 +403,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- ALERTS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ♢
@@ -347,7 +425,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- USERS & ROLES -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ◎
@@ -364,7 +447,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- DEPARTMENTS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ▤
@@ -381,7 +469,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- LOCATIONS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ⌖
@@ -399,14 +492,21 @@
 
 
 
-            <!-- REPORTS -->
+            <!-- =================================================
+                 REPORTS
+            ================================================== -->
 
             <div class="nav-title">
                 REPORTS
             </div>
 
 
-            <a href="#" class="nav-item">
+            <!-- REPORTS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ▥
@@ -423,7 +523,12 @@
             </a>
 
 
-            <a href="#" class="nav-item">
+            <!-- EXPORT DATA -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ⇩
@@ -466,8 +571,10 @@
             </p>
 
 
-            <button class="ai-button"
-                    type="button">
+            <button
+                class="ai-button"
+                type="button"
+            >
 
                 View Insights →
 
@@ -550,10 +657,13 @@
             <div class="topbar-actions">
 
 
+                <!-- NOTIFICATIONS -->
+
                 <button
                     type="button"
                     class="top-icon"
-                    title="Notifications">
+                    title="Notifications"
+                >
 
                     ♢
 
@@ -564,10 +674,13 @@
                 </button>
 
 
+                <!-- SETTINGS -->
+
                 <button
                     type="button"
                     class="top-icon"
-                    title="Settings">
+                    title="Settings"
+                >
 
                     ⚙
 

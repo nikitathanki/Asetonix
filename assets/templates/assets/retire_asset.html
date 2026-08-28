@@ -1,0 +1,286 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Retire {{ asset.asset_tag }} | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <a
+            href="{% url 'asset_detail' asset.asset_tag %}"
+            class="back-link"
+        >
+            ← Back to Asset
+        </a>
+
+        <h1>
+            Retire Asset
+        </h1>
+
+        <p>
+            Remove this asset from active operations
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="retire-layout">
+
+
+    <!-- =====================================================
+         ASSET INFORMATION
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Asset Information
+                </h2>
+
+                <p>
+                    Asset that will be retired
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="retire-asset-info">
+
+
+            <div class="info-item">
+
+                <span>
+                    Asset Tag
+                </span>
+
+                <strong>
+                    {{ asset.asset_tag }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Asset Name
+                </span>
+
+                <strong>
+                    {{ asset.name }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Category
+                </span>
+
+                <strong>
+                    {% if asset.category %}
+                        {{ asset.category }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Current Status
+                </span>
+
+                <strong>
+                    {{ asset.get_status_display }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Location
+                </span>
+
+                <strong>
+                    {% if asset.location %}
+                        {{ asset.location }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Condition
+                </span>
+
+                <strong>
+                    {{ asset.get_condition_display }}
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         RETIREMENT FORM
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Retirement Details
+                </h2>
+
+                <p>
+                    Provide information about the retirement
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form
+            method="post"
+            class="retire-form"
+        >
+
+            {% csrf_token %}
+
+
+            <div class="form-group">
+
+                <label for="reason">
+                    Retirement Reason
+                </label>
+
+                <select
+                    name="reason"
+                    id="reason"
+                    required
+                >
+
+                    <option value="">
+                        Select a reason
+                    </option>
+
+                    <option value="End of useful life">
+                        End of useful life
+                    </option>
+
+                    <option value="Damaged beyond repair">
+                        Damaged beyond repair
+                    </option>
+
+                    <option value="Obsolete">
+                        Obsolete
+                    </option>
+
+                    <option value="Replacement">
+                        Replaced by newer asset
+                    </option>
+
+                    <option value="Lost or unrecoverable">
+                        Lost or unrecoverable
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="notes">
+                    Notes
+                </label>
+
+                <textarea
+                    name="notes"
+                    id="notes"
+                    rows="5"
+                    placeholder="Add any additional retirement notes..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="retirement-warning">
+
+                <strong>
+                    Retirement is a permanent lifecycle action.
+                </strong>
+
+                <p>
+                    This asset will be marked as retired and removed
+                    from active asset operations.
+                </p>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'asset_detail' asset.asset_tag %}"
+                    class="btn-secondary"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn-danger"
+                >
+                    Retire Asset
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

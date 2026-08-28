@@ -8,13 +8,33 @@ from .views import (
     transfer_asset,
     report_maintenance,
     maintenance_list,
+    assignments_list,
+    transfers_list,
+    retirements_list,
+    retire_asset,
+    asset_health,
+    utilization,
+    risk_analysis,
+    cost_analysis
 )
+
+
 urlpatterns = [
+
+    # =====================================================
+    # DASHBOARD
+    # =====================================================
+
     path(
         "",
         dashboard,
         name="dashboard",
     ),
+
+
+    # =====================================================
+    # ASSETS
+    # =====================================================
 
     path(
         "assets/",
@@ -28,6 +48,11 @@ urlpatterns = [
         name="asset_detail",
     ),
 
+
+    # =====================================================
+    # ASSET ACTIONS
+    # =====================================================
+
     path(
         "assets/<str:asset_tag>/assign/",
         assign_asset,
@@ -35,19 +60,72 @@ urlpatterns = [
     ),
 
     path(
-    "assets/<str:asset_tag>/transfer/",
-    transfer_asset,
-    name="transfer_asset",
+        "assets/<str:asset_tag>/transfer/",
+        transfer_asset,
+        name="transfer_asset",
     ),
 
     path(
-    "assets/<str:asset_tag>/maintenance/",
-    report_maintenance,
-    name="report_maintenance",  
+        "assets/<str:asset_tag>/maintenance/",
+        report_maintenance,
+        name="report_maintenance",
+    ),
+
+    path(
+        "assets/<str:asset_tag>/retire/",
+        retire_asset,
+        name="retire_asset",
+    ),
+
+
+    # =====================================================
+    # MANAGEMENT LISTS
+    # =====================================================
+
+    path(
+        "maintenance/",
+        maintenance_list,
+        name="maintenance_list",
+    ),
+
+    path(
+        "assignments/",
+        assignments_list,
+        name="assignments_list",
+    ),
+
+    path(
+        "transfers/",
+        transfers_list,
+        name="transfers_list",
+    ),
+
+    path(
+        "retirements/",
+        retirements_list,
+        name="retirements_list",
     ),
     path(
-    "maintenance/",
-    maintenance_list,
-    name="maintenance_list",    
+    "asset-health/",
+    asset_health,
+    name="asset_health",
+    ),
+    path(
+    "utilization/",
+    utilization,
+    name="utilization",
+    ),
+
+    path(
+    "risk-analysis/",
+    risk_analysis, 
+    name="risk_analysis"
+    ),
+
+
+    path(
+        "cost-analysis/",
+        cost_analysis,
+        name="cost_analysis",
     ),
 ]

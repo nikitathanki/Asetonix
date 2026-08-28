@@ -1,0 +1,145 @@
+{% extends "assets/base.html" %}
+
+{% block content %}
+
+<div class="cost-analysis-page">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div>
+            <h1>Cost Analysis</h1>
+            <p>Monitor maintenance and operational costs of enterprise assets</p>
+        </div>
+    </div>
+
+
+    <!-- SUMMARY CARDS -->
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-label">Total Assets</div>
+            <div class="stat-value">
+                {{ total_assets }}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Maintenance Cost</div>
+            <div class="stat-value">
+                ₹{{ total_maintenance_cost|floatformat:2 }}
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- COST OVERVIEW -->
+    <div class="content-card">
+
+        <div class="card-header">
+            <div>
+                <h2>Cost Overview</h2>
+                <p>Maintenance cost recorded for each enterprise asset</p>
+            </div>
+        </div>
+
+
+        {% if asset_costs %}
+
+        <div class="table-wrapper">
+
+            <table class="cost-table">
+
+                <thead>
+                    <tr>
+
+                        <th class="col-tag">
+                            ASSET TAG
+                        </th>
+
+                        <th class="col-asset">
+                            ASSET
+                        </th>
+
+                        <th class="col-category">
+                            CATEGORY
+                        </th>
+
+                        <th class="col-status">
+                            STATUS
+                        </th>
+
+                        <th class="col-records">
+                            <span>MAINTENANCE</span>
+                            <span>RECORDS</span>
+                        </th>
+
+                        <th class="col-cost">
+                            <span>MAINTENANCE</span>
+                            <span>COST</span>
+                        </th>
+
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    {% for item in asset_costs %}
+
+                    <tr>
+
+                        <td class="col-tag">
+                            <strong>
+                                {{ item.asset.asset_tag }}
+                            </strong>
+                        </td>
+
+                        <td class="col-asset">
+                            {{ item.asset.name }}
+                        </td>
+
+                        <td class="col-category">
+                            {{ item.asset.category }}
+                        </td>
+
+                        <td class="col-status">
+                            <span class="status-badge">
+                                {{ item.asset.get_status_display }}
+                            </span>
+                        </td>
+
+                        <td class="col-records">
+                            {{ item.maintenance_count }}
+                        </td>
+
+                        <td class="col-cost">
+                            <strong>
+                                ₹{{ item.maintenance_cost|floatformat:2 }}
+                            </strong>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+            <h3>No cost records</h3>
+            <p>Maintenance cost information will appear here.</p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
