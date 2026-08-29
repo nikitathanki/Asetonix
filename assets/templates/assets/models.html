@@ -1,0 +1,220 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Models | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="models-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Models
+            </h1>
+
+            <p>
+                Monitor and organize asset models used across the enterprise
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUMMARY CARDS
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+
+        <!-- TOTAL MODELS -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Total Models
+            </div>
+
+            <div class="stat-value">
+                {{ total_models }}
+            </div>
+
+        </div>
+
+
+
+        <!-- ACTIVE MODELS -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Models
+            </div>
+
+            <div class="stat-value">
+                {{ active_models }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MODEL OVERVIEW
+    ====================================================== -->
+
+    <div class="content-card">
+
+
+        <!-- CARD HEADER -->
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Model Overview
+                </h2>
+
+                <p>
+                    Models currently associated with enterprise assets
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        {% if asset_models %}
+
+
+        <!-- =================================================
+             MODEL TABLE
+        ================================================== -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            MODEL
+                        </th>
+
+                        <th>
+                            ASSETS
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for item in asset_models %}
+
+                    <tr>
+
+
+                        <!-- MODEL -->
+
+                        <td>
+
+                            <strong>
+                                {{ item.model }}
+                            </strong>
+
+                        </td>
+
+
+
+                        <!-- ASSET COUNT -->
+
+                        <td>
+                            {{ item.asset_count }}
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if item.active_asset_count > 0 %}
+
+                                <span class="model-status active">
+                                    Active
+                                </span>
+
+                            {% else %}
+
+                                <span class="model-status inactive">
+                                    Inactive
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <div class="empty-state">
+
+            <h3>
+                No models available
+            </h3>
+
+            <p>
+                Model information will appear here once assets
+                are associated with a model.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

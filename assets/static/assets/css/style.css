@@ -5995,3 +5995,286 @@ a.action-button {
     }
 
 }
+
+/* =========================================================
+   MODELS
+========================================================= */
+
+.models-page {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.models-page .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.models-page .stat-card {
+    min-height: 145px;
+    padding: 28px 30px;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MODEL OVERVIEW
+========================================================= */
+
+.models-page .content-card {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.models-page .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.models-page table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.models-page th {
+    padding: 17px 22px;
+
+    background: #f8fafc;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    letter-spacing: 0.04em;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TABLE DATA
+========================================================= */
+
+.models-page td {
+    padding: 21px 22px;
+
+    color: #17365d;
+
+    font-size: 14px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    vertical-align: middle;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LAST ROW
+========================================================= */
+
+.models-page tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   ROW HOVER
+========================================================= */
+
+.models-page tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   COLUMN WIDTHS
+========================================================= */
+
+.models-page th:nth-child(1),
+.models-page td:nth-child(1) {
+    width: 55%;
+}
+
+.models-page th:nth-child(2),
+.models-page td:nth-child(2) {
+    width: 20%;
+    text-align: center;
+}
+
+.models-page th:nth-child(3),
+.models-page td:nth-child(3) {
+    width: 25%;
+    text-align: center;
+}
+
+
+/* =========================================================
+   MODEL NAME
+========================================================= */
+
+.models-page td:nth-child(1) strong {
+    color: #17365d;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ASSET COUNT
+========================================================= */
+
+.models-page td:nth-child(2) {
+    color: #17365d;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.models-page .model-status {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 72px;
+
+    padding: 7px 16px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* ACTIVE */
+
+.models-page .model-status.active {
+    background: #dcfce7;
+    color: #166534;
+}
+
+
+/* INACTIVE */
+
+.models-page .model-status.inactive {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.models-page .empty-state {
+    padding: 55px 20px;
+
+    text-align: center;
+
+    color: #64748b;
+}
+
+.models-page .empty-state h3 {
+    margin: 0 0 8px;
+
+    color: #17365d;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+.models-page .empty-state p {
+    margin: 0;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .models-page .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .models-page .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .models-page table {
+        min-width: 650px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .models-page .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .models-page .stat-card {
+        min-height: 125px;
+        padding: 24px;
+    }
+
+    .models-page th,
+    .models-page td {
+        padding: 16px 18px;
+    }
+
+    .models-page table {
+        min-width: 650px;
+    }
+
+}

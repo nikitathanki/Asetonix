@@ -7,6 +7,7 @@ from django.db.models import Count
 from .models import Category
 from django.db import models
 from django.db.models import Count
+from django.db.models import Count, Q
 
 
 from .models import (
@@ -1161,5 +1162,46 @@ def brands(request):
     return render(
         request,
         "assets/brands.html",
+        context,
+    )
+# =========================================================
+# MODELS
+# =========================================================
+
+@login_required
+def models_list(request):
+
+    asset_models = (
+        Asset.objects
+        .exclude(model="")
+        .exclude(model__isnull=True)
+        .values("model")
+        .annotate(
+            asset_count=Count("id"),
+            active_asset_count=Count(
+                "id",
+                filter=~Q(status="retired")
+            ),
+        )
+        .order_by("model")
+    )
+
+    total_models = asset_models.count()
+
+    active_models = sum(
+        1
+        for item in asset_models
+        if item["active_asset_count"] > 0
+    )
+
+    context = {
+        "asset_models": asset_models,
+        "total_models": total_models,
+        "active_models": active_models,
+    }
+
+    return render(
+        request,
+        "assets/models.html",
         context,
     )
