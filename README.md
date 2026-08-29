@@ -1,59 +1,64 @@
 
 # Asetonix
 
-## Enterprise Asset Management System
+## Enterprise Asset Intelligence Platform
 
-Asetonix is a web-based **Enterprise Asset Management System (EAM)** designed to help organizations manage, track, and monitor the complete lifecycle of their physical and digital assets.
+Asetonix is a web-based **Enterprise Asset Management and Asset Intelligence Platform** designed to help organizations manage, track, analyze, and optimize the complete lifecycle of their physical and digital assets.
 
-The system provides a centralized platform for asset management, employee management, assignments, transfers, maintenance, retirements, departments, locations, audit history, alerts, user management, and asset analytics.
+The platform provides centralized asset management together with employee management, assignments, transfers, maintenance, retirements, lifecycle history, auditability, alerts, analytics, reporting, data export, and an extensible foundation for AI-powered asset intelligence.
 
----
-
-## Overview
-
-Organizations often manage assets across different departments, employees, offices, and operational locations. Without a centralized system, it can become difficult to determine the current ownership, location, condition, status, and history of an asset.
-
-Asetonix addresses this problem by providing a structured platform for managing assets throughout their lifecycle.
-
-The system helps answer important operational questions:
-
-- What assets does the organization own?
-- Where is each asset currently located?
-- Who is responsible for an assigned asset?
-- What is the current condition of an asset?
-- Which assets are available, assigned, under maintenance, or retired?
-- Which assets require attention?
-- What activities have occurred during an asset's lifecycle?
-- Which department or location is associated with an asset?
-- Which users can access the system?
+Asetonix is being designed as a **business-oriented enterprise application rather than a simple CRUD system**.
 
 ---
 
-## Vision
+# Overview
 
-The vision of Asetonix is to provide organizations with a reliable and centralized platform for managing their assets and related operational processes.
+Organizations manage assets across multiple employees, departments, locations, and operational environments.
 
-The system focuses on:
+Without a centralized system, it can become difficult to determine:
 
-- Centralized asset tracking
-- Employee and department management
-- Asset assignment and return
-- Asset transfers
-- Maintenance management
-- Asset retirement
-- Lifecycle history
-- Audit trail
-- Asset health analysis
-- Utilization analysis
-- Risk analysis
-- Cost analysis
-- Operational alerts
-- User and role management
-- Reporting and data export
+- What assets the organization owns
+- Where each asset is located
+- Who is responsible for an asset
+- What condition an asset is in
+- Whether an asset is available, assigned, under maintenance, or retired
+- How much an asset costs to maintain
+- What activities occurred during its lifecycle
+- Which assets require attention
+- Which assets may represent operational or financial risk
+
+Asetonix addresses these challenges through a centralized platform for managing the complete asset lifecycle.
 
 ---
 
-# Core Modules
+# Vision
+
+The long-term vision of Asetonix is to evolve from a traditional Enterprise Asset Management System into an **Enterprise Asset Intelligence Platform**.
+
+The platform is designed to help organizations:
+
+- Track assets
+- Manage ownership
+- Manage assignments
+- Monitor asset condition
+- Manage maintenance
+- Track transfers
+- Maintain lifecycle history
+- Analyze utilization
+- Analyze asset risk
+- Analyze asset costs
+- Identify operational issues
+- Generate reports
+- Export business data
+- Generate intelligent recommendations
+- Predict maintenance and risk
+- Detect unusual asset behavior
+- Optimize asset utilization
+- Support asset replacement decisions
+
+---
+
+# Core Capabilities
 
 ## 1. Asset Management
 
@@ -67,11 +72,14 @@ Asset information includes:
 - Brand
 - Model
 - Serial number
-- Purchase information
+- Purchase date
+- Purchase price
 - Current status
 - Physical condition
 - Location
-- Additional notes
+- Notes
+- Creation date
+- Last updated date
 
 Assets act as the central entity connecting assignments, transfers, maintenance, retirement, and lifecycle activities.
 
@@ -126,7 +134,7 @@ The system automatically updates the operational status of an asset when it is a
 
 ## 4. Asset Transfers
 
-The Transfer module manages the movement of assets between employees and organizational locations.
+The Transfer module manages movement of assets between employees and organizational locations.
 
 Transfer information includes:
 
@@ -138,7 +146,7 @@ Transfer information includes:
 * Transfer date
 * Transfer notes
 
-This provides better visibility when an asset changes ownership or location.
+Transfers also contribute to lifecycle visibility and historical tracking.
 
 ---
 
@@ -149,13 +157,18 @@ The Maintenance module manages assets that require inspection, repair, servicing
 Maintenance information includes:
 
 * Asset
+* Maintenance title
+* Description
+* Priority
 * Maintenance status
-* Service date
-* Maintenance activity
-* Maintenance notes
-* Maintenance history
+* Reported date
+* Start date
+* Completion date
+* Maintenance cost
+* Technician
+* Notes
 
-Maintenance information also contributes to asset monitoring and operational alerts.
+Maintenance records contribute to asset health, risk analysis, operational alerts, and future predictive maintenance capabilities.
 
 ---
 
@@ -168,7 +181,7 @@ Retirement information includes:
 * Asset
 * Retirement date
 * Retirement reason
-* Notes
+* Retirement notes
 * Retirement status
 
 Retired assets are removed from active operations while their historical information remains available.
@@ -202,23 +215,24 @@ Category information includes:
 
 The Brands module manages manufacturers associated with organizational assets.
 
-It provides:
+Examples include:
+
+* Dell
+* HP
+* Lenovo
+* Other manufacturers
+
+Brand information includes:
 
 * Brand name
 * Associated asset count
 * Brand status
 
-Examples:
-
-* Dell
-* HP
-* Lenovo
-
 ---
 
 ## 9. Models
 
-The Models module manages specific asset models and their associated brands.
+The Models module provides model-level organization of assets.
 
 Example:
 
@@ -254,13 +268,15 @@ Department information includes:
 * Employee count
 * Department status
 
+Departments can be used for organizational reporting, asset ownership analysis, and future cost and utilization analysis.
+
 ---
 
 ## 11. Locations
 
 The Locations module manages physical and operational locations where assets may be stored or used.
 
-Location information includes:
+Location information can include:
 
 * Location name
 * Building
@@ -268,17 +284,22 @@ Location information includes:
 * Associated assets
 * Location status
 
+The location architecture is designed to support organizations operating across multiple offices, branches, facilities, and operational environments.
+
 ---
+
+# Asset Intelligence
 
 ## 12. Asset Health
 
-The Asset Health module evaluates the current health of assets.
+The Asset Health module evaluates the operational health of assets.
 
-The health score is calculated using factors such as:
+Health analysis can consider factors such as:
 
 * Asset condition
 * Asset status
 * Maintenance history
+* Operational activity
 
 Health levels include:
 
@@ -287,13 +308,15 @@ Health levels include:
 * Fair
 * Poor
 
+The health layer provides a foundation for future predictive asset intelligence.
+
 ---
 
-## 13. Utilization
+## 13. Utilization Analysis
 
-The Utilization module provides an overview of how organizational assets are currently being used.
+The Utilization module provides visibility into how organizational assets are being used.
 
-It provides:
+Current analysis includes:
 
 * Total assets
 * Assigned assets
@@ -302,13 +325,21 @@ It provides:
 * Retired assets
 * Utilization rate
 
+Future enhancements can include:
+
+* Underutilized asset detection
+* Department utilization comparison
+* Location utilization comparison
+* Historical utilization trends
+* Asset usage optimization recommendations
+
 ---
 
 ## 14. Risk Analysis
 
 The Risk Analysis module identifies assets that may require monitoring or intervention.
 
-Risk analysis considers:
+Current risk analysis considers:
 
 * Asset condition
 * Asset status
@@ -320,148 +351,38 @@ Risk levels include:
 * Medium Risk
 * High Risk
 
+The planned intelligence layer will extend this into predictive risk analysis using historical operational data.
+
 ---
 
 ## 15. Cost Analysis
 
 The Cost Analysis module provides visibility into asset-related financial information.
 
-It can be used to analyze:
+Analysis can include:
 
 * Asset purchase costs
 * Maintenance costs
 * Asset-related expenditure
 * Cost distribution
 
----
+Future financial intelligence will include:
 
-## 16. Audit Trail
-
-The Audit Trail module maintains a chronological history of important asset activities.
-
-Activities can include:
-
-* Assignment
-* Return
-* Transfer
-* Maintenance
-* Retirement
-* Location-related changes
-* Other lifecycle activities
+* Total Cost of Ownership
+* Maintenance cost trends
+* Cost by department
+* Cost by location
+* High-cost assets
+* High-maintenance assets
+* Replacement candidates
 
 ---
 
-## 17. Alerts
+# Lifecycle & Governance
 
-The Alerts module provides operational visibility into asset conditions that may require attention.
+## 16. Asset Lifecycle
 
-Current alert categories include:
-
-* High Risk Assets
-* Maintenance Required
-* Active Assignments
-* Retired Assets
-
-The alert page provides:
-
-* Alert counts
-* High-risk asset information
-* Maintenance information
-* Assignment information
-* Retired asset information
-* Risk scores
-
----
-
-## 18. Users & Roles
-
-The Users & Roles module provides visibility into system users and access levels.
-
-It includes:
-
-* System users
-* User status
-* User roles
-* Staff users
-* Superusers
-* Groups
-* Permissions
-* Access levels
-
-Current access classifications include:
-
-* Superuser
-* Staff
-* Standard User
-
----
-
-## 19. Dashboard & Analytics
-
-The Dashboard provides centralized operational visibility into the asset environment.
-
-Dashboard information can include:
-
-* Total assets
-* Available assets
-* Assigned assets
-* Assets under maintenance
-* Retired assets
-* Asset distribution
-* Assignment activity
-* Maintenance activity
-* Lifecycle activity
-* Operational alerts
-
-Analytics modules include:
-
-* Asset Health
-* Utilization
-* Risk Analysis
-* Cost Analysis
-
----
-
-## 20. Reports
-
-The Reports module is currently **under development**.
-
-Planned reporting functionality includes:
-
-* Asset reports
-* Assignment reports
-* Transfer reports
-* Maintenance reports
-* Retirement reports
-* Department reports
-* Location reports
-* Lifecycle reports
-
----
-
-## 21. Export Data
-
-The Export Data functionality is currently **under development**.
-
-Planned export capabilities include:
-
-* Asset data export
-* Assignment data export
-* Maintenance data export
-* Lifecycle data export
-* Reporting data export
-
-Planned formats may include:
-
-* CSV
-* Excel
-* PDF
-
----
-
-# Asset Lifecycle
-
-Asetonix follows a structured asset lifecycle:
+Asetonix follows a structured asset lifecycle.
 
 ```text
 Acquisition
@@ -480,10 +401,632 @@ Available
     ↓
 Transferred
     ↓
+Retirement Review
+    ↓
 Retired
 ```
 
-Important lifecycle activities can be recorded through the audit trail.
+Important lifecycle activities are recorded through the asset history and audit mechanisms.
+
+---
+
+## 17. Audit Trail
+
+The Audit Trail provides a chronological history of important asset activities.
+
+Activities can include:
+
+* Assignment
+* Return
+* Transfer
+* Maintenance
+* Retirement
+* Location changes
+* Other lifecycle activities
+
+Example:
+
+```text
+Asset Assigned
+      ↓
+Asset Returned
+      ↓
+Asset Transferred
+      ↓
+Maintenance Reported
+      ↓
+Maintenance Completed
+      ↓
+Asset Retired
+```
+
+This provides historical visibility and supports accountability.
+
+---
+
+## 18. Alerts
+
+The Alerts module provides operational visibility into conditions that may require attention.
+
+Current alert categories include:
+
+* High Risk Assets
+* Maintenance Required
+* Active Asset Returns
+* Retired Assets
+
+Alert information can include:
+
+* Alert counts
+* High-risk asset information
+* Maintenance information
+* Assignment information
+* Retirement information
+* Risk scores
+
+Future enhancements will include automated notifications and intelligent alerts.
+
+---
+
+## 19. Users & Roles
+
+The Users & Roles module provides visibility into system users and access levels.
+
+It includes:
+
+* System users
+* User status
+* User roles
+* Staff users
+* Superusers
+* Groups
+* Permissions
+* Access levels
+
+Planned enterprise roles include:
+
+```text
+Administrator
+     ↓
+Asset Manager
+     ↓
+Department Manager
+     ↓
+Employee
+     ↓
+Auditor
+```
+
+Role-based permissions will control access to operational and administrative functionality.
+
+---
+
+# Dashboard & Analytics
+
+## 20. Dashboard
+
+The Dashboard provides centralized operational visibility into the asset environment.
+
+Current dashboard capabilities include operational asset statistics and key asset information.
+
+The advanced dashboard will provide:
+
+* Total assets
+* Available assets
+* Assigned assets
+* Maintenance assets
+* Retired assets
+* Total asset value
+* Maintenance expenditure
+* Utilization rate
+* High-risk assets
+* Asset condition distribution
+* Asset distribution by category
+* Asset distribution by department
+* Asset distribution by location
+* Assignment trends
+* Maintenance trends
+* Retirement trends
+* Operational alerts
+
+---
+
+# Advanced Analytics
+
+Asetonix is planned to include a dedicated advanced analytics layer.
+
+## Planned Analytics
+
+### Asset Distribution
+
+Analyze assets by:
+
+* Category
+* Brand
+* Model
+* Department
+* Location
+* Status
+* Condition
+
+### Utilization Analytics
+
+Analyze:
+
+* Assigned assets
+* Available assets
+* Underutilized assets
+* Department utilization
+* Location utilization
+* Historical utilization trends
+
+### Maintenance Analytics
+
+Analyze:
+
+* Maintenance frequency
+* Maintenance cost
+* Maintenance status
+* Maintenance trends
+* Repeated maintenance
+* High-maintenance assets
+
+### Financial Analytics
+
+Analyze:
+
+* Purchase expenditure
+* Maintenance expenditure
+* Total asset value
+* Cost distribution
+* Total Cost of Ownership
+
+---
+
+# Advanced Reports
+
+## 21. Reports
+
+The Reports module provides centralized operational reporting.
+
+Current reporting capabilities include:
+
+* Asset reports
+* Organization reports
+* Asset statistics
+* Operational summaries
+
+The advanced reporting layer will provide:
+
+* Asset reports
+* Assignment reports
+* Transfer reports
+* Maintenance reports
+* Retirement reports
+* Department reports
+* Location reports
+* Lifecycle reports
+* Risk reports
+* Cost reports
+* Utilization reports
+* AI insight reports
+
+Advanced reports will support:
+
+* Filters
+* Charts
+* Trends
+* KPIs
+* Tables
+* Business summaries
+* Data export
+
+---
+
+# Data Export
+
+## 22. Export Data
+
+The Export Data module currently provides CSV export functionality.
+
+Available exports include:
+
+* Asset Data
+* Assignment Data
+* Maintenance Data
+* Lifecycle Data
+
+Example export structure:
+
+```text
+Asset Data
+     ↓
+CSV File
+
+Assignment Data
+     ↓
+CSV File
+
+Maintenance Data
+     ↓
+CSV File
+
+Lifecycle Data
+     ↓
+CSV File
+```
+
+Planned additional formats include:
+
+* Excel
+* PDF
+
+---
+
+# Artificial Intelligence & Asset Intelligence
+
+## 23. AI Asset Insights
+
+Asetonix is being extended with an AI-powered intelligence layer.
+
+The goal is to use actual organizational asset data to generate useful operational insights rather than providing a simple chatbot interface.
+
+Planned AI capabilities include:
+
+* Asset health insights
+* Risk explanations
+* Maintenance recommendations
+* Asset replacement recommendations
+* Utilization recommendations
+* Cost insights
+* Operational recommendations
+
+Example:
+
+```text
+Asset
+  +
+Condition
+  +
+Maintenance History
+  +
+Age
+  +
+Usage
+  +
+Cost
+  +
+Lifecycle History
+       ↓
+AI Analysis
+       ↓
+Business Insight
+       ↓
+Recommended Action
+```
+
+Example output:
+
+```text
+Asset Risk Insight
+
+AST-0001 shows elevated operational risk due to
+repeated maintenance activity and declining asset
+condition.
+
+Recommended Action:
+Schedule preventive inspection and evaluate
+replacement cost versus continued maintenance.
+```
+
+---
+
+# Predictive Maintenance
+
+## 24. Predictive Maintenance
+
+The planned predictive maintenance capability will analyze historical maintenance information to identify assets that may require attention before a failure occurs.
+
+Potential inputs include:
+
+* Maintenance frequency
+* Maintenance cost
+* Asset age
+* Asset condition
+* Previous failures
+* Maintenance history
+* Operational activity
+
+Conceptual workflow:
+
+```text
+Historical Asset Data
+        ↓
+Data Preparation
+        ↓
+Feature Analysis
+        ↓
+Prediction Model
+        ↓
+Maintenance Risk
+        ↓
+Recommended Action
+```
+
+The objective is to move from reactive maintenance toward preventive and predictive maintenance.
+
+---
+
+# Predictive Risk Analysis
+
+## 25. Intelligent Risk Prediction
+
+Future risk analysis will extend the current rule-based risk model into a data-driven prediction system.
+
+Potential factors include:
+
+* Asset age
+* Asset condition
+* Maintenance frequency
+* Maintenance cost
+* Assignment activity
+* Transfer frequency
+* Lifecycle events
+* Operational status
+
+Possible outputs:
+
+```text
+Low
+Medium
+High
+Critical
+```
+
+The system will also provide an explanation of the major factors contributing to the predicted risk.
+
+---
+
+# Anomaly Detection
+
+## 26. Asset Anomaly Detection
+
+Asetonix will support detection of unusual operational patterns.
+
+Potential anomalies include:
+
+* Unusually frequent transfers
+* Repeated maintenance events
+* Unexpected maintenance costs
+* Very short assignment periods
+* Long periods of inactivity
+* Abnormal utilization
+* Unusual lifecycle activity
+
+Example:
+
+```text
+Assignment
+    ↓
+Return
+    ↓
+Assignment
+    ↓
+Maintenance
+    ↓
+High Cost
+    ↓
+Repeated Activity
+    ↓
+Potential Anomaly
+```
+
+This can help organizations identify assets requiring investigation.
+
+---
+
+# Asset Replacement Intelligence
+
+## 27. Replacement Recommendations
+
+Asetonix will help organizations identify assets that may be candidates for replacement.
+
+Potential factors include:
+
+* Asset age
+* Declining condition
+* Maintenance frequency
+* Maintenance cost
+* Operational downtime
+* Lifecycle history
+* Total Cost of Ownership
+
+Example:
+
+```text
+High Maintenance Cost
+          +
+Poor Condition
+          +
+Repeated Failures
+          +
+High Asset Age
+          ↓
+Replacement Candidate
+```
+
+---
+
+# Financial Intelligence
+
+## 28. Total Cost of Ownership
+
+Asetonix will support financial analysis beyond the original purchase price.
+
+Conceptually:
+
+```text
+Purchase Cost
+      +
+Maintenance Cost
+      +
+Operational Cost
+      +
+Other Asset Costs
+      ↓
+Total Cost of Ownership
+```
+
+This can help organizations compare:
+
+* Continue maintaining an asset
+* Replace the asset
+* Reallocate the asset
+* Retire the asset
+
+---
+
+# Interactive 3D Asset Visualization
+
+## 29. 3D Asset Environment
+
+A future visualization module will provide an interactive 3D representation of organizational assets and locations.
+
+The goal is to provide spatial asset intelligence rather than a decorative 3D interface.
+
+Potential capabilities include:
+
+* Interactive office environment
+* Building visualization
+* Floor visualization
+* Location-based asset visualization
+* Asset selection
+* Asset information panels
+* Department filtering
+* Location filtering
+* Status filtering
+* Maintenance asset visualization
+* Assigned asset visualization
+
+Conceptual structure:
+
+```text
+Organization
+     ↓
+Building
+     ↓
+Floor
+     ↓
+Location
+     ↓
+Department
+     ↓
+Assets
+     ↓
+Asset Details
+```
+
+The 3D layer will connect with the actual Asetonix asset database.
+
+---
+
+# Workflow & Approval Automation
+
+## 30. Business Workflows
+
+Future enterprise workflows will support approval-based asset operations.
+
+Example:
+
+```text
+Employee Request
+       ↓
+Department Manager
+       ↓
+Asset Manager
+       ↓
+Approval
+       ↓
+Asset Assignment
+       ↓
+Audit Record
+```
+
+Retirement workflow:
+
+```text
+Retirement Request
+       ↓
+Manager Review
+       ↓
+Approval
+       ↓
+Asset Retired
+       ↓
+Lifecycle History
+```
+
+This allows Asetonix to support more structured enterprise processes.
+
+---
+
+# Business Applicability
+
+Asetonix is designed to be configurable for different types of organizations.
+
+## Corporate Offices
+
+Possible assets:
+
+* Laptops
+* Desktops
+* Monitors
+* Printers
+* Networking equipment
+* Office equipment
+
+## Universities
+
+Possible assets:
+
+* Computers
+* Projectors
+* Laboratory equipment
+* Library equipment
+* Furniture
+* Networking equipment
+
+## Hospitals
+
+Possible assets:
+
+* Medical equipment
+* Monitoring equipment
+* Laboratory equipment
+* Beds
+* Emergency equipment
+
+## Manufacturing
+
+Possible assets:
+
+* Machines
+* Tools
+* Production equipment
+* Safety equipment
+* Vehicles
+
+## Retail
+
+Possible assets:
+
+* POS systems
+* Barcode scanners
+* Displays
+* Networking equipment
+* Store equipment
+
+The system is designed around configurable categories, locations, departments, users, and workflows rather than being limited to a single industry.
 
 ---
 
@@ -499,7 +1042,7 @@ Important lifecycle activities can be recorded through the audit trail.
 
 * SQLite for development
 * Django database migrations
-* Architecture designed for migration to a production database
+* Production database support planned
 
 ## Frontend
 
@@ -507,6 +1050,25 @@ Important lifecycle activities can be recorded through the audit trail.
 * CSS
 * JavaScript
 * Django Templates
+
+## Visualization
+
+Planned:
+
+* Interactive charts
+* Advanced dashboards
+* 3D visualization
+
+## AI / Machine Learning
+
+Planned:
+
+* Data analysis
+* Predictive modeling
+* Risk prediction
+* Predictive maintenance
+* Anomaly detection
+* AI recommendations
 
 ## Development Tools
 
@@ -542,6 +1104,8 @@ Asetonix/
 │   │       ├── users_roles.html
 │   │       ├── departments.html
 │   │       ├── locations.html
+│   │       ├── reports.html
+│   │       ├── export_data.html
 │   │       └── ...
 │   │
 │   ├── admin.py
@@ -580,6 +1144,7 @@ Asetonix/
 * Automatic asset status updates
 * Django Admin configuration
 * Asset Management
+* Employee Management
 * Categories
 * Brands
 * Models
@@ -587,6 +1152,8 @@ Asetonix/
 * Transfers
 * Maintenance
 * Retirements
+* Asset Lifecycle
+* Asset History
 * Audit Trail
 * Asset Health
 * Utilization
@@ -599,22 +1166,56 @@ Asetonix/
 * Authentication
 * Custom Asetonix enterprise interface
 * Sidebar navigation
-* Dashboard and analytics sections
-
-## In Progress
-
+* Dashboard
 * Reports
-* Export Data
+* Asset CSV Export
+* Assignment CSV Export
+* Maintenance CSV Export
+* Lifecycle CSV Export
 
-## Planned / Refinement
+---
 
+# Advanced Development
+
+The following capabilities are part of the advanced Asetonix development roadmap:
+
+* Advanced dashboard visualizations
+* Interactive charts
 * Advanced reporting
-* Advanced analytics
-* Comprehensive automated testing
+* Advanced filtering
+* Asset utilization intelligence
+* Financial intelligence
+* Total Cost of Ownership analysis
+* AI asset insights
+* Predictive maintenance
+* Predictive risk analysis
+* Anomaly detection
+* Asset replacement recommendations
+* Automated intelligent alerts
+* Workflow approvals
+* Advanced role-based access control
+* Interactive 3D asset visualization
+* Location-based 3D asset exploration
+
+---
+
+# Testing & Security
+
+Final development will include:
+
+* Automated testing
+* Workflow testing
+* Authentication testing
+* Authorization testing
+* Permission testing
+* Input validation
+* Error handling
+* CSRF protection
 * Security hardening
-* Production database configuration
-* Production deployment
-* Final UI and UX refinement
+* Audit verification
+* Data integrity testing
+* Export testing
+* Production configuration testing
 
 ---
 
@@ -643,15 +1244,27 @@ Authentication & Role-Based Access
     ↓
 Dashboard & Alerts
     ↓
-Analytics
+Advanced Analytics & Visualization
     ↓
-Reports
+Advanced Reports
     ↓
-Export Data
+Data Export
+    ↓
+AI Asset Intelligence
+    ↓
+Predictive Risk & Maintenance
+    ↓
+Anomaly Detection
+    ↓
+Financial & TCO Intelligence
+    ↓
+Interactive 3D Asset Visualization
+    ↓
+Workflow & Approval Automation
     ↓
 Testing & Security
     ↓
-Production Deployment
+Production Readiness
     ↓
 Production-Ready Asetonix
 ```
@@ -692,8 +1305,11 @@ Typical workflow:
 
 ```bash
 git status
+
 git add .
+
 git commit -m "Describe changes"
+
 git push origin main
 ```
 
@@ -710,35 +1326,20 @@ The project demonstrates:
 * Backend development
 * Frontend development
 * Django application architecture
-* Business workflows
+* Business workflow design
 * Asset lifecycle management
 * Access control
 * Operational analytics
+* Reporting
+* Data export
 * Auditability
 * Enterprise application design
+* Data-driven decision support
+* Artificial intelligence
+* Predictive analytics
+* Visualization
 
-The long-term goal is to create a structured Enterprise Asset Management platform capable of managing assets from acquisition through retirement while maintaining operational and historical visibility.
-
----
-
-# Future Enhancements
-
-Future versions of Asetonix may include:
-
-* Advanced asset search
-* Advanced filtering
-* Automated notifications
-* Maintenance scheduling
-* Advanced analytics
-* Advanced reporting
-* CSV and Excel export
-* PDF reports
-* Improved permission management
-* Production database support
-* API integration
-* Automated testing
-* Security improvements
-* Production deployment
+The long-term goal is to create a structured **Enterprise Asset Intelligence Platform** capable of helping organizations manage assets from acquisition through retirement while providing operational visibility, analytics, predictive insights, and intelligent recommendations.
 
 ---
 
@@ -746,5 +1347,13 @@ Future versions of Asetonix may include:
 
 **🚧 Under Active Development**
 
-Asetonix is currently being developed as an **MSc IT portfolio project** focused on building a realistic Enterprise Asset Management System with practical business workflows, lifecycle management, analytics, access control, alerts, and operational visibility.
+Asetonix is currently being developed as an **MSc IT portfolio project** focused on building a realistic Enterprise Asset Management and Asset Intelligence Platform.
+
+The project is evolving from core asset lifecycle management toward advanced analytics, artificial intelligence, predictive intelligence, interactive visualization, and enterprise workflow automation.
+
+```
+
+This version fixes the outdated parts of your current README, especially the sections that incorrectly say **Reports** and **Export Data** are still under development. :contentReference[oaicite:0]{index=0}
+
+It also keeps the advanced AI and 3D features clearly marked as **planned/advanced development**, so the README does not falsely claim that we have already built features that we haven't built yet.
 ```
