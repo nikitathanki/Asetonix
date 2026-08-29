@@ -1,0 +1,725 @@
+{% extends "assets/base.html" %}
+
+
+{% block title %}
+    Alerts | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="alerts-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Alerts
+            </h1>
+
+            <p>
+                Review assets and operational conditions that may require attention
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUMMARY
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+
+        <!-- HIGH RISK -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                High Risk Assets
+            </div>
+
+            <div class="stat-value">
+                {{ high_risk_count|default:"0" }}
+            </div>
+
+        </div>
+
+
+        <!-- MAINTENANCE -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Maintenance
+            </div>
+
+            <div class="stat-value">
+                {{ maintenance_count|default:"0" }}
+            </div>
+
+        </div>
+
+
+        <!-- ACTIVE ASSIGNMENTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Assignments
+            </div>
+
+            <div class="stat-value">
+                {{ return_count|default:"0" }}
+            </div>
+
+        </div>
+
+
+        <!-- RETIRED -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Retired Assets
+            </div>
+
+            <div class="stat-value">
+                {{ retired_count|default:"0" }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ALERT OVERVIEW
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Alert Overview
+                </h2>
+
+                <p>
+                    Current asset conditions requiring review
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="alerts-list">
+
+
+            <!-- =================================================
+                 HIGH RISK
+            ================================================== -->
+
+            <div class="alert-item">
+
+                <div class="alert-icon high-risk">
+                    !
+                </div>
+
+
+                <div class="alert-content">
+
+                    <strong>
+                        High Risk Assets
+                    </strong>
+
+                    <span>
+                        Assets with a health score below 40%
+                    </span>
+
+                </div>
+
+
+                <div class="alert-count high-risk-count">
+                    {{ high_risk_count|default:"0" }}
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MAINTENANCE
+            ================================================== -->
+
+            <div class="alert-item">
+
+                <div class="alert-icon maintenance">
+                    ⚒
+                </div>
+
+
+                <div class="alert-content">
+
+                    <strong>
+                        Maintenance Required
+                    </strong>
+
+                    <span>
+                        Assets currently under maintenance
+                    </span>
+
+                </div>
+
+
+                <div class="alert-count maintenance-count">
+                    {{ maintenance_count|default:"0" }}
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ACTIVE ASSIGNMENTS
+            ================================================== -->
+
+            <div class="alert-item">
+
+                <div class="alert-icon returns">
+                    ⇄
+                </div>
+
+
+                <div class="alert-content">
+
+                    <strong>
+                        Active Assignments
+                    </strong>
+
+                    <span>
+                        Assets currently assigned and not yet returned
+                    </span>
+
+                </div>
+
+
+                <div class="alert-count returns-count">
+                    {{ return_count|default:"0" }}
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RETIRED
+            ================================================== -->
+
+            <div class="alert-item">
+
+                <div class="alert-icon retired">
+                    ◉
+                </div>
+
+
+                <div class="alert-content">
+
+                    <strong>
+                        Retired Assets
+                    </strong>
+
+                    <span>
+                        Assets removed from active operations
+                    </span>
+
+                </div>
+
+
+                <div class="alert-count retired-count">
+                    {{ retired_count|default:"0" }}
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         HIGH RISK ASSETS
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    High Risk Assets
+                </h2>
+
+                <p>
+                    Assets requiring immediate attention
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ASSET TAG
+                        </th>
+
+                        <th>
+                            ASSET
+                        </th>
+
+                        <th>
+                            CONDITION
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                        <th>
+                            RISK SCORE
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for item in high_risk_assets %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ item.asset.asset_tag }}
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            {{ item.asset.name }}
+                        </td>
+
+
+                        <td>
+                            {{ item.asset.get_condition_display|default:item.asset.condition }}
+                        </td>
+
+
+                        <td>
+                            {{ item.asset.get_status_display }}
+                        </td>
+
+
+                        <td>
+
+                            <span class="risk-badge">
+                                {{ item.score|default:"0" }}%
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="empty-state"
+                        >
+                            No high risk assets detected.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAINTENANCE ALERTS
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Maintenance Alerts
+                </h2>
+
+                <p>
+                    Assets currently under maintenance
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ASSET TAG
+                        </th>
+
+                        <th>
+                            ASSET
+                        </th>
+
+                        <th>
+                            CONDITION
+                        </th>
+
+                        <th>
+                            LOCATION
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for asset in maintenance_assets %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ asset.asset_tag }}
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            {{ asset.name }}
+                        </td>
+
+
+                        <td>
+                            {{ asset.get_condition_display|default:asset.condition }}
+                        </td>
+
+
+                        <td>
+
+                            {% if asset.location %}
+                                {{ asset.location.name }}
+                            {% else %}
+                                <span class="muted-text">
+                                    Not specified
+                                </span>
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            class="empty-state"
+                        >
+                            No maintenance alerts.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ACTIVE ASSIGNMENTS
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Active Assignments
+                </h2>
+
+                <p>
+                    Assets currently assigned to employees
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ASSET TAG
+                        </th>
+
+                        <th>
+                            ASSET
+                        </th>
+
+                        <th>
+                            EMPLOYEE
+                        </th>
+
+                        <th>
+                            ASSIGNED DATE
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for assignment in active_assignments %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ assignment.asset.asset_tag }}
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            {{ assignment.asset.name }}
+                        </td>
+
+
+                        <td>
+
+                            {% if assignment.employee %}
+                                {{ assignment.employee }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+                            {{ assignment.assigned_at|date:"d M Y" }}
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            class="empty-state"
+                        >
+                            No active assignments.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         RETIRED ASSETS
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Retired Assets
+                </h2>
+
+                <p>
+                    Assets removed from active operations
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ASSET TAG
+                        </th>
+
+                        <th>
+                            ASSET
+                        </th>
+
+                        <th>
+                            CONDITION
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for asset in retired_assets %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ asset.asset_tag }}
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            {{ asset.name }}
+                        </td>
+
+
+                        <td>
+                            {{ asset.get_condition_display|default:asset.condition }}
+                        </td>
+
+
+                        <td>
+
+                            <span class="retired-badge">
+                                {{ asset.get_status_display }}
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            class="empty-state"
+                        >
+                            No retired assets.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

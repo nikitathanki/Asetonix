@@ -124,7 +124,7 @@
             <!-- CATEGORIES -->
 
             <a
-                href="#"
+                href="{% url 'categories' %}"
                 class="nav-item"
             >
 
@@ -145,8 +145,10 @@
 
             <!-- BRANDS -->
 
-            <a href="{% url 'brands' %}"
-            class="nav-item">
+            <a
+                href="{% url 'brands' %}"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ◩
@@ -166,7 +168,7 @@
             <!-- MODELS -->
 
             <a
-                href="#"
+                href="{% url 'models' %}"
                 class="nav-item"
             >
 
@@ -218,10 +220,8 @@
 
             <!-- TRANSFERS -->
 
-            <a
-                href="#"
-                class="nav-item"
-            >
+           <a href="{% url 'transfers_list' %}"
+            class="nav-item">
 
                 <span class="nav-icon">
                     ⇄
@@ -262,10 +262,8 @@
 
             <!-- RETIREMENTS -->
 
-            <a
-                href="#"
-                class="nav-item"
-            >
+           <a href="{% url 'retirements_list' %}"
+        class="nav-item">
 
                 <span class="nav-icon">
                     ◉
@@ -412,10 +410,8 @@
 
             <!-- ALERTS -->
 
-            <a
-                href="#"
-                class="nav-item"
-            >
+            <a href="{% url 'alerts' %}" 
+            class="nav-item" >
 
                 <span class="nav-icon">
                     ♢
@@ -456,9 +452,11 @@
 
             <!-- DEPARTMENTS -->
 
-           <a href="{% url 'departments' %}"
-        class="nav-item">
-        
+            <a
+                href="{% url 'departments' %}"
+                class="nav-item"
+            >
+
                 <span class="nav-icon">
                     ▤
                 </span>
@@ -477,7 +475,7 @@
             <!-- LOCATIONS -->
 
             <a
-                href="#"
+                href="{% url 'locations' %}"
                 class="nav-item"
             >
 

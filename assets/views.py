@@ -1279,3 +1279,109 @@ def locations(request):
         "assets/locations.html",
         context,
     )
+
+# =========================================================
+# ALERTS
+# =========================================================
+
+@login_required
+def alerts(request):
+
+    # -----------------------------------------------------
+    # HIGH RISK ASSETS
+    # -----------------------------------------------------
+
+    high_risk_assets = []
+
+    assets = Asset.objects.all().order_by("asset_tag")
+
+    for asset in assets:
+
+        score = 100
+
+        condition = str(asset.condition).lower()
+
+        if condition == "good":
+            score -= 10
+
+        elif condition == "fair":
+            score -= 25
+
+        elif condition == "poor":
+            score -= 45
+
+        status = str(asset.status).lower()
+
+        if status == "maintenance":
+            score -= 25
+
+        elif status == "retired":
+            score = 0
+
+        maintenance_count = MaintenanceRecord.objects.filter(
+            asset=asset
+        ).count()
+
+        score -= min(maintenance_count * 5, 20)
+
+        score = max(0, min(score, 100))
+
+        if status != "retired" and score < 40:
+            high_risk_assets.append({
+        "asset": asset,
+        "score": score,
+    })
+
+
+    # -----------------------------------------------------
+    # MAINTENANCE ALERTS
+    # -----------------------------------------------------
+
+    maintenance_assets = Asset.objects.filter(
+        status="maintenance"
+    ).order_by("asset_tag")
+
+
+    # -----------------------------------------------------
+    # RETURN ALERTS
+    # -----------------------------------------------------
+
+    active_assignments = AssetAssignment.objects.filter(
+        returned_at__isnull=True
+    ).select_related(
+        "asset",
+        "employee",
+    ).order_by("-assigned_at")
+
+
+    # -----------------------------------------------------
+    # RETIRED ASSETS
+    # -----------------------------------------------------
+
+    retired_assets = Asset.objects.filter(
+        status="retired"
+    ).order_by("asset_tag")
+
+
+    # -----------------------------------------------------
+    # SUMMARY
+    # -----------------------------------------------------
+
+    context = {
+        "high_risk_assets": high_risk_assets,
+        "maintenance_assets": maintenance_assets,
+        "active_assignments": active_assignments,
+        "retired_assets": retired_assets,
+
+        "high_risk_count": len(high_risk_assets),
+        "maintenance_count": maintenance_assets.count(),
+        "return_count": active_assignments.count(),
+        "retired_count": retired_assets.count(),
+    }
+
+
+    return render(
+        request,
+        "assets/alerts.html",
+        context,
+    )
