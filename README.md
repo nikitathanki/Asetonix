@@ -80,8 +80,6 @@ Asetonix records:
 The system automatically reflects the asset's availability when an asset is assigned or returned.
 
 Example:
-
-```text
 Available
     ↓
 Assigned
@@ -649,4 +647,6 @@ Status
 🚧 Under Active Development
 
 Asetonix is currently being developed as an MSc IT portfolio project focused on building a realistic Enterprise Asset Management System with practical business workflows, lifecycle management, analytics, access control, and operational visibility.
+
+practical business workflows, lifecycle management, analytics, access control, and operational visibility.
 
