@@ -1352,8 +1352,3 @@ Asetonix is currently being developed as an **MSc IT portfolio project** focused
 The project is evolving from core asset lifecycle management toward advanced analytics, artificial intelligence, predictive intelligence, interactive visualization, and enterprise workflow automation.
 
 ```
-
-This version fixes the outdated parts of your current README, especially the sections that incorrectly say **Reports** and **Export Data** are still under development. :contentReference[oaicite:0]{index=0}
-
-It also keeps the advanced AI and 3D features clearly marked as **planned/advanced development**, so the README does not falsely claim that we have already built features that we haven't built yet.
-```
