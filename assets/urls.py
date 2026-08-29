@@ -21,6 +21,7 @@ from .views import (
     brands,
     models_list,
     departments,
+    locations,
 
 )
 
@@ -163,6 +164,12 @@ urlpatterns = [
     "departments/",
     departments,
     name="departments",
+    ),
+
+    path(
+    "locations/",
+    locations,
+    name="locations",
     ),
 
 ]

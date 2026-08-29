@@ -1,0 +1,257 @@
+{% extends "assets/base.html" %}
+
+
+{% block title %}
+    Locations | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="locations-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Locations
+            </h1>
+
+            <p>
+                Manage and organize enterprise asset locations
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUMMARY CARDS
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Total Locations
+            </div>
+
+            <div class="stat-value">
+                {{ total_locations }}
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Locations
+            </div>
+
+            <div class="stat-value">
+                {{ active_locations }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         LOCATION OVERVIEW
+    ====================================================== -->
+
+    <div class="content-card">
+
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Location Overview
+                </h2>
+
+                <p>
+                    Locations currently configured in Asetonix
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        {% if locations %}
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            LOCATION
+                        </th>
+
+                        <th>
+                            BUILDING
+                        </th>
+
+                        <th>
+                            FLOOR
+                        </th>
+
+                        <th>
+                            ASSETS
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for location in locations %}
+
+                    <tr>
+
+
+                        <!-- LOCATION -->
+
+                        <td>
+
+                            <strong class="location-name">
+                                {{ location.name }}
+                            </strong>
+
+                        </td>
+
+
+
+                        <!-- BUILDING -->
+
+                        <td>
+
+                            {% if location.building %}
+
+                                {{ location.building }}
+
+                            {% else %}
+
+                                <span class="no-description">
+                                    Not specified
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- FLOOR -->
+
+                        <td>
+
+                            {% if location.floor %}
+
+                                {{ location.floor }}
+
+                            {% else %}
+
+                                <span class="no-description">
+                                    Not specified
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- ASSETS -->
+
+                        <td class="asset-count">
+
+                            {{ location.asset_count }}
+
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if location.is_active %}
+
+                                <span class="location-status active">
+                                    Active
+                                </span>
+
+                            {% else %}
+
+                                <span class="location-status inactive">
+                                    Inactive
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="empty-state">
+
+            <h3>
+                No locations available
+            </h3>
+
+            <p>
+                Location information will appear here once
+                locations are configured in Asetonix.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

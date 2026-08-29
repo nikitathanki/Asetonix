@@ -18,6 +18,7 @@ from .models import (
     MaintenanceRecord,
     AssetHistory,
     Department,
+    Location,
 )
 
 
@@ -1240,5 +1241,41 @@ def departments(request):
     return render(
         request,
         "assets/departments.html",
+        context,
+    )
+# =========================================================
+# LOCATIONS
+# =========================================================
+
+@login_required
+def locations(request):
+
+    locations = (
+        Location.objects
+        .annotate(
+            asset_count=Count("assets"),
+            active_asset_count=Count(
+                "assets",
+                filter=~Q(assets__status="retired")
+            ),
+        )
+        .order_by("name")
+    )
+
+    total_locations = locations.count()
+
+    active_locations = Location.objects.filter(
+        is_active=True
+    ).count()
+
+    context = {
+        "locations": locations,
+        "total_locations": total_locations,
+        "active_locations": active_locations,
+    }
+
+    return render(
+        request,
+        "assets/locations.html",
         context,
     )

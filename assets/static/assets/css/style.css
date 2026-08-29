@@ -6595,3 +6595,288 @@ a.action-button {
     }
 
 }
+/* =========================================================
+   LOCATIONS
+========================================================= */
+
+.locations-page {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.locations-page .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.locations-page .stat-card {
+    min-height: 145px;
+    padding: 28px 30px;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTENT CARD
+========================================================= */
+
+.locations-page .content-card {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.locations-page .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+.locations-page table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.locations-page th {
+    padding: 17px 22px;
+
+    background: #f8fafc;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    letter-spacing: 0.04em;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TABLE DATA
+========================================================= */
+
+.locations-page td {
+    padding: 21px 22px;
+
+    color: #17365d;
+
+    font-size: 14px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    vertical-align: middle;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LAST ROW
+========================================================= */
+
+.locations-page tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.locations-page tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   COLUMN WIDTHS
+========================================================= */
+
+.locations-page th:nth-child(1),
+.locations-page td:nth-child(1) {
+    width: 30%;
+}
+
+.locations-page th:nth-child(2),
+.locations-page td:nth-child(2) {
+    width: 22%;
+}
+
+.locations-page th:nth-child(3),
+.locations-page td:nth-child(3) {
+    width: 15%;
+}
+
+.locations-page th:nth-child(4),
+.locations-page td:nth-child(4) {
+    width: 13%;
+    text-align: center;
+}
+
+.locations-page th:nth-child(5),
+.locations-page td:nth-child(5) {
+    width: 20%;
+    text-align: center;
+}
+
+
+/* =========================================================
+   LOCATION NAME
+========================================================= */
+
+.locations-page .location-name {
+    color: #17365d;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ASSET COUNT
+========================================================= */
+
+.locations-page .asset-count {
+    color: #17365d;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   EMPTY / UNSPECIFIED
+========================================================= */
+
+.locations-page .no-description {
+    color: #94a3b8;
+    font-style: italic;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.locations-page .location-status {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 72px;
+
+    padding: 7px 16px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+.locations-page .location-status.active {
+    background: #dcfce7;
+    color: #166534;
+}
+
+
+.locations-page .location-status.inactive {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.locations-page .empty-state {
+    padding: 55px 20px;
+
+    text-align: center;
+
+    color: #64748b;
+}
+
+.locations-page .empty-state h3 {
+    margin: 0 0 8px;
+
+    color: #17365d;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+.locations-page .empty-state p {
+    margin: 0;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .locations-page .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .locations-page table {
+        min-width: 800px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .locations-page .stat-card {
+        min-height: 125px;
+        padding: 24px;
+    }
+
+    .locations-page th,
+    .locations-page td {
+        padding: 16px 18px;
+    }
+
+    .locations-page table {
+        min-width: 800px;
+    }
+
+}
