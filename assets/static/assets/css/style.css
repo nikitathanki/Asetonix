@@ -7172,3 +7172,347 @@ a.action-button {
     }
 
 }
+
+/* =========================================================
+   USERS & ROLES
+   ========================================================= */
+
+.users-roles-page {
+    width: 100%;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.users-roles-page .page-header {
+    margin-bottom: 30px;
+}
+
+.users-roles-page .page-header h1 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.users-roles-page .page-header p {
+    margin-top: 7px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+   ========================================================= */
+
+.users-roles-page .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.users-roles-page .stat-card {
+    min-height: 145px;
+    padding: 28px 26px;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTENT CARDS
+   ========================================================= */
+
+.users-roles-page .content-card {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.users-roles-page .card-header {
+    padding: 21px 26px;
+    border-bottom: 1px solid var(--border);
+}
+
+.users-roles-page .card-header h2 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.users-roles-page .card-header p {
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   USER TABLE
+   ========================================================= */
+
+.users-roles-page .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.users-roles-page table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.users-roles-page table thead th {
+    padding: 15px 20px;
+    background: #f8fafc;
+    color: #64748b;
+    border-bottom: 1px solid #e2e8f0;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+
+    text-align: left;
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   COLUMN WIDTHS
+   ========================================================= */
+
+.users-roles-page table th:nth-child(1),
+.users-roles-page table td:nth-child(1) {
+    width: 18%;
+}
+
+.users-roles-page table th:nth-child(2),
+.users-roles-page table td:nth-child(2) {
+    width: 20%;
+}
+
+.users-roles-page table th:nth-child(3),
+.users-roles-page table td:nth-child(3) {
+    width: 30%;
+}
+
+.users-roles-page table th:nth-child(4),
+.users-roles-page table td:nth-child(4) {
+    width: 16%;
+}
+
+.users-roles-page table th:nth-child(5),
+.users-roles-page table td:nth-child(5) {
+    width: 16%;
+}
+
+
+/* =========================================================
+   TABLE BODY
+   ========================================================= */
+
+.users-roles-page table tbody td {
+    padding: 17px 20px;
+
+    color: #17365d;
+    background: #ffffff;
+
+    border-bottom: 1px solid #edf2f7;
+
+    font-size: 13px;
+    line-height: 1.45;
+
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+.users-roles-page table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.users-roles-page table tbody tr:hover td {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   USERNAME
+   ========================================================= */
+
+.users-roles-page table tbody td:first-child strong {
+    color: var(--primary);
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   EMAIL
+   ========================================================= */
+
+.users-roles-page table tbody td:nth-child(3) {
+    color: #64748b;
+}
+
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.users-roles-page .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 72px;
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 750;
+    line-height: 1.2;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.users-roles-page .empty-state {
+    padding: 45px 20px !important;
+    text-align: center;
+    color: #718096 !important;
+}
+
+
+/* =========================================================
+   ROLES & PERMISSIONS
+   ========================================================= */
+
+.users-roles-page .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+
+    padding: 24px 26px;
+}
+
+.users-roles-page .quick-actions .action-button {
+    min-height: 105px;
+
+    padding: 20px;
+
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 11px;
+
+    color: #17365d;
+
+    font-size: 13px;
+    line-height: 1.6;
+
+    box-sizing: border-box;
+
+    transition: 0.2s ease;
+}
+
+.users-roles-page .quick-actions .action-button:hover {
+    background: #ffffff;
+
+    border-color: #bfd7f2;
+
+    box-shadow:
+        0 5px 15px rgba(23, 54, 93, 0.08);
+
+    transform: translateY(-1px);
+}
+
+.users-roles-page .quick-actions .action-button strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--primary);
+
+    font-size: 15px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   ACCESS LEVELS
+   ========================================================= */
+
+.users-roles-page .content-card:last-child .quick-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.users-roles-page .content-card:last-child .action-button {
+    min-height: 95px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .users-roles-page .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .users-roles-page .quick-actions,
+    .users-roles-page .content-card:last-child .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .users-roles-page .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .users-roles-page .page-header h1 {
+        font-size: 26px;
+    }
+
+    .users-roles-page .content-card {
+        overflow: hidden;
+    }
+
+    .users-roles-page .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .users-roles-page table {
+        min-width: 850px;
+    }
+
+}

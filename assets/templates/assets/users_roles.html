@@ -1,0 +1,424 @@
+{% extends "assets/base.html" %}
+
+
+{% block title %}
+    Users & Roles | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="users-roles-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Users & Roles
+            </h1>
+
+            <p>
+                Manage system users and access roles across Asetonix
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUMMARY
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Total Users
+            </div>
+
+            <div class="stat-value">
+                {{ total_users|default:"0" }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Users
+            </div>
+
+            <div class="stat-value">
+                {{ active_users|default:"0" }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Staff Users
+            </div>
+
+            <div class="stat-value">
+                {{ staff_users|default:"0" }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Superusers
+            </div>
+
+            <div class="stat-value">
+                {{ superusers|default:"0" }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         USERS OVERVIEW
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    User Overview
+                </h2>
+
+                <p>
+                    System users currently registered in Asetonix
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            USERNAME
+                        </th>
+
+                        <th>
+                            NAME
+                        </th>
+
+                        <th>
+                            EMAIL
+                        </th>
+
+                        <th>
+                            ROLE
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for user in users %}
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                {{ user.username }}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            {% if user.get_full_name %}
+                                {{ user.get_full_name }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if user.email %}
+                                {{ user.email }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if user.is_superuser %}
+
+                                <span
+                                    class="badge"
+                                    style="
+                                        background:#ede9fe;
+                                        color:#6d28d9;
+                                    "
+                                >
+                                    Superuser
+                                </span>
+
+                            {% elif user.is_staff %}
+
+                                <span
+                                    class="badge"
+                                    style="
+                                        background:#dbeafe;
+                                        color:#1d4ed8;
+                                    "
+                                >
+                                    Staff
+                                </span>
+
+                            {% else %}
+
+                                <span
+                                    class="badge"
+                                    style="
+                                        background:#f1f5f9;
+                                        color:#475569;
+                                    "
+                                >
+                                    User
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if user.is_active %}
+
+                                <span
+                                    class="badge"
+                                    style="
+                                        background:#dcfce7;
+                                        color:#166534;
+                                    "
+                                >
+                                    Active
+                                </span>
+
+                            {% else %}
+
+                                <span
+                                    class="badge"
+                                    style="
+                                        background:#fee2e2;
+                                        color:#991b1b;
+                                    "
+                                >
+                                    Inactive
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="empty-state"
+                        >
+                            No users available.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ROLES
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Roles & Permissions
+                </h2>
+
+                <p>
+                    Groups configured for system access control
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+            {% for group in groups %}
+
+                <div class="action-button">
+
+                    <strong>
+                        {{ group.name }}
+                    </strong>
+
+                    <br>
+
+                    {{ group.permissions.count }} permission{{ group.permissions.count|pluralize }}
+
+                </div>
+
+            {% empty %}
+
+                <div class="action-button">
+
+                    <strong>
+                        No roles configured
+                    </strong>
+
+                    <br>
+
+                    Django groups can be used to define additional roles.
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ACCESS INFORMATION
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Access Levels
+                </h2>
+
+                <p>
+                    System access classification used by Asetonix
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <div class="action-button">
+
+                <strong>
+                    Superuser
+                </strong>
+
+                <br>
+
+                Full system administration access
+
+            </div>
+
+
+            <div class="action-button">
+
+                <strong>
+                    Staff
+                </strong>
+
+                <br>
+
+                Administrative access to permitted modules
+
+            </div>
+
+
+            <div class="action-button">
+
+                <strong>
+                    Standard User
+                </strong>
+
+                <br>
+
+                Regular application access
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

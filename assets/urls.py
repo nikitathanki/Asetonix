@@ -23,6 +23,7 @@ from .views import (
     departments,
     locations,
     alerts,
+    users_roles,
 
 )
 
@@ -178,5 +179,11 @@ urlpatterns = [
     alerts,
     name="alerts",
     ),
+
+    path(
+    "users-roles/",
+    users_roles,
+    name="users_roles",
+),
 
 ]

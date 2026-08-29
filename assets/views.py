@@ -8,6 +8,7 @@ from .models import Category
 from django.db import models
 from django.db.models import Count
 from django.db.models import Count, Q
+from django.contrib.auth.models import User, Group
 
 
 from .models import (
@@ -1383,5 +1384,37 @@ def alerts(request):
     return render(
         request,
         "assets/alerts.html",
+        context,
+    )
+
+# =========================================================
+# USERS & ROLES
+# =========================================================
+
+@login_required
+def users_roles(request):
+
+    users = User.objects.all().order_by("username")
+
+    total_users = users.count()
+    active_users = users.filter(is_active=True).count()
+    staff_users = users.filter(is_staff=True).count()
+    superusers = users.filter(is_superuser=True).count()
+
+    groups = Group.objects.all().order_by("name")
+
+    context = {
+        "users": users,
+        "groups": groups,
+
+        "total_users": total_users,
+        "active_users": active_users,
+        "staff_users": staff_users,
+        "superusers": superusers,
+    }
+
+    return render(
+        request,
+        "assets/users_roles.html",
         context,
     )
