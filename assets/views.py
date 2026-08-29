@@ -3,13 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from django.db.models import Count
-from .models import Category
-from django.db import models
-from django.db.models import Count
 from django.db.models import Count, Q
 from django.contrib.auth.models import User, Group
-
 
 from .models import (
     Asset,
@@ -20,6 +15,7 @@ from .models import (
     AssetHistory,
     Department,
     Location,
+    Category,
 )
 
 
@@ -624,7 +620,6 @@ def retirements_list(request):
 
     context = {
         "retired_assets": retired_assets,
-
         "total_retired": retired_assets.count(),
     }
 
@@ -771,6 +766,8 @@ def retire_asset(request, asset_tag):
             "asset": asset,
         },
     )
+
+
 # =========================================================
 # ASSET HEALTH
 # =========================================================
@@ -865,6 +862,7 @@ def asset_health(request):
         },
     )
 
+
 # =========================================================
 # UTILIZATION
 # =========================================================
@@ -895,6 +893,7 @@ def utilization(request):
     utilization_rate = 0
 
     if total_assets > 0:
+
         utilization_rate = round(
             (assigned_assets / total_assets) * 100,
             1,
@@ -912,6 +911,12 @@ def utilization(request):
             "utilization_rate": utilization_rate,
         },
     )
+
+
+# =========================================================
+# RISK ANALYSIS
+# =========================================================
+
 @login_required
 def risk_analysis(request):
 
@@ -944,6 +949,7 @@ def risk_analysis(request):
         risk_score = 0
 
         # Asset condition
+
         condition = str(
             getattr(asset, "condition", "")
         ).lower()
@@ -957,8 +963,8 @@ def risk_analysis(request):
         elif condition == "new":
             risk_score += 5
 
-
         # Asset status
+
         status = str(
             getattr(asset, "status", "")
         ).lower()
@@ -975,8 +981,8 @@ def risk_analysis(request):
         elif status == "retired":
             risk_score += 0
 
-
         # Maintenance history
+
         if maintenance_count >= 5:
             risk_score += 30
 
@@ -986,27 +992,28 @@ def risk_analysis(request):
         elif maintenance_count >= 1:
             risk_score += 10
 
-
         # Maximum score = 100
-        risk_score = min(risk_score, 100)
 
+        risk_score = min(risk_score, 100)
 
         # -------------------------------------------------
         # RISK LEVEL
         # -------------------------------------------------
 
         if risk_score >= 60:
+
             risk_level = "High"
             high_risk_count += 1
 
         elif risk_score >= 30:
+
             risk_level = "Medium"
             medium_risk_count += 1
 
         else:
+
             risk_level = "Low"
             low_risk_count += 1
-
 
         risk_assets.append(
             {
@@ -1016,7 +1023,6 @@ def risk_analysis(request):
                 "maintenance_count": maintenance_count,
             }
         )
-
 
     # -----------------------------------------------------
     # CONTEXT
@@ -1030,12 +1036,16 @@ def risk_analysis(request):
         "risk_assets": risk_assets,
     }
 
-
     return render(
         request,
         "assets/risk_analysis.html",
         context,
     )
+
+
+# =========================================================
+# COST ANALYSIS
+# =========================================================
 
 @login_required
 def cost_analysis(request):
@@ -1045,6 +1055,7 @@ def cost_analysis(request):
     total_assets = assets.count()
 
     total_maintenance_cost = 0
+
     asset_costs = []
 
     for asset in assets:
@@ -1063,12 +1074,14 @@ def cost_analysis(request):
 
         total_maintenance_cost += asset_cost
 
-    asset_costs.append({
-    "asset": asset,
-    "maintenance_count": maintenance_records.count(),
-    "maintenance_cost": asset_cost,
-    })
-    
+        asset_costs.append(
+            {
+                "asset": asset,
+                "maintenance_count": maintenance_records.count(),
+                "maintenance_cost": asset_cost,
+            }
+        )
+
     context = {
         "total_assets": total_assets,
         "total_maintenance_cost": total_maintenance_cost,
@@ -1080,6 +1093,7 @@ def cost_analysis(request):
         "assets/cost_analysis.html",
         context,
     )
+
 
 # =========================================================
 # AUDIT TRAIL
@@ -1104,7 +1118,9 @@ def audit_trail(request):
         "assets/audit_trail.html",
         context,
     )
-    # =========================================================
+
+
+# =========================================================
 # CATEGORIES
 # =========================================================
 
@@ -1112,7 +1128,8 @@ def audit_trail(request):
 def categories(request):
 
     categories = (
-        Category.objects.annotate(
+        Category.objects
+        .annotate(
             asset_count=Count("assets")
         )
         .order_by("name")
@@ -1131,6 +1148,7 @@ def categories(request):
         "assets/categories.html",
         context,
     )
+
 
 # =========================================================
 # BRANDS
@@ -1152,8 +1170,6 @@ def brands(request):
 
     total_brands = brands.count()
 
-    # A brand is considered active if it is currently
-    # associated with at least one asset.
     active_brands = total_brands
 
     context = {
@@ -1167,6 +1183,8 @@ def brands(request):
         "assets/brands.html",
         context,
     )
+
+
 # =========================================================
 # MODELS
 # =========================================================
@@ -1183,7 +1201,7 @@ def models_list(request):
             asset_count=Count("id"),
             active_asset_count=Count(
                 "id",
-                filter=~Q(status="retired")
+                filter=~Q(status="retired"),
             ),
         )
         .order_by("model")
@@ -1208,6 +1226,8 @@ def models_list(request):
         "assets/models.html",
         context,
     )
+
+
 # =========================================================
 # DEPARTMENTS
 # =========================================================
@@ -1221,7 +1241,7 @@ def departments(request):
             employee_count=Count("employees"),
             active_employee_count=Count(
                 "employees",
-                filter=Q(employees__status="active")
+                filter=Q(employees__status="active"),
             ),
         )
         .order_by("name")
@@ -1244,6 +1264,8 @@ def departments(request):
         "assets/departments.html",
         context,
     )
+
+
 # =========================================================
 # LOCATIONS
 # =========================================================
@@ -1257,7 +1279,7 @@ def locations(request):
             asset_count=Count("assets"),
             active_asset_count=Count(
                 "assets",
-                filter=~Q(assets__status="retired")
+                filter=~Q(assets__status="retired"),
             ),
         )
         .order_by("name")
@@ -1280,6 +1302,7 @@ def locations(request):
         "assets/locations.html",
         context,
     )
+
 
 # =========================================================
 # ALERTS
@@ -1311,6 +1334,9 @@ def alerts(request):
         elif condition == "poor":
             score -= 45
 
+        elif condition == "damaged":
+            score -= 60
+
         status = str(asset.status).lower()
 
         if status == "maintenance":
@@ -1328,11 +1354,13 @@ def alerts(request):
         score = max(0, min(score, 100))
 
         if status != "retired" and score < 40:
-            high_risk_assets.append({
-        "asset": asset,
-        "score": score,
-    })
 
+            high_risk_assets.append(
+                {
+                    "asset": asset,
+                    "score": score,
+                }
+            )
 
     # -----------------------------------------------------
     # MAINTENANCE ALERTS
@@ -1342,18 +1370,21 @@ def alerts(request):
         status="maintenance"
     ).order_by("asset_tag")
 
-
     # -----------------------------------------------------
     # RETURN ALERTS
     # -----------------------------------------------------
 
-    active_assignments = AssetAssignment.objects.filter(
-        returned_at__isnull=True
-    ).select_related(
-        "asset",
-        "employee",
-    ).order_by("-assigned_at")
-
+    active_assignments = (
+        AssetAssignment.objects
+        .filter(
+            returned_at__isnull=True
+        )
+        .select_related(
+            "asset",
+            "employee",
+        )
+        .order_by("-assigned_at")
+    )
 
     # -----------------------------------------------------
     # RETIRED ASSETS
@@ -1362,7 +1393,6 @@ def alerts(request):
     retired_assets = Asset.objects.filter(
         status="retired"
     ).order_by("asset_tag")
-
 
     # -----------------------------------------------------
     # SUMMARY
@@ -1380,12 +1410,12 @@ def alerts(request):
         "retired_count": retired_assets.count(),
     }
 
-
     return render(
         request,
         "assets/alerts.html",
         context,
     )
+
 
 # =========================================================
 # USERS & ROLES
@@ -1397,9 +1427,18 @@ def users_roles(request):
     users = User.objects.all().order_by("username")
 
     total_users = users.count()
-    active_users = users.filter(is_active=True).count()
-    staff_users = users.filter(is_staff=True).count()
-    superusers = users.filter(is_superuser=True).count()
+
+    active_users = users.filter(
+        is_active=True
+    ).count()
+
+    staff_users = users.filter(
+        is_staff=True
+    ).count()
+
+    superusers = users.filter(
+        is_superuser=True
+    ).count()
 
     groups = Group.objects.all().order_by("name")
 
@@ -1418,3 +1457,108 @@ def users_roles(request):
         "assets/users_roles.html",
         context,
     )
+
+
+# =========================================================
+# REPORTS
+# =========================================================
+
+@login_required
+def reports(request):
+
+    # -----------------------------------------------------
+    # ASSET SUMMARY
+    # -----------------------------------------------------
+
+    total_assets = Asset.objects.count()
+
+    available_assets = Asset.objects.filter(
+        status="available"
+    ).count()
+
+    assigned_assets = Asset.objects.filter(
+        status="assigned"
+    ).count()
+
+    maintenance_assets = Asset.objects.filter(
+        status="maintenance"
+    ).count()
+
+    retired_assets = Asset.objects.filter(
+        status="retired"
+    ).count()
+
+    # -----------------------------------------------------
+    # ORGANIZATION SUMMARY
+    # -----------------------------------------------------
+
+    total_employees = Employee.objects.count()
+
+    total_categories = Category.objects.count()
+
+    total_departments = Department.objects.count()
+
+    total_locations = Location.objects.count()
+
+    # -----------------------------------------------------
+    # BRAND SUMMARY
+    # -----------------------------------------------------
+
+    total_brands = (
+        Asset.objects
+        .exclude(brand="")
+        .exclude(brand__isnull=True)
+        .values("brand")
+        .distinct()
+        .count()
+    )
+
+    # -----------------------------------------------------
+    # MODEL SUMMARY
+    # -----------------------------------------------------
+
+    total_models = (
+        Asset.objects
+        .exclude(model="")
+        .exclude(model__isnull=True)
+        .values("model")
+        .distinct()
+        .count()
+    )
+
+    # -----------------------------------------------------
+    # REPORT DATA
+    # -----------------------------------------------------
+
+    context = {
+        "total_assets": total_assets,
+        "available_assets": available_assets,
+        "assigned_assets": assigned_assets,
+        "maintenance_assets": maintenance_assets,
+        "retired_assets": retired_assets,
+
+        "total_employees": total_employees,
+        "total_categories": total_categories,
+        "total_brands": total_brands,
+        "total_models": total_models,
+        "total_departments": total_departments,
+        "total_locations": total_locations,
+    }
+
+    return render(
+        request,
+        "assets/reports.html",
+        context,
+    )
+
+# =========================================================
+# EXPORT DATA
+# =========================================================
+
+@login_required
+def export_data(request):
+
+    return render(
+        request,
+        "assets/export_data.html",
+    )   

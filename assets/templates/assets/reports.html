@@ -1,0 +1,498 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Reports | Asetonix
+{% endblock %}
+
+{% block content %}
+
+<div class="reports-page">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div>
+            <h1>Reports</h1>
+
+            <p>
+                View summarized information about organizational assets
+                and operational activities
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ASSET SUMMARY
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <span class="stat-label">
+                Total Assets
+            </span>
+
+            <strong class="stat-value">
+                {{ total_assets|default:"0" }}
+            </strong>
+        </div>
+
+
+        <div class="stat-card">
+            <span class="stat-label">
+                Available
+            </span>
+
+            <strong class="stat-value">
+                {{ available_assets|default:"0" }}
+            </strong>
+        </div>
+
+
+        <div class="stat-card">
+            <span class="stat-label">
+                Assigned
+            </span>
+
+            <strong class="stat-value">
+                {{ assigned_assets|default:"0" }}
+            </strong>
+        </div>
+
+
+        <div class="stat-card">
+            <span class="stat-label">
+                Maintenance
+            </span>
+
+            <strong class="stat-value">
+                {{ maintenance_assets|default:"0" }}
+            </strong>
+        </div>
+
+
+        <div class="stat-card">
+            <span class="stat-label">
+                Retired
+            </span>
+
+            <strong class="stat-value">
+                {{ retired_assets|default:"0" }}
+            </strong>
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ASSET REPORT
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>
+                    Asset Report
+                </h2>
+
+                <p>
+                    Current distribution of organizational assets
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>
+                            Metric
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                        <th>
+                            Description
+                        </th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Total Assets
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ total_assets|default:"0" }}
+                        </td>
+
+                        <td>
+                            Total assets registered in Asetonix
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Available Assets
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ available_assets|default:"0" }}
+                        </td>
+
+                        <td>
+                            Assets currently available for assignment
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Assigned Assets
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ assigned_assets|default:"0" }}
+                        </td>
+
+                        <td>
+                            Assets currently assigned to employees
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Maintenance Assets
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ maintenance_assets|default:"0" }}
+                        </td>
+
+                        <td>
+                            Assets currently under maintenance
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Retired Assets
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ retired_assets|default:"0" }}
+                        </td>
+
+                        <td>
+                            Assets removed from active operations
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ORGANIZATION REPORT
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>
+                    Organization Report
+                </h2>
+
+                <p>
+                    Summary of organizational entities managed by Asetonix
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                        <th>
+                            Description
+                        </th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Employees
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ total_employees|default:"0" }}
+                        </td>
+
+                        <td>
+                            Employees registered in the system
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Categories
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ total_categories|default:"0" }}
+                        </td>
+
+                        <td>
+                            Asset categories configured in Asetonix
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Brands
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ total_brands|default:"0" }}
+                        </td>
+
+                        <td>
+                            Unique asset brands currently registered
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Models
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ total_models|default:"0" }}
+                        </td>
+
+                        <td>
+                            Unique asset models currently registered
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Departments
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ total_departments|default:"0" }}
+                        </td>
+
+                        <td>
+                            Departments configured in the organization
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>
+                                Locations
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ total_locations|default:"0" }}
+                        </td>
+
+                        <td>
+                            Locations configured for asset tracking
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         REPORT INFORMATION
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>
+                    Report Information
+                </h2>
+
+                <p>
+                    Overview of available reporting capabilities
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+            <div class="action-button">
+
+                <strong>
+                    Asset Reports
+                </strong>
+
+                <br>
+
+                Asset status, availability and lifecycle information
+
+            </div>
+
+
+            <div class="action-button">
+
+                <strong>
+                    Assignment Reports
+                </strong>
+
+                <br>
+
+                Asset assignment and employee allocation information
+
+            </div>
+
+
+            <div class="action-button">
+
+                <strong>
+                    Maintenance Reports
+                </strong>
+
+                <br>
+
+                Maintenance-related asset information
+
+            </div>
+
+
+            <div class="action-button">
+
+                <strong>
+                    Lifecycle Reports
+                </strong>
+
+                <br>
+
+                Asset lifecycle and historical information
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         EXPORT NOTICE
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>
+                    Export Data
+                </h2>
+
+                <p>
+                    Export functionality will be available in a future update
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="empty-state">
+
+            Data export capabilities such as CSV, Excel and PDF
+            are currently under development.
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

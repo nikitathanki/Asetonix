@@ -14,8 +14,10 @@
         {% block title %}Asetonix{% endblock %}
     </title>
 
-    <link rel="stylesheet"
-          href="{% static 'assets/css/style.css' %}">
+    <link
+        rel="stylesheet"
+        href="{% static 'assets/css/style.css' %}"
+    >
 
     {% block extra_css %}{% endblock %}
 
@@ -34,9 +36,7 @@
     <aside class="sidebar">
 
 
-        <!-- =================================================
-             BRAND
-        ================================================== -->
+        <!-- BRAND -->
 
         <div class="brand">
 
@@ -220,8 +220,10 @@
 
             <!-- TRANSFERS -->
 
-           <a href="{% url 'transfers_list' %}"
-            class="nav-item">
+            <a
+                href="{% url 'transfers_list' %}"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ⇄
@@ -262,8 +264,10 @@
 
             <!-- RETIREMENTS -->
 
-           <a href="{% url 'retirements_list' %}"
-        class="nav-item">
+            <a
+                href="{% url 'retirements_list' %}"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ◉
@@ -410,8 +414,10 @@
 
             <!-- ALERTS -->
 
-            <a href="{% url 'alerts' %}" 
-            class="nav-item" >
+            <a
+                href="{% url 'alerts' %}"
+                class="nav-item"
+            >
 
                 <span class="nav-icon">
                     ♢
@@ -430,22 +436,24 @@
 
             <!-- USERS & ROLES -->
 
-           <a
-    href="{% url 'users_roles' %}"
-    class="nav-item"
->
-    <span class="nav-icon">
-        ◎
-    </span>
+            <a
+                href="{% url 'users_roles' %}"
+                class="nav-item"
+            >
 
-    <span>
-        Users & Roles
-    </span>
+                <span class="nav-icon">
+                    ◎
+                </span>
 
-    <span class="nav-arrow">
-        ›
-    </span>
-</a>
+                <span>
+                    Users & Roles
+                </span>
+
+                <span class="nav-arrow">
+                    ›
+                </span>
+
+            </a>
 
 
             <!-- DEPARTMENTS -->
@@ -504,12 +512,12 @@
             <!-- REPORTS -->
 
             <a
-                href="#"
+                href="{% url 'reports' %}"
                 class="nav-item"
             >
 
                 <span class="nav-icon">
-                    ▥
+                    ▤
                 </span>
 
                 <span>
@@ -526,7 +534,7 @@
             <!-- EXPORT DATA -->
 
             <a
-                href="#"
+                href="{% url 'export_data' %}"
                 class="nav-item"
             >
 
@@ -543,6 +551,7 @@
                 </span>
 
             </a>
+
 
         </nav>
 
@@ -574,24 +583,20 @@
                 class="ai-button"
                 type="button"
             >
-
                 View Insights →
-
             </button>
 
         </div>
 
 
         <!-- =====================================================
-             USER
+             SIDEBAR USER
         ====================================================== -->
 
         <div class="sidebar-user">
 
             <div class="user-avatar">
-
                 {{ request.user.username|first|upper }}
-
             </div>
 
 
@@ -609,6 +614,7 @@
 
         </div>
 
+
     </aside>
 
 
@@ -620,7 +626,7 @@
 
 
         <!-- =================================================
-             TOP BAR
+             TOPBAR
         ================================================== -->
 
         <header class="topbar">
@@ -648,7 +654,7 @@
             </div>
 
 
-            <!-- TOP ACTIONS -->
+            <!-- TOPBAR ACTIONS -->
 
             <div class="topbar-actions">
 
@@ -713,6 +719,7 @@
                     </span>
 
                 </div>
+
 
             </div>
 

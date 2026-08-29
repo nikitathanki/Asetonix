@@ -7516,3 +7516,240 @@ a.action-button {
     }
 
 }
+/* =========================================================
+   REPORTS PAGE
+========================================================= */
+
+.reports-page {
+    width: 100%;
+}
+
+
+/* =========================================================
+   REPORTS HEADER
+========================================================= */
+
+.reports-page .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.reports-page .page-header h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.reports-page .page-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+}
+
+
+/* =========================================================
+   STAT GRID
+========================================================= */
+
+.reports-page .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.reports-page .stat-card {
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 100px;
+    box-sizing: border-box;
+}
+
+.reports-page .stat-label {
+    display: block;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.reports-page .stat-value {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CONTENT CARDS
+========================================================= */
+
+.reports-page .content-card {
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.reports-page .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 24px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.reports-page .card-header h2 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.reports-page .card-header p {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.reports-page .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.reports-page table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reports-page table th {
+    padding: 14px 24px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: #777;
+    background: #fafafa;
+    border-bottom: 1px solid #eeeeee;
+    letter-spacing: 0.04em;
+}
+
+.reports-page table td {
+    padding: 16px 24px;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.reports-page table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.reports-page table tbody tr:hover {
+    background: #fafafa;
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.reports-page .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 24px;
+}
+
+.reports-page .action-button {
+    border: 1px solid #e7e7e7;
+    border-radius: 10px;
+    padding: 18px;
+    background: #ffffff;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #777;
+}
+
+.reports-page .action-button strong {
+    display: inline-block;
+    margin-bottom: 4px;
+    color: #222;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   EMPTY / NOTICE STATE
+========================================================= */
+
+.reports-page .empty-state {
+    padding: 28px 24px;
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .reports-page .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .reports-page .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .reports-page .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .reports-page .page-header {
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .reports-page .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reports-page .stat-card {
+        min-height: auto;
+    }
+
+    .reports-page .card-header {
+        padding: 18px;
+    }
+
+    .reports-page table th,
+    .reports-page table td {
+        padding: 12px 16px;
+    }
+
+}

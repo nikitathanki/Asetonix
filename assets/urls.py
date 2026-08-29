@@ -24,6 +24,8 @@ from .views import (
     locations,
     alerts,
     users_roles,
+    reports,
+    export_data,
 
 )
 
@@ -184,6 +186,18 @@ urlpatterns = [
     "users-roles/",
     users_roles,
     name="users_roles",
-),
+    ),
+
+    path(
+    "reports/",
+    reports,
+    name="reports",
+    ),
+
+    path(
+    "export-data/",
+    export_data,
+    name="export_data", 
+    ),
 
 ]
