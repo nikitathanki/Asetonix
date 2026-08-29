@@ -1,0 +1,209 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Brands | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="brands-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Brands
+            </h1>
+
+            <p>
+                Monitor and organize asset brands used across the enterprise
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUMMARY CARDS
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+
+        <!-- TOTAL BRANDS -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Total Brands
+            </div>
+
+            <div class="stat-value">
+                {{ total_brands }}
+            </div>
+
+        </div>
+
+
+
+        <!-- ACTIVE BRANDS -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Brands
+            </div>
+
+            <div class="stat-value">
+                {{ active_brands }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         BRAND OVERVIEW
+    ====================================================== -->
+
+    <div class="content-card">
+
+
+        <!-- CARD HEADER -->
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Brand Overview
+                </h2>
+
+                <p>
+                    Brands currently associated with enterprise assets
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BRAND TABLE
+        ================================================== -->
+
+        {% if brands %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            BRAND
+                        </th>
+
+                        <th>
+                            ASSETS
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for brand in brands %}
+
+                    <tr>
+
+
+                        <!-- BRAND -->
+
+                        <td>
+
+                            <strong>
+                                {{ brand.brand }}
+                            </strong>
+
+                        </td>
+
+
+
+                        <!-- ASSETS -->
+
+                        <td>
+                            {{ brand.asset_count }}
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <span class="brand-status active">
+                                Active
+                            </span>
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <div class="empty-state">
+
+            <h3>
+                No brands available
+            </h3>
+
+            <p>
+                Brand information will appear here once assets
+                are associated with a brand.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

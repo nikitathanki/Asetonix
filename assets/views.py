@@ -5,6 +5,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.db.models import Count
 from .models import Category
+from django.db import models
+from django.db.models import Count
+
 
 from .models import (
     Asset,
@@ -1122,5 +1125,41 @@ def categories(request):
     return render(
         request,
         "assets/categories.html",
+        context,
+    )
+
+# =========================================================
+# BRANDS
+# =========================================================
+
+@login_required
+def brands(request):
+
+    brands = (
+        Asset.objects
+        .exclude(brand="")
+        .exclude(brand__isnull=True)
+        .values("brand")
+        .annotate(
+            asset_count=Count("id")
+        )
+        .order_by("brand")
+    )
+
+    total_brands = brands.count()
+
+    # A brand is considered active if it is currently
+    # associated with at least one asset.
+    active_brands = total_brands
+
+    context = {
+        "brands": brands,
+        "total_brands": total_brands,
+        "active_brands": active_brands,
+    }
+
+    return render(
+        request,
+        "assets/brands.html",
         context,
     )

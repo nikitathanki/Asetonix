@@ -18,6 +18,7 @@ from .views import (
     cost_analysis,
     audit_trail,
     categories,
+    brands,
 
 
 )
@@ -143,5 +144,11 @@ urlpatterns = [
     "categories/",
     categories,
     name="categories",
+    ),
+
+    path(
+    "brands/",
+    brands,
+    name="brands",
     ),
 ]
