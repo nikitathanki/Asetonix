@@ -5,6 +5,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.db.models import Count, Q
 from django.contrib.auth.models import User, Group
+import csv
+
+from django.http import HttpResponse
+
 
 from .models import (
     Asset,
@@ -16,6 +20,7 @@ from .models import (
     Department,
     Location,
     Category,
+
 )
 
 
@@ -1551,14 +1556,255 @@ def reports(request):
         context,
     )
 
-# =========================================================
-# EXPORT DATA
-# =========================================================
 
 @login_required
 def export_data(request):
 
+    export_type = request.GET.get("type")
+
+    # =====================================================
+    # ASSET DATA EXPORT
+    # =====================================================
+
+    if export_type == "assets":
+
+        response = HttpResponse(
+            content_type="text/csv"
+        )
+
+        response["Content-Disposition"] = (
+            'attachment; filename="asetonix_assets.csv"'
+        )
+
+        writer = csv.writer(response)
+
+        writer.writerow([
+            "ID",
+            "Name",
+            "Asset Tag",
+            "Category",
+            "Brand",
+            "Model",
+            "Serial Number",
+            "Purchase Date",
+            "Purchase Price",
+            "Status",
+            "Condition",
+            "Location",
+            "Notes",
+            "Created At",
+            "Updated At",
+        ])
+
+        assets = Asset.objects.select_related(
+            "category",
+            "location",
+        ).order_by("asset_tag")
+
+        for asset in assets:
+
+            writer.writerow([
+                asset.id,
+                asset.name,
+                asset.asset_tag,
+                asset.category.name
+                if asset.category else "",
+                asset.brand,
+                asset.model,
+                asset.serial_number,
+                asset.purchase_date
+                if asset.purchase_date else "",
+                asset.purchase_price
+                if asset.purchase_price is not None else "",
+                asset.get_status_display(),
+                asset.get_condition_display(),
+                asset.location.name
+                if asset.location else "",
+                asset.notes,
+                asset.created_at,
+                asset.updated_at,
+            ])
+
+        return response
+
+
+    # =====================================================
+    # ASSIGNMENT DATA EXPORT
+    # =====================================================
+
+    if export_type == "assignments":
+
+        response = HttpResponse(
+            content_type="text/csv"
+        )
+
+        response["Content-Disposition"] = (
+            'attachment; filename="asetonix_assignments.csv"'
+        )
+
+        writer = csv.writer(response)
+
+        writer.writerow([
+            "ID",
+            "Asset Tag",
+            "Asset Name",
+            "Employee ID",
+            "Employee Name",
+            "Employee Email",
+            "Assigned At",
+            "Returned At",
+            "Assignment Status",
+            "Notes",
+        ])
+
+        assignments = (
+            AssetAssignment.objects
+            .select_related(
+                "asset",
+                "employee",
+            )
+            .order_by("-assigned_at")
+        )
+
+        for assignment in assignments:
+
+            status = (
+                "Active"
+                if assignment.returned_at is None
+                else "Returned"
+            )
+
+            writer.writerow([
+                assignment.id,
+                assignment.asset.asset_tag,
+                assignment.asset.name,
+                assignment.employee.employee_id,
+                assignment.employee.name,
+                assignment.employee.email,
+                assignment.assigned_at,
+                assignment.returned_at
+                if assignment.returned_at else "",
+                status,
+                assignment.notes,
+            ])
+
+        return response
+
+
+    # =====================================================
+    # MAINTENANCE DATA EXPORT
+    # =====================================================
+
+    if export_type == "maintenance":
+
+        response = HttpResponse(
+            content_type="text/csv"
+        )
+
+        response["Content-Disposition"] = (
+            'attachment; filename="asetonix_maintenance.csv"'
+        )
+
+        writer = csv.writer(response)
+
+        writer.writerow([
+            "ID",
+            "Asset Tag",
+            "Asset Name",
+            "Title",
+            "Description",
+            "Priority",
+            "Status",
+            "Reported At",
+            "Started At",
+            "Completed At",
+            "Cost",
+            "Technician",
+            "Notes",
+        ])
+
+        maintenance_records = (
+            MaintenanceRecord.objects
+            .select_related("asset")
+            .order_by("-reported_at")
+        )
+
+        for record in maintenance_records:
+
+            writer.writerow([
+                record.id,
+                record.asset.asset_tag,
+                record.asset.name,
+                record.title,
+                record.description,
+                record.get_priority_display(),
+                record.get_status_display(),
+                record.reported_at,
+                record.started_at
+                if record.started_at else "",
+                record.completed_at
+                if record.completed_at else "",
+                record.cost
+                if record.cost is not None else "",
+                record.technician,
+                record.notes,
+            ])
+
+        return response
+
+
+    # =====================================================
+    # LIFECYCLE / HISTORY DATA EXPORT
+    # =====================================================
+
+    if export_type == "lifecycle":
+
+        response = HttpResponse(
+            content_type="text/csv"
+        )
+
+        response["Content-Disposition"] = (
+            'attachment; filename="asetonix_lifecycle.csv"'
+        )
+
+        writer = csv.writer(response)
+
+        writer.writerow([
+            "ID",
+            "Asset Tag",
+            "Asset Name",
+            "Event Type",
+            "Description",
+            "Performed By",
+            "Created At",
+        ])
+
+        history_records = (
+            AssetHistory.objects
+            .select_related("asset")
+            .order_by("-created_at")
+        )
+
+        for history in history_records:
+
+            writer.writerow([
+                history.id,
+                history.asset.asset_tag,
+                history.asset.name,
+                history.get_event_type_display(),
+                history.description,
+                history.performed_by,
+                history.created_at,
+            ])
+
+        return response
+
+
+    # =====================================================
+    # EXPORT DATA PAGE
+    # =====================================================
+
     return render(
         request,
         "assets/export_data.html",
-    )   
+    )

@@ -8,6 +8,11 @@
 
 <div class="reports-page">
 
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
     <div class="page-header">
 
         <div>
@@ -24,6 +29,10 @@
 
     </div>
 
+
+    <!-- =====================================================
+         DATA EXPORT
+    ====================================================== -->
 
     <div class="content-card">
 
@@ -46,61 +55,111 @@
 
         <div class="quick-actions">
 
-            <div class="action-button">
+
+            <!-- =================================================
+                 ASSET DATA
+            ================================================== -->
+
+            <a
+                href="{% url 'export_data' %}?type=assets"
+                class="action-button"
+            >
 
                 <strong>
                     Asset Data
                 </strong>
 
-                <br>
+                <span class="action-description">
+                    Export organizational asset information.
+                </span>
 
-                Export organizational asset information.
+                <span class="export-action">
+                    Download CSV →
+                </span>
 
-            </div>
+            </a>
 
 
-            <div class="action-button">
+            <!-- =================================================
+                 ASSIGNMENT DATA
+            ================================================== -->
+
+            <a
+                href="{% url 'export_data' %}?type=assignments"
+                class="action-button"
+            >
 
                 <strong>
                     Assignment Data
                 </strong>
 
-                <br>
+                <span class="action-description">
+                    Export asset assignment information.
+                </span>
 
-                Export asset assignment information.
+                <span class="export-action">
+                    Download CSV →
+                </span>
 
-            </div>
+            </a>
 
 
-            <div class="action-button">
+            <!-- =================================================
+                 MAINTENANCE DATA
+            ================================================== -->
+
+            <a
+                href="{% url 'export_data' %}?type=maintenance"
+                class="action-button"
+            >
 
                 <strong>
                     Maintenance Data
                 </strong>
 
-                <br>
+                <span class="action-description">
+                    Export maintenance records.
+                </span>
 
-                Export maintenance records.
+                <span class="export-action">
+                    Download CSV →
+                </span>
 
-            </div>
+            </a>
 
 
-            <div class="action-button">
+            <!-- =================================================
+                 LIFECYCLE DATA
+            ================================================== -->
+
+            <a
+                href="{% url 'export_data' %}?type=lifecycle"
+                class="action-button"
+            >
 
                 <strong>
                     Lifecycle Data
                 </strong>
 
-                <br>
+                <span class="action-description">
+                    Export asset lifecycle information.
+                </span>
 
-                Export asset lifecycle information.
+                <span class="export-action">
+                    Download CSV →
+                </span>
 
-            </div>
+            </a>
+
 
         </div>
 
     </div>
 
+
+    <!-- =====================================================
+         EXPORT FORMATS
+    ====================================================== -->
 
     <div class="content-card">
 
@@ -113,8 +172,7 @@
                 </h2>
 
                 <p>
-                    Additional export formats will be implemented as
-                    the reporting module is completed.
+                    Available export formats for Asetonix data.
                 </p>
 
             </div>
@@ -124,12 +182,24 @@
 
         <div class="empty-state">
 
-            CSV, Excel and PDF export functionality is currently
-            under development.
+            <strong>
+                CSV Export
+            </strong>
+
+            <span>
+                Asset, assignment, maintenance and lifecycle
+                data can currently be exported in CSV format.
+            </span>
+
+            <span>
+                Excel and PDF export functionality can be added
+                in a future development stage.
+            </span>
 
         </div>
 
     </div>
+
 
 </div>
 
