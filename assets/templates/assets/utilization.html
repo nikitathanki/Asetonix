@@ -7,174 +7,210 @@
 
 {% block content %}
 
-<div class="page-header">
+<div class="utilization-page">
 
-    <div>
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
 
-        <h1>
-            Asset Utilization
-        </h1>
-
-        <p>
-            Monitor how enterprise assets are currently being utilized
-        </p>
-
-    </div>
-
-</div>
-
-
-<div class="stats-grid">
-
-    <div class="content-card">
-
-        <span class="stat-label">
-            Total Assets
-        </span>
-
-        <strong class="stat-value">
-            {{ total_assets }}
-        </strong>
-
-    </div>
-
-
-    <div class="content-card">
-
-        <span class="stat-label">
-            Assigned
-        </span>
-
-        <strong class="stat-value">
-            {{ assigned_assets }}
-        </strong>
-
-    </div>
-
-
-    <div class="content-card">
-
-        <span class="stat-label">
-            Available
-        </span>
-
-        <strong class="stat-value">
-            {{ available_assets }}
-        </strong>
-
-    </div>
-
-
-    <div class="content-card">
-
-        <span class="stat-label">
-            Maintenance
-        </span>
-
-        <strong class="stat-value">
-            {{ maintenance_assets }}
-        </strong>
-
-    </div>
-
-
-    <div class="content-card">
-
-        <span class="stat-label">
-            Retired
-        </span>
-
-        <strong class="stat-value">
-            {{ retired_assets }}
-        </strong>
-
-    </div>
-
-
-    <div class="content-card">
-
-        <span class="stat-label">
-            Utilization Rate
-        </span>
-
-        <strong class="stat-value">
-            {{ utilization_rate }}%
-        </strong>
-
-    </div>
-
-</div>
-
-
-<div class="content-card">
-
-    <div class="card-header">
+    <div class="page-header">
 
         <div>
-
-            <h2>
-                Utilization Overview
-            </h2>
+            <h1>Asset Utilization</h1>
 
             <p>
-                Current allocation of assets across operational states
+                Monitor how enterprise assets are currently being utilized
             </p>
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SUMMARY CARDS
+    ====================================================== -->
+
+    <div class="stats-grid utilization-stats">
+
+        <!-- Total Assets -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Total Assets
+            </div>
+
+            <div class="stat-value">
+                {{ total_assets }}
+            </div>
+
+        </div>
+
+
+        <!-- Assigned -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Assigned
+            </div>
+
+            <div class="stat-value">
+                {{ assigned_assets }}
+            </div>
+
+        </div>
+
+
+        <!-- Available -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Available
+            </div>
+
+            <div class="stat-value">
+                {{ available_assets }}
+            </div>
+
+        </div>
+
+
+        <!-- Maintenance -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Maintenance
+            </div>
+
+            <div class="stat-value">
+                {{ maintenance_assets }}
+            </div>
+
+        </div>
+
+
+        <!-- Retired -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Retired
+            </div>
+
+            <div class="stat-value">
+                {{ retired_assets }}
+            </div>
+
+        </div>
+
+
+        <!-- Utilization Rate -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Utilization Rate
+            </div>
+
+            <div class="stat-value">
+                {{ utilization_rate }}%
+            </div>
 
         </div>
 
     </div>
 
 
-    <div class="utilization-summary">
+    <!-- =====================================================
+         UTILIZATION OVERVIEW
+    ====================================================== -->
 
-        <div class="utilization-item">
+    <div class="content-card utilization-overview-card">
 
-            <span>
-                Assigned Assets
-            </span>
+        <div class="card-header">
 
-            <strong>
-                {{ assigned_assets }}
-            </strong>
+            <div>
 
-        </div>
+                <h2>
+                    Utilization Overview
+                </h2>
 
+                <p>
+                    Current allocation of assets across operational states
+                </p>
 
-        <div class="utilization-item">
-
-            <span>
-                Available Assets
-            </span>
-
-            <strong>
-                {{ available_assets }}
-            </strong>
+            </div>
 
         </div>
 
 
-        <div class="utilization-item">
+        <!-- =================================================
+             UTILIZATION SUMMARY
+        ================================================== -->
 
-            <span>
-                Under Maintenance
-            </span>
+        <div class="utilization-summary">
 
-            <strong>
-                {{ maintenance_assets }}
-            </strong>
+            <!-- Assigned -->
 
-        </div>
+            <div class="utilization-item">
+
+                <span>
+                    Assigned Assets
+                </span>
+
+                <strong>
+                    {{ assigned_assets }}
+                </strong>
+
+            </div>
 
 
-        <div class="utilization-item">
+            <!-- Available -->
 
-            <span>
-                Retired Assets
-            </span>
+            <div class="utilization-item">
 
-            <strong>
-                {{ retired_assets }}
-            </strong>
+                <span>
+                    Available Assets
+                </span>
+
+                <strong>
+                    {{ available_assets }}
+                </strong>
+
+            </div>
+
+
+            <!-- Maintenance -->
+
+            <div class="utilization-item">
+
+                <span>
+                    Under Maintenance
+                </span>
+
+                <strong>
+                    {{ maintenance_assets }}
+                </strong>
+
+            </div>
+
+
+            <!-- Retired -->
+
+            <div class="utilization-item">
+
+                <span>
+                    Retired Assets
+                </span>
+
+                <strong>
+                    {{ retired_assets }}
+                </strong>
+
+            </div>
 
         </div>
 

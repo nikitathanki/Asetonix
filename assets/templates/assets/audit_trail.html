@@ -1,0 +1,270 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Audit Trail | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="audit-trail-page">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Audit Trail
+            </h1>
+
+            <p>
+                Track important activities and changes made to enterprise assets
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SUMMARY
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Total Activities
+            </div>
+
+            <div class="stat-value">
+                {{ total_records }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         AUDIT TRAIL OVERVIEW
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Activity History
+                </h2>
+
+                <p>
+                    Complete record of asset-related activities
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if audit_records %}
+
+        <div class="table-wrapper">
+
+            <table class="audit-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            DATE & TIME
+                        </th>
+
+                        <th>
+                            ASSET TAG
+                        </th>
+
+                        <th>
+                            ASSET
+                        </th>
+
+                        <th>
+                            ACTIVITY
+                        </th>
+
+                        <th>
+                            DESCRIPTION
+                        </th>
+
+                        <th>
+                            PERFORMED BY
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for record in audit_records %}
+
+                    <tr>
+
+                        <!-- DATE & TIME -->
+
+                        <td>
+
+                            <strong>
+                                {{ record.created_at|date:"d M Y" }}
+                            </strong>
+
+                            <span class="audit-time">
+                                {{ record.created_at|date:"h:i A" }}
+                            </span>
+
+                        </td>
+
+
+                        <!-- ASSET TAG -->
+
+                        <td>
+
+                            <strong>
+                                {{ record.asset.asset_tag }}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- ASSET -->
+
+                        <td>
+                            {{ record.asset.name }}
+                        </td>
+
+
+                        <!-- ACTIVITY -->
+
+                        <td>
+
+                            {% if record.event_type == "created" %}
+
+                                <span class="audit-badge audit-created">
+                                    Created
+                                </span>
+
+                            {% elif record.event_type == "assigned" %}
+
+                                <span class="audit-badge audit-assigned">
+                                    Assigned
+                                </span>
+
+                            {% elif record.event_type == "returned" %}
+
+                                <span class="audit-badge audit-returned">
+                                    Returned
+                                </span>
+
+                            {% elif record.event_type == "maintenance" %}
+
+                                <span class="audit-badge audit-maintenance">
+                                    Maintenance
+                                </span>
+
+                            {% elif record.event_type == "status_change" %}
+
+                                <span class="audit-badge audit-status">
+                                    Status Change
+                                </span>
+
+                            {% elif record.event_type == "location_change" %}
+
+                                <span class="audit-badge audit-location">
+                                    Location Change
+                                </span>
+
+                            {% elif record.event_type == "retired" %}
+
+                                <span class="audit-badge audit-retired">
+                                    Retired
+                                </span>
+
+                            {% else %}
+
+                                <span class="audit-badge audit-default">
+                                    {{ record.get_event_type_display }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <td class="audit-description">
+                            {{ record.description }}
+                        </td>
+
+
+                        <!-- PERFORMED BY -->
+
+                        <td>
+
+                            {% if record.performed_by %}
+
+                                {{ record.performed_by }}
+
+                            {% else %}
+
+                                System
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <div class="empty-state">
+
+            <h3>
+                No activity records
+            </h3>
+
+            <p>
+                Asset activities and changes will appear here.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

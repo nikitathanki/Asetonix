@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.db.models import Count
+from .models import Category
 
 from .models import (
     Asset,
@@ -1069,5 +1071,56 @@ def cost_analysis(request):
     return render(
         request,
         "assets/cost_analysis.html",
+        context,
+    )
+
+# =========================================================
+# AUDIT TRAIL
+# =========================================================
+
+@login_required
+def audit_trail(request):
+
+    audit_records = (
+        AssetHistory.objects
+        .select_related("asset")
+        .order_by("-created_at")
+    )
+
+    context = {
+        "audit_records": audit_records,
+        "total_records": audit_records.count(),
+    }
+
+    return render(
+        request,
+        "assets/audit_trail.html",
+        context,
+    )
+    # =========================================================
+# CATEGORIES
+# =========================================================
+
+@login_required
+def categories(request):
+
+    categories = (
+        Category.objects.annotate(
+            asset_count=Count("assets")
+        )
+        .order_by("name")
+    )
+
+    context = {
+        "categories": categories,
+        "total_categories": categories.count(),
+        "active_categories": categories.filter(
+            is_active=True
+        ).count(),
+    }
+
+    return render(
+        request,
+        "assets/categories.html",
         context,
     )

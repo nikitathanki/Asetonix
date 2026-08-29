@@ -4,262 +4,365 @@
     Risk Analysis | Asetonix
 {% endblock %}
 
+
 {% block content %}
 
-<div class="page-header">
-    <div>
-        <h1>Risk Analysis</h1>
-        <p>
-            Identify assets that may require attention or intervention
-        </p>
-    </div>
-</div>
+<div class="risk-analysis-page">
 
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
 
-<!-- =========================================================
-     RISK SUMMARY
-========================================================= -->
-
-<div class="stats-grid">
-
-    <div class="stat-card">
-        <span class="stat-label">
-            Total Assets
-        </span>
-
-        <strong class="stat-value">
-            {{ total_assets|default:"0" }}
-        </strong>
-    </div>
-
-
-    <div class="stat-card">
-        <span class="stat-label">
-            Low Risk
-        </span>
-
-        <strong class="stat-value">
-            {{ low_risk_count|default:"0" }}
-        </strong>
-    </div>
-
-
-    <div class="stat-card">
-        <span class="stat-label">
-            Medium Risk
-        </span>
-
-        <strong class="stat-value">
-            {{ medium_risk_count|default:"0" }}
-        </strong>
-    </div>
-
-
-    <div class="stat-card">
-        <span class="stat-label">
-            High Risk
-        </span>
-
-        <strong class="stat-value">
-            {{ high_risk_count|default:"0" }}
-        </strong>
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     RISK OVERVIEW
-========================================================= -->
-
-<div class="content-card">
-
-    <div class="card-header">
+    <div class="page-header">
 
         <div>
-            <h2>
-                Risk Overview
-            </h2>
+
+            <h1>
+                Risk Analysis
+            </h1>
 
             <p>
-                Current risk classification of enterprise assets
+                Identify assets that may require attention or intervention
             </p>
+
         </div>
 
     </div>
 
 
-    <div class="table-wrapper">
+    <!-- =====================================================
+         RISK SUMMARY
+    ====================================================== -->
 
-        <table>
+    <div class="stats-grid risk-stats-grid">
 
-            <thead>
-                <tr>
-                    <th>
-                        Asset Tag
-                    </th>
+        <!-- Total Assets -->
 
-                    <th>
-                        Asset
-                    </th>
+        <div class="stat-card">
 
-                    <th>
-                        Condition
-                    </th>
+            <span class="stat-label">
+                Total Assets
+            </span>
 
-                    <th>
-                        Status
-                    </th>
+            <strong class="stat-value">
+                {{ total_assets|default:"0" }}
+            </strong>
 
-                    <th>
-                        Maintenance
-                    </th>
-
-                    <th>
-                        Risk Score
-                    </th>
-
-                    <th>
-                        Risk Level
-                    </th>
-                </tr>
-            </thead>
+        </div>
 
 
-            <tbody>
+        <!-- Low Risk -->
 
-                {% for item in risk_assets %}
+        <div class="stat-card">
 
-                <tr>
+            <span class="stat-label">
+                Low Risk
+            </span>
 
-                    <td>
-                        <strong>
-                            {{ item.asset.asset_tag }}
-                        </strong>
-                    </td>
+            <strong class="stat-value">
+                {{ low_risk_count|default:"0" }}
+            </strong>
 
-
-                    <td>
-                        {{ item.asset.name }}
-                    </td>
+        </div>
 
 
-                    <td>
-                        {{ item.asset.get_condition_display|default:item.asset.condition }}
-                    </td>
+        <!-- Medium Risk -->
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                Medium Risk
+            </span>
+
+            <strong class="stat-value">
+                {{ medium_risk_count|default:"0" }}
+            </strong>
+
+        </div>
 
 
-                    <td>
-                        {{ item.asset.get_status_display }}
-                    </td>
+        <!-- High Risk -->
 
+        <div class="stat-card">
 
-                    <td>
-                        {{ item.maintenance_count|default:"0" }}
-                    </td>
+            <span class="stat-label">
+                High Risk
+            </span>
 
+            <strong class="stat-value">
+                {{ high_risk_count|default:"0" }}
+            </strong>
 
-                    <td>
-                        <strong>
-                            {{ item.risk_score|default:"0" }}%
-                        </strong>
-                    </td>
-
-
-                    <td>
-
-                        {% if item.risk_level == "High" %}
-                            <span
-                                class="badge"
-                                style="background:#fee2e2;color:#991b1b;"
-                            >
-                                High
-                            </span>
-
-                        {% elif item.risk_level == "Medium" %}
-                            <span
-                                class="badge"
-                                style="background:#fef3c7;color:#92400e;"
-                            >
-                                Medium
-                            </span>
-
-                        {% else %}
-                            <span
-                                class="badge"
-                                style="background:#dcfce7;color:#166534;"
-                            >
-                                Low
-                            </span>
-                        {% endif %}
-
-                    </td>
-
-                </tr>
-
-                {% empty %}
-
-                <tr>
-                    <td
-                        colspan="7"
-                        class="empty"
-                    >
-                        No risk data available.
-                    </td>
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
+        </div>
 
     </div>
 
-</div>
+
+    <!-- =====================================================
+         RISK OVERVIEW
+    ====================================================== -->
+
+    <div class="content-card risk-overview-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Risk Overview
+                </h2>
+
+                <p>
+                    Current risk classification of enterprise assets
+                </p>
+
+            </div>
+
+        </div>
 
 
-<!-- =========================================================
-     RISK INFORMATION
-========================================================= -->
+        {% if risk_assets %}
 
-<div class="content-card">
+        <div class="risk-table-wrapper">
 
-    <div class="card-header">
+            <table class="risk-table">
 
-        <div>
-            <h2>
-                Risk Classification
-            </h2>
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ASSET TAG
+                        </th>
+
+                        <th>
+                            ASSET
+                        </th>
+
+                        <th>
+                            CONDITION
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                        <th>
+                            MAINTENANCE
+                        </th>
+
+                        <th>
+                            RISK SCORE
+                        </th>
+
+                        <th>
+                            RISK LEVEL
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for item in risk_assets %}
+
+                    <tr>
+
+                        <!-- Asset Tag -->
+
+                        <td>
+
+                            <strong>
+                                {{ item.asset.asset_tag }}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- Asset -->
+
+                        <td>
+                            {{ item.asset.name }}
+                        </td>
+
+
+                        <!-- Condition -->
+
+                        <td>
+                            {{ item.asset.get_condition_display|default:item.asset.condition }}
+                        </td>
+
+
+                        <!-- Status -->
+
+                        <td>
+                            {{ item.asset.get_status_display }}
+                        </td>
+
+
+                        <!-- Maintenance -->
+
+                        <td>
+                            {{ item.maintenance_count|default:"0" }}
+                        </td>
+
+
+                        <!-- Risk Score -->
+
+                        <td>
+
+                            <strong>
+                                {{ item.risk_score|default:"0" }}%
+                            </strong>
+
+                        </td>
+
+
+                        <!-- Risk Level -->
+
+                        <td>
+
+                            {% if item.risk_level == "High" %}
+
+                                <span class="risk-badge risk-high">
+                                    High
+                                </span>
+
+                            {% elif item.risk_level == "Medium" %}
+
+                                <span class="risk-badge risk-medium">
+                                    Medium
+                                </span>
+
+                            {% else %}
+
+                                <span class="risk-badge risk-low">
+                                    Low
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+        <div class="risk-empty-state">
+
+            <h3>
+                No risk data available
+            </h3>
 
             <p>
-                Assets are grouped according to their calculated risk level
+                Risk information will appear here when assets are available.
             </p>
+
         </div>
+
+        {% endif %}
 
     </div>
 
 
-    <div class="quick-actions">
+    <!-- =====================================================
+         RISK CLASSIFICATION
+    ====================================================== -->
 
-        <div class="action-button">
-            <strong>Low Risk</strong>
-            <br>
-            Assets operating normally
+    <div class="content-card risk-classification-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Risk Classification
+                </h2>
+
+                <p>
+                    Assets are grouped according to their calculated risk level
+                </p>
+
+            </div>
+
         </div>
 
 
-        <div class="action-button">
-            <strong>Medium Risk</strong>
-            <br>
-            Assets requiring monitoring
-        </div>
+        <div class="risk-classification-grid">
+
+            <!-- Low Risk -->
+
+            <div class="risk-classification-item">
+
+                <div class="risk-classification-title">
+
+                    <span class="risk-dot risk-dot-low"></span>
+
+                    <strong>
+                        Low Risk
+                    </strong>
+
+                </div>
+
+                <p>
+                    Assets operating normally
+                </p>
+
+            </div>
 
 
-        <div class="action-button">
-            <strong>High Risk</strong>
-            <br>
-            Assets requiring immediate attention
+            <!-- Medium Risk -->
+
+            <div class="risk-classification-item">
+
+                <div class="risk-classification-title">
+
+                    <span class="risk-dot risk-dot-medium"></span>
+
+                    <strong>
+                        Medium Risk
+                    </strong>
+
+                </div>
+
+                <p>
+                    Assets requiring monitoring
+                </p>
+
+            </div>
+
+
+            <!-- High Risk -->
+
+            <div class="risk-classification-item">
+
+                <div class="risk-classification-title">
+
+                    <span class="risk-dot risk-dot-high"></span>
+
+                    <strong>
+                        High Risk
+                    </strong>
+
+                </div>
+
+                <p>
+                    Assets requiring immediate attention
+                </p>
+
+            </div>
+
         </div>
 
     </div>

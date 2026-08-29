@@ -1,0 +1,184 @@
+{% extends "assets/base.html" %}
+
+{% block title %}
+    Categories | Asetonix
+{% endblock %}
+
+{% block content %}
+
+<div class="categories-page">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+        <div>
+            <h1>Categories</h1>
+
+            <p>
+                Manage and organize enterprise asset categories
+            </p>
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         SUMMARY CARDS
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-label">
+                Total Categories
+            </div>
+
+            <div class="stat-value">
+                {{ total_categories }}
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-label">
+                Active Categories
+            </div>
+
+            <div class="stat-value">
+                {{ active_categories }}
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CATEGORY OVERVIEW
+    ====================================================== -->
+
+    <div class="content-card">
+
+        <div class="card-header">
+
+            <div>
+                <h2>Category Overview</h2>
+
+                <p>
+                    Categories currently configured in Asetonix
+                </p>
+            </div>
+
+        </div>
+
+
+        {% if categories %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>CODE</th>
+                        <th>CATEGORY</th>
+                        <th>DESCRIPTION</th>
+                        <th>ASSETS</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    {% for category in categories %}
+
+                    <tr>
+
+                        <!-- CODE -->
+                        <td>
+                            <strong>
+                                {{ category.code }}
+                            </strong>
+                        </td>
+
+
+                        <!-- CATEGORY -->
+                        <td>
+                            {{ category.name }}
+                        </td>
+
+
+                        <!-- DESCRIPTION -->
+                        <td>
+                            {% if category.description %}
+                                {{ category.description }}
+                            {% else %}
+                                <span class="muted-text">
+                                    No description
+                                </span>
+                            {% endif %}
+                        </td>
+
+
+                        <!-- ASSET COUNT -->
+                        <td>
+                            {{ category.asset_count }}
+                        </td>
+
+
+                        <!-- STATUS -->
+                        <td>
+
+                            {% if category.is_active %}
+
+                                <span class="category-status active">
+                                    Active
+                                </span>
+
+                            {% else %}
+
+                                <span class="category-status inactive">
+                                    Inactive
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <div class="empty-state">
+
+            <h3>
+                No categories available
+            </h3>
+
+            <p>
+                Asset categories will appear here once they are created.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

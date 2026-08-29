@@ -7,35 +7,22 @@
 
 {% block content %}
 
-<div class="page-header">
+<div class="asset-health-page">
 
-    <div>
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
 
-        <h1>
-            Asset Health
-        </h1>
-
-        <p>
-            Monitor the current health and condition of enterprise assets
-        </p>
-
-    </div>
-
-</div>
-
-
-<div class="content-card">
-
-    <div class="card-header">
+    <div class="page-header">
 
         <div>
 
-            <h2>
-                Asset Health Overview
-            </h2>
+            <h1>
+                Asset Health
+            </h1>
 
             <p>
-                Health score based on asset condition, status and maintenance history
+                Monitor the current health and condition of enterprise assets
             </p>
 
         </div>
@@ -43,110 +30,184 @@
     </div>
 
 
-    <div class="asset-health-table">
+    <!-- =====================================================
+         ASSET HEALTH OVERVIEW
+    ====================================================== -->
 
-        <table>
+    <div class="content-card">
 
-            <thead>
+        <!-- Card Header -->
 
-                <tr>
+        <div class="card-header">
 
-                    <th>Asset Tag</th>
+            <div>
 
-                    <th>Asset</th>
+                <h2>
+                    Asset Health Overview
+                </h2>
 
-                    <th>Condition</th>
+                <p>
+                    Health score based on asset condition, status and maintenance history
+                </p>
 
-                    <th>Status</th>
+            </div>
 
-                    <th>Maintenance</th>
-
-                    <th>Health Score</th>
-
-                    <th>Health Level</th>
-
-                </tr>
-
-            </thead>
+        </div>
 
 
-            <tbody>
+        <!-- =================================================
+             HEALTH TABLE
+        ================================================== -->
 
-                {% for item in asset_health_data %}
+        <div class="asset-health-table">
 
-                <tr>
+            <table>
 
-                    <td>
-                        <strong>
-                            {{ item.asset.asset_tag }}
-                        </strong>
-                    </td>
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ASSET TAG
+                        </th>
+
+                        <th>
+                            ASSET
+                        </th>
+
+                        <th>
+                            CONDITION
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                        <th>
+                            MAINTENANCE
+                        </th>
+
+                        <th>
+                            HEALTH SCORE
+                        </th>
+
+                        <th>
+                            HEALTH LEVEL
+                        </th>
+
+                    </tr>
+
+                </thead>
 
 
-                    <td>
-                        {{ item.asset.name }}
-                    </td>
+                <tbody>
+
+                    {% for item in asset_health_data %}
+
+                    <tr>
+
+                        <!-- Asset Tag -->
+
+                        <td>
+                            <strong>
+                                {{ item.asset.asset_tag }}
+                            </strong>
+                        </td>
 
 
-                    <td>
-                        {{ item.asset.get_condition_display }}
-                    </td>
+                        <!-- Asset -->
+
+                        <td>
+                            {{ item.asset.name }}
+                        </td>
 
 
-                    <td>
-                        {{ item.asset.get_status_display }}
-                    </td>
+                        <!-- Condition -->
+
+                        <td>
+                            {{ item.asset.get_condition_display }}
+                        </td>
 
 
-                    <td>
-                        {{ item.maintenance_count }}
-                    </td>
+                        <!-- Status -->
+
+                        <td>
+                            {{ item.asset.get_status_display }}
+                        </td>
 
 
-                    <td>
-                        <strong>
-                            {{ item.score }}%
-                        </strong>
-                    </td>
+                        <!-- Maintenance -->
+
+                        <td>
+                            {{ item.maintenance_count }}
+                        </td>
 
 
-                    <td>
+                        <!-- Health Score -->
 
-                        <span class="health-level
-                            {% if item.health_level == 'Excellent' %}
-                                health-excellent
-                            {% elif item.health_level == 'Good' %}
-                                health-good
-                            {% elif item.health_level == 'Fair' %}
-                                health-fair
-                            {% else %}
-                                health-poor
-                            {% endif %}
-                        ">
-                            {{ item.health_level }}
-                        </span>
+                        <td>
+                            <strong>
+                                {{ item.score }}%
+                            </strong>
+                        </td>
 
-                    </td>
 
-                </tr>
+                        <!-- Health Level -->
 
-                {% empty %}
+                        <td>
 
-                <tr>
+                            <span class="health-level
+                                {% if item.health_level == 'Excellent' %}
+                                    health-excellent
+                                {% elif item.health_level == 'Good' %}
+                                    health-good
+                                {% elif item.health_level == 'Fair' %}
+                                    health-fair
+                                {% else %}
+                                    health-poor
+                                {% endif %}
+                            ">
 
-                    <td colspan="7" style="text-align: center;">
+                                {{ item.health_level }}
 
-                        No assets available.
+                            </span>
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
-                {% endfor %}
 
-            </tbody>
+                    {% empty %}
 
-        </table>
+                    <!-- No Assets -->
+
+                    <tr>
+
+                        <td colspan="7" class="health-empty">
+
+                            <div class="empty-state">
+
+                                <h3>
+                                    No assets available
+                                </h3>
+
+                                <p>
+                                    Asset health information will appear here once assets are added.
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
