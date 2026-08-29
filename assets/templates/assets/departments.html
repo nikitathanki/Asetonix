@@ -1,0 +1,263 @@
+{% extends "assets/base.html" %}
+
+
+{% block title %}
+    Departments | Asetonix
+{% endblock %}
+
+
+{% block content %}
+
+<div class="departments-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Departments
+            </h1>
+
+            <p>
+                Manage and organize enterprise departments
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUMMARY CARDS
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+
+        <!-- TOTAL DEPARTMENTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Total Departments
+            </div>
+
+            <div class="stat-value">
+                {{ total_departments }}
+            </div>
+
+        </div>
+
+
+
+        <!-- ACTIVE DEPARTMENTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Departments
+            </div>
+
+            <div class="stat-value">
+                {{ active_departments }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         DEPARTMENT OVERVIEW
+    ====================================================== -->
+
+    <div class="content-card">
+
+
+        <!-- CARD HEADER -->
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Department Overview
+                </h2>
+
+                <p>
+                    Departments currently configured in Asetonix
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        {% if departments %}
+
+
+        <!-- =================================================
+             DEPARTMENT TABLE
+        ================================================== -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            CODE
+                        </th>
+
+                        <th>
+                            DEPARTMENT
+                        </th>
+
+                        <th>
+                            DESCRIPTION
+                        </th>
+
+                        <th>
+                            EMPLOYEES
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for department in departments %}
+
+                    <tr>
+
+
+                        <!-- CODE -->
+
+                        <td>
+
+                            <strong>
+                                {{ department.code }}
+                            </strong>
+
+                        </td>
+
+
+
+                        <!-- DEPARTMENT -->
+
+                        <td>
+
+                            <strong class="department-name">
+                                {{ department.name }}
+                            </strong>
+
+                        </td>
+
+
+
+                        <!-- DESCRIPTION -->
+
+                        <td>
+
+                            {% if department.description %}
+
+                                {{ department.description }}
+
+                            {% else %}
+
+                                <span class="no-description">
+                                    No description
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- EMPLOYEES -->
+
+                        <td class="employee-count">
+
+                            {{ department.employee_count }}
+
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if department.is_active %}
+
+                                <span class="department-status active">
+                                    Active
+                                </span>
+
+                            {% else %}
+
+                                <span class="department-status inactive">
+                                    Inactive
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <div class="empty-state">
+
+            <h3>
+                No departments available
+            </h3>
+
+            <p>
+                Department information will appear here once
+                departments are configured in Asetonix.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

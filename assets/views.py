@@ -17,6 +17,7 @@ from .models import (
     AssetAssignment,
     MaintenanceRecord,
     AssetHistory,
+    Department,
 )
 
 
@@ -1203,5 +1204,41 @@ def models_list(request):
     return render(
         request,
         "assets/models.html",
+        context,
+    )
+# =========================================================
+# DEPARTMENTS
+# =========================================================
+
+@login_required
+def departments(request):
+
+    departments = (
+        Department.objects
+        .annotate(
+            employee_count=Count("employees"),
+            active_employee_count=Count(
+                "employees",
+                filter=Q(employees__status="active")
+            ),
+        )
+        .order_by("name")
+    )
+
+    total_departments = departments.count()
+
+    active_departments = Department.objects.filter(
+        is_active=True
+    ).count()
+
+    context = {
+        "departments": departments,
+        "total_departments": total_departments,
+        "active_departments": active_departments,
+    }
+
+    return render(
+        request,
+        "assets/departments.html",
         context,
     )
